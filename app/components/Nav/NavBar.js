@@ -33,7 +33,7 @@ export default function NavBar() {
                             </Link>
                         </li>
                         <li className="nav-item mx-2">
-                            <Link href="/destinations" className={`nav-link ${activeTab === "Destinations" ? "text-primary fw-bold" : ""}`}
+                            <Link href="/destination" className={`nav-link ${activeTab === "Destinations" ? "text-primary fw-bold" : ""}`}
                                 onClick={() => handleTabClick("Destinations")}>
                                 Destinations
                             </Link>
