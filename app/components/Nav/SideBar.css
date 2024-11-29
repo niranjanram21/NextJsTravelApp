@@ -1,8 +1,9 @@
 .sidebar-container {
-    width: 300px;
+    width: 330px;
     top: 0;
     left: 0;
     transition: transform 0.3s ease-in-out;
+    padding: 0 10px;
 }
 
 .sidebar-container.hidden {
@@ -21,17 +22,34 @@
     transition: all 0.3s ease-in-out;
 }
 
-.nav-link {
-    color: #6c757d;
+.navbar-nav .nav-link {
+    color: #ebedee;
     transition: color 0.2s ease-in-out;
 }
 
 .nav-link:hover {
-    color: #0d6efd;
+    color: #f58060;
 }
 
-.text-primary {
-    color: #0d6efd !important;
+.sidebar-container .nav-link {
+    color: #6c757d;
+    transition: color 0.2s ease-in-out;
+}
+
+.sidebar-container .nav-link:hover {
+    color: #f58060;
+}
+
+.sidebar-container .nav-link.navtabs-color {
+    color: #f58060 !important;
+}
+
+.navtabs-color {
+    color: #f58060 !important;
+}
+
+.travel-logo {
+    color: #f58060 !important;
 }
 
 .hidden {
@@ -42,7 +60,7 @@
     display: block !important;
 }
 
-.btn-outline-primary {
+/* .btn-outline-primary {
     border-color: #0d6efd;
     color: #0d6efd;
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -57,4 +75,4 @@
     background-color: #0d6efd;
     border-color: #0d6efd;
     color: #fff;
-}
+} */
