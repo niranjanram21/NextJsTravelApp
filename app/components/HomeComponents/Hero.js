@@ -12,10 +12,8 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
 export default function Hero() {
-    const [selectedDates, setSelectedDates] = useState([null, null]);
-    const today = new Date(); // Set today's date as the minimum date
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    const [checkInDate, setCheckInDate] = useState(null);
+    const [checkOutDate, setCheckOutDate] = useState(null);
 
     return (
         <>
@@ -74,51 +72,63 @@ export default function Hero() {
                     </Carousel.Item>
                 </Carousel>
             </div>
-            {/* Card Section */}
 
+            {/* Card Section */}
             <div className="p-3 card-inquiry-container">
                 <Row className="justify-content-center">
-                    <Col sm={9} md={10} lg={10}>
+                    <Col sm={12} md={10}>
                         <Card className="mb-3 shadow">
-                            <Card.Header className="text-start">Travel around the world!</Card.Header>
-                            <Card.Body>
-                                <Row>
-                                    <Col>
-                                        <FloatingLabel
-                                            controlId="floatingInput"
-                                            label="Email address"
-                                        >
-                                            <Form.Control type="email" placeholder="name@example.com" />
+                            <Card.Body className="py-4">
+                                <Row className="g-3 align-items-center">
+                                    {/* Search Destination */}
+                                    <Col xs={12} sm={6} md={3}>
+                                        <label className="mb-1 d-md-block d-sm-none">Search Destination*</label>
+                                        <FloatingLabel controlId="floatingDestination" label="Enter a Destination">
+                                            <Form.Control type="text" placeholder="Destination" />
                                         </FloatingLabel>
                                     </Col>
-                                    <Col>
-                                        <FloatingLabel
-                                            controlId="floatingInput"
-                                            label="Email address"
-                                        >
-                                            <Form.Control type="email" placeholder="name@example.com" />
+
+                                    {/* Pax Number */}
+                                    <Col xs={12} sm={6} md={3}>
+                                        <label className="mb-1 d-md-block d-sm-none">No. of Passengers*</label>
+                                        <FloatingLabel controlId="floatingPax" label="Enter No. of Pax">
+                                            <Form.Control type="number" placeholder="Number of Pax" />
                                         </FloatingLabel>
                                     </Col>
-                                    <Col>
-                                        <FloatingLabel
-                                            controlId="floatingInput"
-                                            label="Email address"
-                                        >
-                                            <Form.Control type="email" placeholder="name@example.com" />
+
+                                    {/* Check-in Date */}
+                                    <Col xs={12} sm={6} md={2}>
+                                        <label className="mb-1 d-md-block d-sm-none">Check-in Date*</label>
+                                        <FloatingLabel controlId="floatingCheckIn">
+                                            <DatePicker
+                                                selected={checkInDate}
+                                                onChange={(date) => setCheckInDate(date)}
+                                                placeholderText="Select Check-in Date"
+                                                dateFormat="dd/MM/yyyy"
+                                                className="form-control datepicker-input py-3"
+                                                minDate={new Date()}
+                                            />
                                         </FloatingLabel>
                                     </Col>
-                                    <Col>
-                                        <FloatingLabel
-                                            controlId="floatingInput"
-                                            label="Email address"
-                                        >
-                                            <Form.Control type="email" placeholder="name@example.com" />
+
+                                    {/* Check-out Date */}
+                                    <Col xs={12} sm={6} md={2}>
+                                        <label className="mb-1 d-md-block d-sm-none">Check-out Date</label>
+                                        <FloatingLabel controlId="floatingCheckOut">
+                                            <DatePicker
+                                                selected={checkOutDate}
+                                                onChange={(date) => setCheckOutDate(date)}
+                                                placeholderText="Select Check-out Date"
+                                                dateFormat="dd/MM/yyyy"
+                                                className="form-control datepicker-input py-3"
+                                                minDate={checkInDate || new Date()}
+                                            />
                                         </FloatingLabel>
                                     </Col>
-                                    <Col>
-                                        <div className="text-center">
-                                            <button className="inquire-button px-4 py-2 rounded-">Inquire Now</button>
-                                        </div>
+
+                                    {/* Inquire Button */}
+                                    <Col xs={12} sm={6} md={2} className="text-center">
+                                        <button className="inquire-button w-100 px-2 py-3 mt-4 rounded">Inquire</button>
                                     </Col>
                                 </Row>
                             </Card.Body>
@@ -186,43 +196,23 @@ export default function Hero() {
                     .inquire-button:hover {
                         background-color: #f28465; /* Darker shade for hover effect */
                     }
+
+                      .datepicker-input {
+                        height: calc(3.5rem + 2px); /* Match Bootstrap input height */
+                        padding: 0.75rem 1rem; /* Match Bootstrap padding */
+                        font-size: 1rem; /* Match Bootstrap font size */
+                        line-height: 1.5;
+                        border: 1px solid #ced4da; /* Match Bootstrap border */
+                        border-radius: 0.375rem; /* Match Bootstrap rounded corners */
+                        color: #495057; /* Bootstrap input text color */
+                    }
+
+                    .datepicker-input:focus {
+                        border-color: #86b7fe; /* Match Bootstrap focus border color */
+                        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); /* Match Bootstrap focus shadow */
+                    }
+
             `}</style>
         </>
     );
 }
-
-
-{/* <div className="card position-absolute p-2">
-                        <div className="card-body">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <div className="fs-6 fw-bold mb-1">Location</div>
-                                    <input className="fs-6 fw-lighter form-control" type="text" placeholder="Where are you going?" />
-                                </div>
-                                <div className="col-md-4">
-                                    <div className="fs-6 fw-bold mb-1">Check in - Check out</div>
-                                    <div className="fs-6 fw-lighter">
-                                        <DatePicker
-                                            selected={selectedDates[0]}
-                                            onChange={(dates) => setSelectedDates(dates)} // Set both start and end dates
-                                            startDate={selectedDates[0]}
-                                            endDate={selectedDates[1]}
-                                            selectsRange
-                                            placeholderText={`${today.toLocaleDateString()} - ${tomorrow.toLocaleDateString()}`}
-                                            monthsShown={2} // Display two months side by side
-                                            minDate={today} // Set today's date as the minimum date
-                                            className="form-control border-none"
-                                            isClearable={true} // Optional: To clear the dates
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col-md-3">
-                                    <div className="fs-6 fw-bold mb-1">No. of Pax</div>
-                                    <input className="fs-6 fw-lighter form-control" type="text" placeholder="Enter number of pax" />
-                                </div>
-                                <div className="col-md-2 d-flex align-items-end">
-                                    <button className="btn btn-primary w-100">Inquire</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}

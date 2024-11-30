@@ -2,3 +2,14 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.search-button {
+    background-color: #e04b17;
+    color: white;
+    border: none;
+    font-weight: semi-bold;
+}
+
+.search-button:hover {
+    background-color: #f28465;
+}
