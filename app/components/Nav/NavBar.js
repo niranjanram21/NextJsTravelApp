@@ -12,7 +12,7 @@ export default function NavBar() {
     const handleTabClick = (tabName) => {
         updateActiveTab(tabName); // Update the active tab in context
     };
-
+ 
     return (
         <nav className="navbar navbar-expand-lg bg-body-transparent position-absolute w-100 z-2">
             <div className="container d-flex justify-content-between align-items-center">

@@ -27,7 +27,8 @@ export default function Hero() {
                                 alt="Slide 1"
                                 fill // Modern replacement for layout="fill"
                                 className="object-fit-cover"
-                                priority={true}
+                                priority
+                                loading="eager"
                             />
                             <div className="overlay"></div>
                         </div>
@@ -44,7 +45,8 @@ export default function Hero() {
                                 alt="Slide 2"
                                 fill
                                 className="object-fit-cover"
-                                priority={true}
+                                priority
+                                loading="eager"
                             />
                             <div className="overlay"></div>
                         </div>
@@ -61,7 +63,8 @@ export default function Hero() {
                                 alt="Slide 3"
                                 fill
                                 className="object-fit-cover"
-                                priority={true}
+                                priority
+                                loading="eager"
                             />
                             <div className="overlay"></div>
                         </div>
@@ -74,6 +77,7 @@ export default function Hero() {
             </div>
 
             {/* Card Section */}
+
             <div className="p-3 card-inquiry-container">
                 <Row className="justify-content-center">
                     <Col sm={12} md={10}>
@@ -81,7 +85,7 @@ export default function Hero() {
                             <Card.Body className="py-4">
                                 <Row className="g-3 align-items-center">
                                     {/* Search Destination */}
-                                    <Col xs={12} sm={6} md={3}>
+                                    <Col xs={12} sm={6} md={6} lg={3}>
                                         <label className="mb-1 d-md-block d-sm-none">Search Destination*</label>
                                         <FloatingLabel controlId="floatingDestination" label="Enter a Destination">
                                             <Form.Control type="text" placeholder="Destination" />
@@ -89,7 +93,7 @@ export default function Hero() {
                                     </Col>
 
                                     {/* Pax Number */}
-                                    <Col xs={12} sm={6} md={3}>
+                                    <Col xs={12} sm={6} md={6} lg={3}>
                                         <label className="mb-1 d-md-block d-sm-none">No. of Passengers*</label>
                                         <FloatingLabel controlId="floatingPax" label="Enter No. of Pax">
                                             <Form.Control type="number" placeholder="Number of Pax" />
@@ -97,7 +101,7 @@ export default function Hero() {
                                     </Col>
 
                                     {/* Check-in Date */}
-                                    <Col xs={12} sm={6} md={2}>
+                                    <Col xs={12} sm={6} md={4} lg={2}>
                                         <label className="mb-1 d-md-block d-sm-none">Check-in Date*</label>
                                         <FloatingLabel controlId="floatingCheckIn">
                                             <DatePicker
@@ -112,7 +116,7 @@ export default function Hero() {
                                     </Col>
 
                                     {/* Check-out Date */}
-                                    <Col xs={12} sm={6} md={2}>
+                                    <Col xs={12} sm={6} md={4} lg={2}>
                                         <label className="mb-1 d-md-block d-sm-none">Check-out Date</label>
                                         <FloatingLabel controlId="floatingCheckOut">
                                             <DatePicker
@@ -127,7 +131,7 @@ export default function Hero() {
                                     </Col>
 
                                     {/* Inquire Button */}
-                                    <Col xs={12} sm={6} md={2} className="text-center">
+                                    <Col xs={12} sm={6} md={4} lg={2} className="text-center">
                                         <button className="inquire-button w-100 px-2 py-3 mt-4 rounded">Inquire</button>
                                     </Col>
                                 </Row>
@@ -178,12 +182,19 @@ export default function Hero() {
                     }
                     
                     .card-inquiry-container {
-                    position: absolute;
-                    z-index: 2; /* Correct z-index syntax */
-                    bottom: 8rem; /* Positions the container 4rem from the bottom */
-                    left: 50%; /* Centers the card horizontally */
-                    transform: translateX(-50%); /* Adjusts for the card width to truly center it */
-                    width: 90%; /* Ensures it takes up a responsive width */
+                        position: absolute;
+                        z-index: 2; /* Correct z-index syntax */
+                        bottom: 8rem; /* Positions the container 4rem from the bottom */
+                        left: 50%; /* Centers the card horizontally */
+                        transform: translateX(-50%); /* Adjusts for the card width to truly center it */
+                        width: 90%; /* Ensures it takes up a responsive width */
+                    }
+
+                    @media only screen and (max-width: 560px) {
+                        .card-inquiry-container {
+                            font-size: 14px; 
+                            top:5rem;
+                        }
                     }
 
                     .inquire-button {
