@@ -59,20 +59,3 @@
 .visible {
     display: block !important;
 }
-
-/* .btn-outline-primary {
-    border-color: #0d6efd;
-    color: #0d6efd;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-.btn-outline-primary:hover {
-    background-color: #0d6efd;
-    color: #fff;
-}
-
-.btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-    color: #fff;
-} */

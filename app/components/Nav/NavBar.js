@@ -12,9 +12,9 @@ export default function NavBar() {
     const handleTabClick = (tabName) => {
         updateActiveTab(tabName); // Update the active tab in context
     };
- 
+
     return (
-        <nav className="navbar navbar-expand-lg bg-body-transparent position-absolute w-100 z-2">
+        <nav className="navbar navbar-expand-lg bg-body-transparent position-fixed w-100 z-2">
             <div className="container d-flex justify-content-between align-items-center">
                 {/* Sidebar Toggle Icon */}
                 <RiMenu2Line onClick={toggleSidebar} className="fs-4 text-white toggleButton me-3" />
@@ -57,9 +57,14 @@ export default function NavBar() {
                             </Link>
                         </li>
                     </ul>
-                    <span>
-                        <button className="search-button w-100 px-4 py-2 rounded">Search</button>
-                    </span>
+                    <div className='d-flex gap-4'>
+                        <span>
+                            <button className="search-button w-100 px-4 py-2  rounded">Search</button>
+                        </span>
+                        <Link href='/signup'>
+                            <button className="signup-button w-100 px-4 py-2 rounded">Sign Up</button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </nav>
