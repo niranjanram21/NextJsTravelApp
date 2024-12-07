@@ -9,6 +9,48 @@ import { useState } from 'react';
 export default function Signup() {
 
     const [loginState, setLoginState] = useState('Signup');
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSignup = async () => {
+        try {
+            const res = await fetch('/api/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email, password }),
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                alert(data.message);
+            } else {
+                alert(data.error);
+            }
+        } catch (error) {
+            alert("Something went wrong!");
+        }
+    };
+
+    const handleLogin = async () => {
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                alert(data.message);
+                console.log("Token:", data.token);
+            } else {
+                alert(data.error);
+            }
+        } catch (error) {
+            alert("Something went wrong!");
+        }
+    };
 
     const handleLoginStateChange = () => {
         setLoginState((prevState) => (prevState === 'Signup' ? 'Login' : 'Signup'));
@@ -53,6 +95,7 @@ export default function Signup() {
                                     type="text"
                                     className="form-control px-3 py-3"
                                     placeholder="Username"
+                                    onChange={(e) => setUsername(e.target.value)}
                                 />
                             </div> : <></>}
                             <div className="input-group mb-3 rounded-full">
@@ -63,6 +106,7 @@ export default function Signup() {
                                     type="email"
                                     className="form-control px-3 py-3"
                                     placeholder="Email"
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div className="input-group mb-3 rounded-full">
@@ -73,9 +117,15 @@ export default function Signup() {
                                     type="password"
                                     className="form-control px-3 py-3"
                                     placeholder="Password"
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <div className="w-100 search-button px-3 py-3 rounded">Signup</div>
+                            <div
+                                className="w-100 search-button px-3 py-3 rounded"
+                                onClick={loginState === "Signup" ? handleSignup : handleLogin}
+                            >
+                                {loginState}
+                            </div>
                             <div className='text-white'>{loginState == "Signup" ? <span>Already have an account, <span className='login-tab fw-semibold' onClick={handleLoginStateChange}>Login</span></span>
                                 : <span>Don't have an account, <span className='login-tab fw-semibold' onClick={handleLoginStateChange}>Resgister</span></span>}</div>
                         </div>
