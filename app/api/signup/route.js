@@ -12,16 +12,13 @@ export async function POST(req) {
             return new Response(JSON.stringify({ error: "All fields are required!" }), { status: 400 });
         }
 
-        // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return new Response(JSON.stringify({ error: "User already exists!" }), { status: 409 });
         }
 
-        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create a new user
         const newUser = new User({ username, email, password: hashedPassword });
         await newUser.save();
 

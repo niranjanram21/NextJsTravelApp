@@ -5,6 +5,8 @@ import { FaUser } from "react-icons/fa";
 import { MdOutlineWifiPassword } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 
 export default function Signup() {
 
@@ -12,6 +14,7 @@ export default function Signup() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const router = useRouter();
 
     const handleSignup = async () => {
         try {
@@ -31,7 +34,6 @@ export default function Signup() {
             alert("Something went wrong!");
         }
     };
-
     const handleLogin = async () => {
         try {
             const res = await fetch('/api/login', {
@@ -43,7 +45,8 @@ export default function Signup() {
             const data = await res.json();
             if (res.ok) {
                 alert(data.message);
-                console.log("Token:", data.token);
+                localStorage.setItem('token', data.token);
+                router.push('/');
             } else {
                 alert(data.error);
             }
