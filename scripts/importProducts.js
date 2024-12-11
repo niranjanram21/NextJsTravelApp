@@ -1,25 +1,26 @@
-const fs = require("fs");
-const path = require("path");
-const connectToDatabase = require("../lib/mongodb");
-const Product = require("../models/Product");
-require('dotenv').config({ path: '.env.local' });
+'use client';
+
+import connectToDatabase from "@/lib/mongodb";
+import Product from "@/models/Product";
+import fs from "fs";
+import path from "path";
 
 const importProducts = async () => {
     try {
         await connectToDatabase();
 
-        // Read JSON data
-        const jsonFilePath = path.join(process.cwd(), "data/products.json"); // Adjust to your JSON file's location
-        const productData = JSON.parse(fs.readFileSync(jsonFilePath, "utf-8"));
+        const filePath = path.join(process.cwd(), "data/products.json");
+        const productData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-        // Insert products into the database
-        await Product.deleteMany(); // Optional: Clear existing data
+        await Product.deleteMany();
+        console.log("Cleared existing products from the database.");
+
         await Product.insertMany(productData);
+        console.log("Products seeded successfully!");
 
-        console.log("Products have been successfully seeded!");
-        process.exit();
+        process.exit(0);
     } catch (error) {
-        console.error("Error importing products:", error);
+        console.error("Error seeding products:", error);
         process.exit(1);
     }
 };

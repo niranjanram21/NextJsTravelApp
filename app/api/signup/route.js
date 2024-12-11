@@ -1,10 +1,10 @@
-import connectToDatabase from "@/lib/mongodb";
-import User from "@/models/User";
+import clientPromise from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 
 export async function POST(req) {
     try {
-        await connectToDatabase();
+        const client = await clientPromise;
+        const db = client.db("travel_app_db");
 
         const { username, email, password } = await req.json();
 
@@ -12,15 +12,20 @@ export async function POST(req) {
             return new Response(JSON.stringify({ error: "All fields are required!" }), { status: 400 });
         }
 
-        const existingUser = await User.findOne({ email });
+        const existingUser = await db.collection("users").findOne({ email });
         if (existingUser) {
             return new Response(JSON.stringify({ error: "User already exists!" }), { status: 409 });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = new User({ username, email, password: hashedPassword });
-        await newUser.save();
+        const newUser = {
+            username,
+            email,
+            password: hashedPassword,
+        };
+
+        await db.collection("users").insertOne(newUser);
 
         return new Response(JSON.stringify({ message: "User registered successfully!" }), { status: 201 });
     } catch (error) {

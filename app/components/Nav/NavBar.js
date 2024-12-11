@@ -14,7 +14,7 @@ export default function NavBar() {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-transparent position-fixed w-100 z-2">
+        <div className="navbar navbar-expand-lg bg-body-transparent position-fixed w-100 z-2">
             <div className="container d-flex justify-content-between align-items-center">
                 {/* Sidebar Toggle Icon */}
                 <RiMenu2Line onClick={toggleSidebar} className="fs-4 text-white toggleButton me-3" />
@@ -67,6 +67,6 @@ export default function NavBar() {
                     </div>
                 </div>
             </div>
-        </nav>
+        </div>
     );
 }

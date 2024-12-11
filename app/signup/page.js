@@ -7,7 +7,6 @@ import { MdEmail } from "react-icons/md";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-
 export default function Signup() {
 
     const [loginState, setLoginState] = useState('Signup');

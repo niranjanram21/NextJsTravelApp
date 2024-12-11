@@ -2,21 +2,21 @@
 
 import { useState } from 'react';
 import { Carousel } from 'react-bootstrap'; // Import Carousel from react-bootstrap
-import DatePicker from 'react-datepicker'; // Import the DatePicker
 import Image from 'next/image'; // Import Next.js Image component
-import 'react-datepicker/dist/react-datepicker.css'; // Import styles for DatePicker
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import { Card, Button, Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap styles
+import { Card, Row, Col } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
+import dynamic from 'next/dynamic';
+const DatePicker = dynamic(() => import('react-datepicker').then((mod) => mod.default), { ssr: false });
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function Hero() {
     const [checkInDate, setCheckInDate] = useState(null);
     const [checkOutDate, setCheckOutDate] = useState(null);
 
     return (
-        <>
+        <div>
             {/* Hero Carousel */}
             <div className="hero-container position-relative d-flex align-items-center justify-content-center">
                 <Carousel className="w-100">
@@ -84,7 +84,6 @@ export default function Hero() {
                         <Card className="mb-3 shadow">
                             <Card.Body className="py-4">
                                 <Row className="g-3 align-items-center">
-                                    {/* Search Destination */}
                                     <Col xs={12} sm={6} md={6} lg={3}>
                                         <label className="mb-1 d-md-block d-sm-none">Search Destination*</label>
                                         <FloatingLabel controlId="floatingDestination" label="Enter a Destination">
@@ -92,7 +91,6 @@ export default function Hero() {
                                         </FloatingLabel>
                                     </Col>
 
-                                    {/* Pax Number */}
                                     <Col xs={12} sm={6} md={6} lg={3}>
                                         <label className="mb-1 d-md-block d-sm-none">No. of Passengers*</label>
                                         <FloatingLabel controlId="floatingPax" label="Enter No. of Pax">
@@ -130,7 +128,6 @@ export default function Hero() {
                                         </FloatingLabel>
                                     </Col>
 
-                                    {/* Inquire Button */}
                                     <Col xs={12} sm={6} md={4} lg={2} className="text-center">
                                         <button className="inquire-button w-100 px-2 py-3 mt-4 rounded">Inquire</button>
                                     </Col>
@@ -224,6 +221,6 @@ export default function Hero() {
                     }
 
             `}</style>
-        </>
+        </div>
     );
 }

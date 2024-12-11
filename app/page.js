@@ -1,11 +1,10 @@
 'use client';
 
-import Hero from "./components/HomeComponents/Hero";
-import { useState, useEffect } from "react";
+import Hero from './components/HomeComponents/Hero';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
-
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetch('/api/index')
@@ -14,9 +13,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <>
       <Hero />
       <p>{message}</p>
-    </div>
+    </>
   );
 }
+
