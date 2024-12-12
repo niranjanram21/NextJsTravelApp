@@ -59,7 +59,7 @@ export default function Hero() {
                     <Carousel.Item>
                         <div className="carousel-item-container">
                             <Image
-                                src="/bgImg4.jpg"
+                                src="/bgImg6.jpg"
                                 alt="Slide 3"
                                 fill
                                 className="object-fit-cover"
@@ -77,7 +77,6 @@ export default function Hero() {
             </div>
 
             {/* Card Section */}
-
             <div className="p-3 card-inquiry-container">
                 <Row className="justify-content-center">
                     <Col sm={12} md={10}>
@@ -98,7 +97,6 @@ export default function Hero() {
                                         </FloatingLabel>
                                     </Col>
 
-                                    {/* Check-in Date */}
                                     <Col xs={12} sm={6} md={4} lg={2}>
                                         <label className="mb-1 d-md-block d-sm-none">Check-in Date*</label>
                                         <FloatingLabel controlId="floatingCheckIn">
@@ -113,7 +111,6 @@ export default function Hero() {
                                         </FloatingLabel>
                                     </Col>
 
-                                    {/* Check-out Date */}
                                     <Col xs={12} sm={6} md={4} lg={2}>
                                         <label className="mb-1 d-md-block d-sm-none">Check-out Date</label>
                                         <FloatingLabel controlId="floatingCheckOut">
@@ -138,7 +135,6 @@ export default function Hero() {
                 </Row>
             </div>
 
-            {/* Styles */}
             <style jsx>{`
                 .hero-container {
                     position: relative;
