@@ -2,11 +2,13 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 
-const fetchProductsContext = createContext();
+// Create the context
+const FetchProductsContext = createContext();
 
-export const fetchProductProvider = ({ children }) => {
+// Provider Component
+export const FetchProductProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState('true');
+    const [loading, setLoading] = useState(true); // Boolean value for loading
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -14,32 +16,34 @@ export const fetchProductProvider = ({ children }) => {
             try {
                 const response = await fetch('/api/products');
                 if (!response.ok) {
-                    throw new Error("Failed to fetch data");
+                    throw new Error('Failed to fetch data');
                 }
                 const data = await response.json();
                 setProducts(data);
             } catch (err) {
                 setError(err.message);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-        }
+        };
+
         fetchProducts();
-    }, [])
+    }, []); // Empty dependency array to fetch only on mount
 
     return (
-        <fetchProductsContext.Provider value={{ products, loading, error }}>
+        <FetchProductsContext.Provider value={{ products, loading, error }}>
             {children}
-        </fetchProductsContext.Provider>
-    )
-}
+        </FetchProductsContext.Provider>
+    );
+};
 
+// Custom Hook to Consume the Context
 export const useProducts = () => {
     const context = useContext(FetchProductsContext);
 
     if (!context) {
         throw new Error(
-            "useProducts must be used within a FetchProductsProvider"
+            'useProducts must be used within a FetchProductProvider'
         );
     }
 

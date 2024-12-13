@@ -4,6 +4,8 @@
     left: 0;
     transition: transform 0.3s ease-in-out;
     padding: 0 10px;
+    background-color: #ffffff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-container.hidden {
@@ -12,23 +14,6 @@
 
 .sidebar-container.visible {
     transform: translateX(0);
-}
-
-.toggleButton {
-    cursor: pointer;
-}
-
-.navbar {
-    transition: all 0.3s ease-in-out;
-}
-
-.navbar-nav .nav-link {
-    color: #ebedee;
-    transition: color 0.2s ease-in-out;
-}
-
-.nav-link:hover {
-    color: #f58060;
 }
 
 .sidebar-container .nav-link {
@@ -44,12 +29,51 @@
     color: #f58060 !important;
 }
 
+.navbar {
+    transition: all 0.3s ease-in-out;
+    background-color: transparent;
+    box-shadow: none;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+}
+
+/* .bg-body-transparent {
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+    box-shadow: none;
+} */
+
+.scrolled-navbar {
+    background-color: rgba(16, 16, 16, 0.85);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-nav .nav-link {
+    color: #ebedee;
+    transition: color 0.2s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #f58060;
+}
+
 .navtabs-color {
     color: #f58060 !important;
 }
 
 .travel-logo {
     color: #f58060 !important;
+}
+
+.toggleButton {
+    cursor: pointer;
+    color: #ebedee;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar.scrolled .toggleButton {
+    color: #6c757d;
 }
 
 .hidden {

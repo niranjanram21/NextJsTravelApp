@@ -1,10 +1,10 @@
-
 import localFont from "next/font/local";
 import "./globals.css";
-import NavBar from "./components/Nav/NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
+import NavBar from "./components/Nav/NavBar";
 import SideBar from "./components/Nav/SideBar";
 import { SidebarProvider } from './context/SidebarProvider';
+import { FetchProductProvider } from './context/FetchProductProvider'; // Ensure this path is correct
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,16 +24,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <SidebarProvider>
           <NavBar />
           <SideBar />
-          {children}
+          <FetchProductProvider>
+            {children}
+          </FetchProductProvider>
         </SidebarProvider>
       </body>
     </html>
-
   );
 }
