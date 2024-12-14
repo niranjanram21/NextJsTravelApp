@@ -22,11 +22,11 @@
 }
 
 .sidebar-container .nav-link:hover {
-    color: #f58060;
+    color: #e04b17;
 }
 
 .sidebar-container .nav-link.navtabs-color {
-    color: #f58060 !important;
+    color: #e04b17 !important;
 }
 
 .navbar {
@@ -59,7 +59,7 @@
 }
 
 .navtabs-color {
-    color: #f58060 !important;
+    color: #e04b17 !important;
 }
 
 .travel-logo {

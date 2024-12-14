@@ -103,7 +103,7 @@ export default function NavBar() {
                     </ul>
                     <div className="d-flex gap-4">
                         <span>
-                            <button className="search-button w-100 px-4 py-2  rounded">Search</button>
+                            <button className="search-button w-100 px-4 py-2 rounded">Search</button>
                         </span>
                         <Link href="/loginSignup">
                             <button className="signup-button w-100 px-4 py-2 rounded">
