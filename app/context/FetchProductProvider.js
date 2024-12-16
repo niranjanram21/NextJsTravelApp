@@ -10,6 +10,7 @@ export const FetchProductProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true); // Boolean value for loading
     const [error, setError] = useState(null);
+    const [selectedId, setSelectedId] = useState(null);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -31,7 +32,7 @@ export const FetchProductProvider = ({ children }) => {
     }, []); // Empty dependency array to fetch only on mount
 
     return (
-        <FetchProductsContext.Provider value={{ products, loading, error }}>
+        <FetchProductsContext.Provider value={{ products, loading, error, selectedId, setSelectedId }}>
             {children}
         </FetchProductsContext.Provider>
     );
