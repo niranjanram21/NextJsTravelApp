@@ -7,47 +7,21 @@ import Image from 'next/image';
 import { IoMdTime } from "react-icons/io";
 import { IoPeople } from "react-icons/io5";
 import { MdLocationOn } from "react-icons/md";
-import { useProducts } from '../context/FetchProductProvider';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useProducts } from '../../context/FetchProductProvider';
 
-export default function Packages() {
-    const router = typeof window !== "undefined" ? useRouter() : null;
-    const [productsToDisplay, setProductsToDisplay] = useState([]);
-    const [loadMoreBTn, setLoadMoreBtn] = useState("d-block");
-    const { products, loading, error } = useProducts();
+export default function PackageDetail({ params }) {
+    const { id } = params;
+    const { products } = useProducts();
 
-    useEffect(() => {
-        if (products.length > 0 && productsToDisplay.length === 0) {
-            setProductsToDisplay(products.slice(0, 4));
-        }
-    }, [products]);
+    const selectedProduct = products.find((product) => product.id === parseInt(id));
 
-    useEffect(() => {
-        if (productsToDisplay.length === products.length) {
-            setLoadMoreBtn("d-none");
-        } else {
-            setLoadMoreBtn("d-block");
-        }
-    }, [productsToDisplay.length, products.length]);
-
-    const handleVisibleProducts = () => {
-        const additionalProducts = products.slice(productsToDisplay.length, productsToDisplay.length + 4);
-        setProductsToDisplay((prev) => [...prev, ...additionalProducts]);
-    };
-
-    const handleBookNow = (id) => {
-        router.push(`/packageDetail/${id}`);
-    };
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    if (!selectedProduct) return <p>Loading...</p>;
 
     return (
         <>
             <div className="container-fluid position-fixed bg-container">
                 <Image
-                    src="/bgImg6.jpg"
+                    src="/bgImg4.jpg"
                     alt="Background"
                     fill
                     className="blurred-image"
@@ -56,52 +30,38 @@ export default function Packages() {
                 <div className="overlay"></div>
             </div>
 
+
             <div className="product-container">
-                <Row xs={1} md={2} className="g-4">
-                    {productsToDisplay.map((product) => (
-                        <Col key={product.id}>
-                            <Card className="product-card position-relative z-1" style={{ height: "22rem", backgroundColor: "#121212" }}>
-                                <div className="d-flex" style={{ height: "100%" }}>
-                                    <Card.Img
-                                        variant="top"
-                                        src={product.image}
-                                        style={{ objectFit: "cover", width: "50%", height: "100%" }}
-                                    />
-                                    <span className='price-tag position-absolute z-2 mt-4 px-4 py-2 fs-5'>
-                                        ${product.price} <span className='fw-light fs-6'>/person</span>
-                                    </span>
-                                    <div className='trip-details d-flex flex-row justify-content-evenly overflow-auto position-absolute z-2 bottom-0 start-0 px-4 py-2'>
-                                        <span><IoMdTime className='mb-1' /> {product.duration}</span>
-                                        <span className='border mx-2'></span>
-                                        <span><MdLocationOn className='mb-1' /> {product.location}</span>
-                                    </div>
-                                    <Card.Body className="d-flex flex-column" style={{ padding: "1rem 2rem", color: "white", flex: "1" }}>
-                                        <div>
-                                            <div className="fs-5 fw-bold mb-3" style={{ color: '#179ae0' }}>{product.title}</div>
+                <Card className="product-card position-relative z-1" style={{ height: "30rem", backgroundColor: "#121212" }}>
+                    <div className="d-flex" style={{ height: "100%" }}>
+                        <Card.Img
+                            variant="top"
+                            src={selectedProduct.image}
+                            style={{ objectFit: "cover", width: "50%", height: "100%" }}
+                        />
 
-                                            <div className="text-white-50 my-3">{product.description}</div>
-                                        </div>
-
-                                        <div className="d-flex gap-4 mt-auto">
-                                            <button className="wishlist-button w-100 px-3 py-2 rounded">
-                                                Wishlist
-                                            </button>
-                                            <button className="book-button w-100 px-3 py-2 rounded"
-                                                key={product.id} onClick={() => handleBookNow(product.id)}>
-                                                Book Now
-                                            </button>
-                                        </div>
-                                    </Card.Body>
-                                </div>
-                            </Card>
-                        </Col>
-                    ))}
-                </Row>
-                <div className={`text-center my-4 ${loadMoreBTn}`}>
-                    <button className="load-more-button" onClick={handleVisibleProducts}>
-                        Load more products
-                    </button>
-                </div>
+                        <Card.Body className="d-flex flex-column" style={{ padding: "1rem 2rem", color: "white", flex: "1" }}>
+                            <div>
+                                <div className="fs-4 fw-bold mb-3" style={{ color: '#179ae0' }}>{selectedProduct.title}</div>
+                                <div><MdLocationOn className='mb-1' /> {selectedProduct.location}</div>
+                                <div className="text-white-50 my-3">{selectedProduct.detailedDescription}</div>
+                            </div>
+                            <div className=' my-1 fs-5'><span className='fs-6 me-2' style={{ color: '#179ae0' }}>Price:</span>
+                                ${selectedProduct.price} <span className='fw-light fs-6'>/person</span>
+                            </div>
+                            <div className=' my-1 fs-5'><span className='fs-6 me-2' style={{ color: '#179ae0' }}>Duration:</span><IoMdTime className='mb-1' /> {selectedProduct.duration}</div>
+                            <div className="d-flex gap-4 mt-auto">
+                                <button className="wishlist-button w-100 px-3 py-2 rounded">
+                                    Wishlist
+                                </button>
+                                <button className="book-button w-100 px-3 py-2 rounded">
+                                    Book Now
+                                </button>
+                            </div>
+                        </Card.Body>
+                    </div>
+                </Card>
+                ))
             </div>
 
             <style jsx>{`
@@ -127,7 +87,7 @@ export default function Packages() {
                 .product-container {
                 position: relative;
                 z-index: 1;
-                padding: 8rem 8rem;
+                padding: 12rem 12rem;
                 max-width: 90%;
                 margin: auto;
                 border-radius: 10px;

@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Carousel } from 'react-bootstrap'; // Import Carousel from react-bootstrap
-import Image from 'next/image'; // Import Next.js Image component
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import { Carousel } from 'react-bootstrap';
+import Image from 'next/image';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Row, Col } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
@@ -23,9 +23,9 @@ export default function Hero() {
                     <Carousel.Item>
                         <div className="carousel-item-container">
                             <Image
-                                src="/bgImg4.jpg"
+                                src="/bgImg3.jpg"
                                 alt="Slide 1"
-                                fill // Modern replacement for layout="fill"
+                                fill
                                 className="object-fit-cover"
                                 priority
                                 loading="eager"
@@ -41,7 +41,7 @@ export default function Hero() {
                     <Carousel.Item>
                         <div className="carousel-item-container">
                             <Image
-                                src="/bgImg3.jpg"
+                                src="/bgImg4.jpg"
                                 alt="Slide 2"
                                 fill
                                 className="object-fit-cover"
@@ -59,7 +59,7 @@ export default function Hero() {
                     <Carousel.Item>
                         <div className="carousel-item-container">
                             <Image
-                                src="/bgImg6.jpg"
+                                src="/bgImg7.jpg"
                                 alt="Slide 3"
                                 fill
                                 className="object-fit-cover"
@@ -76,7 +76,6 @@ export default function Hero() {
                 </Carousel>
             </div>
 
-            {/* Card Section */}
             <div className="p-3 card-inquiry-container">
                 <Row className="justify-content-center">
                     <Col sm={12} md={10}>
@@ -138,13 +137,13 @@ export default function Hero() {
             <style jsx>{`
                 .hero-container {
                     position: relative;
-                    }
+                }
                     
                 .carousel-item-container {
                     position: relative;
-                    height: 75vh; /* Match the original height */
+                    height: 100vh;
                     width: 100%;
-                    }
+                }
 
                 .object-fit-cover {
                     object-fit: cover;
@@ -156,65 +155,72 @@ export default function Hero() {
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-                    z-index: 1; /* Place overlay above the image */
-                    }
-                    
-                    .carousel-caption {
-                    z-index: 2; /* Place caption above the overlay */
-                    }
-
-                 .carousel-caption {
-                    z-index: 1; /* Ensure the caption is above the overlay */
+                    background: rgba(0, 0, 0, 0.5); 
+                    z-index: 1; 
+                }
+                
+                .carousel-caption {
+                    z-index: 1;
                     position: absolute;
-                    top: 60%; /* Move to the middle vertically */
-                    left: 50%; /* Center horizontally */
-                    transform: translate(-50%, -50%); /* Adjust for true centering */
-                    text-align: center; /* Center-align the text */
-                    color: white; /* Ensure text is visible */
-                    }
+                    top: 60%; 
+                    left: 50%; 
+                    transform: translate(-50%, -50%); 
+                    text-align: center;
+                    color: white;
+                }
                     
+                .carousel-caption h3 {
+                    font-size: 4rem;
+                    font-weight:bold;
+                }
+
+                .card-inquiry-container {
+                    position: absolute;
+                    z-index: 2;
+                    bottom: 2rem;
+                    left: 50%; 
+                    transform: translateX(-50%);
+                    width: 90%;
+                    opacity:0.85;
+                }
+
+                @media only screen and (max-width: 560px) {
+                     .carousel-item-container {
+                        position: relative;
+                        width: 100%;
+                    }    
+                
                     .card-inquiry-container {
-                        position: absolute;
-                        z-index: 2; /* Correct z-index syntax */
-                        bottom: 8rem; /* Positions the container 4rem from the bottom */
-                        left: 50%; /* Centers the card horizontally */
-                        transform: translateX(-50%); /* Adjusts for the card width to truly center it */
-                        width: 90%; /* Ensures it takes up a responsive width */
-                    }
-
-                    @media only screen and (max-width: 560px) {
-                        .card-inquiry-container {
                             font-size: 14px; 
-                            top:5rem;
-                        }
+                            top:12rem;
                     }
+                }
 
-                    .inquire-button {
-                        background-color: #e04b17; /* Set the background color */
-                        color: white; /* Set the text color */
-                        border: none; /* Remove border, optional */
-                        font-weight: bold;
-                    }
+                .inquire-button {
+                    background-color: #e04b17; 
+                    color: white;
+                    border: none;
+                    font-weight: bold;
+                }
 
-                    .inquire-button:hover {
-                        background-color: #f28465; /* Darker shade for hover effect */
-                    }
+                .inquire-button:hover {
+                    background-color: #f28465;
+                }
 
-                      .datepicker-input {
-                        height: calc(3.5rem + 2px); /* Match Bootstrap input height */
-                        padding: 0.75rem 1rem; /* Match Bootstrap padding */
-                        font-size: 1rem; /* Match Bootstrap font size */
-                        line-height: 1.5;
-                        border: 1px solid #ced4da; /* Match Bootstrap border */
-                        border-radius: 0.375rem; /* Match Bootstrap rounded corners */
-                        color: #495057; /* Bootstrap input text color */
-                    }
+                .datepicker-input {
+                    height: calc(3.5rem + 2px);
+                    padding: 0.75rem 1rem;
+                    font-size: 1rem;
+                    line-height: 1.5;
+                    border: 1px solid #ced4da;
+                    border-radius: 0.375rem;
+                    color: #495057;
+                }
 
-                    .datepicker-input:focus {
-                        border-color: #86b7fe; /* Match Bootstrap focus border color */
-                        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); /* Match Bootstrap focus shadow */
-                    }
+                .datepicker-input:focus {
+                    border-color: #86b7fe;
+                    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+                }
 
             `}</style>
         </div>

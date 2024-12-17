@@ -6,7 +6,6 @@
         "image": "/images/1_Beach_Paradise.jpg",
         "price": 1299.99,
         "duration": "7D/6N",
-        "people": 2,
         "description": "Enjoy the serene beaches and clear waters of the Maldives.",
         "detailedDescription": "Escape to the pristine beaches of the Maldives and indulge in a luxurious getaway. Bask in the sun on white sandy beaches, swim in crystal-clear waters, and explore vibrant coral reefs. The Maldives offers a perfect blend of relaxation and adventure, with opportunities for snorkeling, diving, and water sports."
     },
@@ -17,7 +16,6 @@
         "image": "/images/2_Mountain_Adventure.jpg",
         "price": 1599.99,
         "duration": "10D/9N",
-        "people": 4,
         "description": "Explore the breathtaking views and thrilling adventures in the Swiss Alps.",
         "detailedDescription": "Embark on an exhilarating adventure in the Swiss Alps, where stunning mountain scenery and thrilling activities await. Whether you're skiing, hiking, or enjoying a scenic train ride, the Swiss Alps offer something for everyone."
     },
@@ -28,7 +26,6 @@
         "image": "/images/3_City_Lights.jpg",
         "price": 899.99,
         "duration": "5D/4N",
-        "people": 2,
         "description": "Experience the vibrant life and iconic landmarks of New York City.",
         "detailedDescription": "Dive into the hustle and bustle of New York City, from Times Square to Central Park. Visit world-renowned museums, dine at top-rated restaurants, and catch a Broadway show."
     },
@@ -39,7 +36,6 @@
         "image": "/images/4_Safari_Expedition.jpg",
         "price": 1799.99,
         "duration": "8D/7N",
-        "people": 3,
         "description": "Embark on an unforgettable safari adventure in the wilds of Kenya.",
         "detailedDescription": "Witness the majestic 'Big Five' in their natural habitat, explore vast savannahs, and visit local Maasai villages. Enjoy luxurious lodges and breathtaking landscapes."
     },
@@ -50,7 +46,6 @@
         "image": "/images/5_Historic_Europe.jpg",
         "price": 1099.99,
         "duration": "6D/5N",
-        "people": 2,
         "description": "Discover the rich history and stunning architecture of Rome.",
         "detailedDescription": "Visit landmarks such as the Colosseum, Roman Forum, and the Pantheon. Wander through charming piazzas, and indulge in authentic Italian cuisine."
     },
@@ -61,7 +56,6 @@
         "image": "/images/6_Tropical_Getaway.jpg",
         "price": 1399.99,
         "duration": "7D/6N",
-        "people": 2,
         "description": "Relax and rejuvenate in the beautiful tropical paradise of Hawaii.",
         "detailedDescription": "Escape to the tropical paradise of Hawaii with stunning beaches, volcanic craters, and lush rainforests. Attend traditional luaus and explore the vibrant culture."
     },
@@ -72,7 +66,6 @@
         "image": "/images/7_Desert_Oasis.jpg",
         "price": 1299.99,
         "duration": "5D/4N",
-        "people": 2,
         "description": "Experience the luxury and excitement of the desert city of Dubai.",
         "detailedDescription": "Marvel at towering skyscrapers, shop in world-class malls, and enjoy desert safaris and traditional Bedouin camp experiences in Dubai."
     },
@@ -83,7 +76,6 @@
         "image": "/images/8_Cultural_Journey.jpg",
         "price": 1499.99,
         "duration": "8D/7N",
-        "people": 2,
         "description": "Immerse yourself in the rich cultural heritage of Kyoto, Japan.",
         "detailedDescription": "Wander through bamboo groves, visit historic temples, and participate in tea ceremonies. Kyoto offers a glimpse into Japan's rich cultural heritage."
     },
@@ -94,7 +86,6 @@
         "image": "/images/9_Rainforest_Retreat.jpg",
         "price": 1699.99,
         "duration": "9D/8N",
-        "people": 4,
         "description": "Explore the biodiversity and beauty of the Amazon Rainforest.",
         "detailedDescription": "Stay in eco-lodges, embark on guided jungle tours, and discover the incredible biodiversity of the Amazon."
     },
@@ -105,7 +96,6 @@
         "image": "/images/10_Northern_Lights.jpg",
         "price": 1899.99,
         "duration": "8D/7N",
-        "people": 2,
         "description": "Witness the magical Northern Lights in the stunning landscapes of Iceland.",
         "detailedDescription": "Marvel at the Northern Lights, explore geysers and waterfalls, and relax in natural hot springs in Iceland."
     },
@@ -116,7 +106,6 @@
         "image": "/images/11_Tropical_Islands.jpg",
         "price": 2499.99,
         "duration": "10D/9N",
-        "people": 2,
         "description": "Enjoy a luxurious stay on the picturesque islands of Bora Bora.",
         "detailedDescription": "Stay in overwater bungalows, snorkel in vibrant coral reefs, and immerse yourself in Polynesian culture."
     },
@@ -127,7 +116,6 @@
         "image": "/images/12_Wine_Country.jpg",
         "price": 1199.99,
         "duration": "4D/3N",
-        "people": 2,
         "description": "Taste the finest wines in the heart of Napa Valley.",
         "detailedDescription": "Explore Napa's renowned vineyards, enjoy wine tastings, and indulge in gourmet dining experiences."
     },
@@ -138,7 +126,6 @@
         "image": "/images/13_Great_Barrier_Reef.jpg",
         "price": 2299.99,
         "duration": "8D/7N",
-        "people": 2,
         "description": "Dive into the wonders of the Great Barrier Reef.",
         "detailedDescription": "Discover the vibrant marine life and coral reefs of Australia’s Great Barrier Reef, a must-visit for snorkeling enthusiasts."
     },
@@ -149,7 +136,6 @@
         "image": "/images/14_Cultural_Wonders.jpg",
         "price": 1399.99,
         "duration": "6D/5N",
-        "people": 3,
         "description": "Explore the ancient wonders of Beijing, China.",
         "detailedDescription": "Visit the Great Wall, Forbidden City, and Temple of Heaven. Immerse yourself in the culture and history of this ancient city."
     },
@@ -160,7 +146,6 @@
         "image": "/images/15_Safari_Adventure.jpg",
         "price": 1899.99,
         "duration": "7D/6N",
-        "people": 4,
         "description": "Experience wildlife and luxury on a South African safari.",
         "detailedDescription": "Discover the beauty of Kruger National Park with guided safaris, luxurious lodges, and breathtaking views of the savannah. Witness the Big Five and immerse yourself in South African culture."
     },
@@ -171,7 +156,6 @@
         "image": "/images/16_Art&History.jpg",
         "price": 999.99,
         "duration": "5D/4N",
-        "people": 2,
         "description": "Explore the art and history of the romantic city of Paris.",
         "detailedDescription": "Visit the Louvre Museum, climb the Eiffel Tower, and wander through Montmartre. Enjoy the finest French cuisine and immerse yourself in Parisian culture."
     },
@@ -182,7 +166,6 @@
         "image": "/images/17_Adventure_Trek.jpg",
         "price": 1599.99,
         "duration": "12D/11N",
-        "people": 2,
         "description": "Conquer the trails of Nepal and experience breathtaking mountain views.",
         "detailedDescription": "Embark on an adventure trek to Everest Base Camp or Annapurna. Experience the culture and hospitality of Nepal’s mountain villages while surrounded by stunning landscapes."
     },
@@ -193,7 +176,6 @@
         "image": "/images/18_Island_Escape.jpg",
         "price": 1999.99,
         "duration": "8D/7N",
-        "people": 2,
         "description": "Relax in the serene beauty of the Seychelles islands.",
         "detailedDescription": "Explore pristine beaches, swim in turquoise waters, and enjoy luxurious accommodations. Seychelles offers a perfect mix of relaxation and adventure."
     },
@@ -204,7 +186,6 @@
         "image": "/images/19_Cultural_Exploration.jpg",
         "price": 1299.99,
         "duration": "6D/5N",
-        "people": 2,
         "description": "Discover the crossroads of Europe and Asia in Istanbul.",
         "detailedDescription": "Visit Hagia Sophia, the Blue Mosque, and Grand Bazaar. Experience the rich cultural heritage and flavors of Turkey."
     },
@@ -215,7 +196,6 @@
         "image": "/images/20_Frozen_Wilderness.jpg",
         "price": 1499.99,
         "duration": "7D/6N",
-        "people": 2,
         "description": "Explore the icy beauty of Alaska’s wilderness.",
         "detailedDescription": "Go glacier hiking, whale watching, and dog sledding. Experience the serene beauty of Alaskan landscapes and wildlife."
     },
@@ -226,7 +206,6 @@
         "image": "/images/21_Jungle_Expedition.jpg",
         "price": 1699.99,
         "duration": "8D/7N",
-        "people": 3,
         "description": "Discover the rainforests and wildlife of Borneo.",
         "detailedDescription": "Explore the dense jungles of Borneo, visit orangutan sanctuaries, and experience the vibrant biodiversity of Southeast Asia."
     },
@@ -237,7 +216,6 @@
         "image": "/images/22_Island_Adventure.jpg",
         "price": 2599.99,
         "duration": "10D/9N",
-        "people": 2,
         "description": "Explore the unique wildlife of the Galápagos Islands.",
         "detailedDescription": "Discover giant tortoises, marine iguanas, and exotic birds in this ecological paradise. Enjoy guided tours and snorkeling adventures."
     },
@@ -248,7 +226,6 @@
         "image": "/images/23_Vibrant_Cityscape.jpg",
         "price": 1399.99,
         "duration": "7D/6N",
-        "people": 2,
         "description": "Experience the modern and traditional beauty of Tokyo.",
         "detailedDescription": "From ancient temples to neon-lit skyscrapers, Tokyo offers a unique blend of culture, technology, and cuisine."
     },
@@ -259,7 +236,6 @@
         "image": "/images/24_Scenic_Road_Trip.jpg",
         "price": 2199.99,
         "duration": "12D/11N",
-        "people": 4,
         "description": "Embark on a road trip through the stunning landscapes of New Zealand.",
         "detailedDescription": "Drive through breathtaking fjords, lush valleys, and volcanic landscapes. Enjoy outdoor adventures like bungee jumping and hiking."
     },
@@ -270,7 +246,6 @@
         "image": "/images/25_Historic_Getaway.jpg",
         "price": 999.99,
         "duration": "5D/4N",
-        "people": 2,
         "description": "Explore the ancient history of Athens, Greece.",
         "detailedDescription": "Visit the Acropolis, Parthenon, and other ancient landmarks. Dive into Greek history, culture, and cuisine."
     },
@@ -281,7 +256,6 @@
         "image": "/images/26_Exotic_Beachfront.jpg",
         "price": 1299.99,
         "duration": "8D/7N",
-        "people": 2,
         "description": "Relax on the pristine beaches of Thailand.",
         "detailedDescription": "Enjoy crystal-clear waters, lush jungles, and vibrant markets. Thailand offers a mix of tranquility and adventure."
     },
@@ -292,7 +266,6 @@
         "image": "/images/27_Magical_Aurora.jpg",
         "price": 1899.99,
         "duration": "7D/6N",
-        "people": 2,
         "description": "Witness the Northern Lights in Norway’s Arctic Circle.",
         "detailedDescription": "Stay in cozy cabins, enjoy reindeer sleigh rides, and marvel at the auroras lighting up the Arctic skies."
     },
@@ -303,7 +276,6 @@
         "image": "/images/28_Historic_Capitals.jpg",
         "price": 1499.99,
         "duration": "8D/7N",
-        "people": 2,
         "description": "Discover the history and culture of the UK.",
         "detailedDescription": "Explore iconic landmarks like Big Ben and Edinburgh Castle. Dive into British history, literature, and traditions."
     },
@@ -314,7 +286,6 @@
         "image": "/images/29_Cultural_Highlights.jpg",
         "price": 1199.99,
         "duration": "6D/5N",
-        "people": 2,
         "description": "Enjoy the vibrant culture and architecture of Barcelona.",
         "detailedDescription": "Marvel at Gaudí's works, explore historic Gothic quarters, and savor authentic Spanish tapas."
     },
@@ -325,7 +296,6 @@
         "image": "/images/30_Mediterranean_Cruise.jpg",
         "price": 2299.99,
         "duration": "10D/9N",
-        "people": 2,
         "description": "Sail through the Mediterranean's stunning landscapes.",
         "detailedDescription": "Visit charming islands, historic ruins, and enjoy luxury aboard a cruise ship with scenic stops in Greece and Italy."
     }

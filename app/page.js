@@ -1,21 +1,15 @@
 'use client';
 
+import About from './components/HomeComponents/About';
 import Hero from './components/HomeComponents/Hero';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    fetch('/api/index')
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
-  }, []);
 
   return (
     <>
       <Hero />
-      <p>{message}</p>
+      <About />
     </>
   );
 }
