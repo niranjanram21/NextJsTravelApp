@@ -33,7 +33,7 @@ export default function NavBar() {
 
     return (
         <div
-            className={`navbar py-3 navbar-expand-lg position-fixed w-100 z-2 transition-all ${isScrolled ? 'scrolled-navbar' : 'bg-body-transparent'
+            className={`navbar py-3 navbar-expand-lg position-fixed w-100 z-3 transition-all ${isScrolled ? 'scrolled-navbar' : 'bg-body-transparent'
                 }`}
         >
             <div className="container d-flex justify-content-between align-items-center">

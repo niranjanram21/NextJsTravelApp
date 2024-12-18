@@ -45,8 +45,8 @@
 } */
 
 .scrolled-navbar {
-    background-color: rgba(16, 16, 16, 0.85);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    background-color: rgba(29, 29, 29, 0.85);
+    box-shadow: 0px 4px 10px rgba(229, 182, 165, 0.5);
 }
 
 .navbar-nav .nav-link {
