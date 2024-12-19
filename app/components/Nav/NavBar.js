@@ -42,13 +42,13 @@ export default function NavBar() {
                     onClick={toggleSidebar}
                     className="fs-4 text-white toggleButton me-3"
                 />
-                <Link href="/" className="navbar-brand text-white fs-3 fw-bold d-flex align-items-center">
+                <Link href="/" className="navbar-brand montserrat-unique-class text-white fs-3 fw-bolder d-flex align-items-center">
                     <MdTravelExplore className="travel-logo me-2" />
                     GoTrip
                 </Link>
 
                 {/* Navbar Links */}
-                <div className="collapse navbar-collapse">
+                <div className="collapse navbar-collapse poppins-medium">
                     <ul className="navbar-nav mx-auto fw-semibold">
                         <li className="nav-item mx-2">
                             <Link

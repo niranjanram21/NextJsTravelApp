@@ -1,10 +1,37 @@
 import localFont from "next/font/local";
+import { Montserrat } from "next/font/google";
+import { Josefin_Sans } from "next/font/google";
+import { Poppins } from 'next/font/google';
+import { Hind_Madurai } from "next/font/google";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./components/Nav/NavBar";
 import SideBar from "./components/Nav/SideBar";
 import { SidebarProvider } from './context/SidebarProvider';
-import { FetchProductProvider } from './context/FetchProductProvider'; // Ensure this path is correct
+import { FetchProductProvider } from './context/FetchProductProvider';
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["800"],
+});
+
+const josefinSans = Josefin_Sans({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  variable: "--font-josefin-sans",
+});
+
+const poppins = Poppins({
+  weight: ['500'],
+  subsets: ['latin'],
+  variable: '--font-poppins',
+});
+
+const hind = Hind_Madurai({
+  weight: ['500'],
+  subsets: ['latin'],
+  variable: '--font-hind',
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,7 +52,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable}`}>
         <SidebarProvider>
           <NavBar />
           <SideBar />

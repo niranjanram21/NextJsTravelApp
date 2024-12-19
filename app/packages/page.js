@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Packages() {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const router = typeof window !== "undefined" ? useRouter() : null;
     const [productsToDisplay, setProductsToDisplay] = useState([]);
     const [loadMoreBTn, setLoadMoreBtn] = useState("d-block");

@@ -33,8 +33,8 @@ export default function Hero() {
                             <div className="overlay"></div>
                         </div>
                         <div className="carousel-caption">
-                            <h3>Explore the World</h3>
-                            <p>Find your next adventure with us.</p>
+                            <h3 className='montserrat-unique-class'>Explore the World</h3>
+                            <h5 className='hind-madurai'>Find your next adventure with us.</h5>
                         </div>
                     </Carousel.Item>
 
@@ -51,8 +51,8 @@ export default function Hero() {
                             <div className="overlay"></div>
                         </div>
                         <div className="carousel-caption">
-                            <h3>Plan Your Next Adventure</h3>
-                            <p>Let us help you create unforgettable memories.</p>
+                            <h3 className='montserrat-unique-class'>Plan Your Next Adventure</h3>
+                            <h5 className='hind-madurai'>Let us help you create unforgettable memories.</h5>
                         </div>
                     </Carousel.Item>
 
@@ -69,8 +69,8 @@ export default function Hero() {
                             <div className="overlay"></div>
                         </div>
                         <div className="carousel-caption">
-                            <h3>Create Memories</h3>
-                            <p>Make every journey count with our expert services.</p>
+                            <h3 className='montserrat-unique-class'>Create Memories</h3>
+                            <h5 className='hind-madurai'>Make every journey count with our expert services.</h5>
                         </div>
                     </Carousel.Item>
                 </Carousel>
