@@ -7,7 +7,7 @@ export default function About() {
     return (
         <>
             <div className="row text-center" style={{ margin: '4rem 12rem', padding: '0 4rem', height: '600px' }}>
-                <div className="col-md-7 position-relative">
+                <div className="col-lg-7 position-relative d-none d-lg-block">
                     <span className="top-left josefin-sans-unique text-container d-flex flex-column align-items-start justify-content-center p-4">
                         <span className="text-start">
                             <h1 className="text-white fw-bold">Explore</h1>
@@ -52,8 +52,14 @@ export default function About() {
                     </span>
                 </div>
 
-                <div className="col-md-5">
-                    hello
+                <div className="col-lg-5">
+                    <div className="josefin-sans-unique text-start mt-2 px-4">
+                        <div className="fw-bolder" style={{ 'color': "#e04b17" }}>INTRODUCTION ABOUT US</div>
+                        <div className="montserrat-unique-class my-3">ULTIMATE GUIDE TO EPIC ADVENTURE</div>
+                        <div className="hind-madurai text-secondary">Ea qui est irure esse occaecat duis ullamco do ut mollit.
+                            Ad ex dolor in ipsum consequat veniam veniam fugiat eiusmod magna duis.
+                            Nostrud fugiat dolore enim sint eu ea laborum duis. Eu consequat nulla ea reprehenderit.</div>
+                    </div>
                 </div>
             </div>
 

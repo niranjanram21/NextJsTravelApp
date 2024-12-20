@@ -8,6 +8,7 @@ body {
     font-optical-sizing: auto;
     font-weight: 900;
     font-style: normal;
+    font-size: 3rem;
 }
 
 .josefin-sans-unique {
@@ -37,7 +38,8 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.4s ease, transform 0.3s ease;
-    /* background-color: #53b1dc;  */
+    /* background-color: #e04b17;
+    color: rgb(255 255 255); */
 }
 
 .search-button:hover {

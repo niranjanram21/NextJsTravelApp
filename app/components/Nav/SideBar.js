@@ -31,7 +31,7 @@ export default function SideBar() {
                 <div className={`inner-overlay ${isSidebarOpen ? 'visible' : 'hidden'}`}></div>
 
                 {/* Sidebar Navigation Links */}
-                <ul className="nav nav-pills flex-column mb-auto">
+                <ul className="nav nav-pills flex-column mb-auto ">
                     <li className="nav-item">
                         <Link href="/" className={`nav-link  ${activeTab === "Home" ? "navtabs-color fw-bold" : ""}`}
                             onClick={() => handleTabClick("Home")}>
@@ -41,7 +41,7 @@ export default function SideBar() {
                     <li className="nav-item">
                         <Link href="/destination" className={`nav-link  ${activeTab === "Destinations" ? "navtabs-color fw-bold" : ""}`}
                             onClick={() => handleTabClick("Destinations")}>
-                            Destinations
+                            Destinations    
                         </Link>
                     </li>
                     <li className="nav-item">

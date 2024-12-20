@@ -11,6 +11,10 @@
     "seed:products": "node scripts/importProducts.js"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.2.1",
+    "@mui/x-date-pickers": "^7.23.2",
     "@popperjs/core": "^2.11.8",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",

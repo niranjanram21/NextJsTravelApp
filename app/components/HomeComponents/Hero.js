@@ -16,10 +16,11 @@ export default function Hero() {
     const [checkOutDate, setCheckOutDate] = useState(null);
 
     return (
-        <div>
+        <div className="poppins-medium">
             {/* Hero Carousel */}
             <div className="hero-container position-relative d-flex align-items-center justify-content-center">
                 <Carousel className="w-100">
+                    {/* Carousel Items */}
                     <Carousel.Item>
                         <div className="carousel-item-container">
                             <Image
@@ -33,8 +34,8 @@ export default function Hero() {
                             <div className="overlay"></div>
                         </div>
                         <div className="carousel-caption">
-                            <h3 className='montserrat-unique-class'>Explore the World</h3>
-                            <h5 className='hind-madurai'>Find your next adventure with us.</h5>
+                            <h2 className="montserrat-unique-class">Explore the World</h2>
+                            <h5 className="hind-madurai">Find your next adventure with us.</h5>
                         </div>
                     </Carousel.Item>
 
@@ -51,8 +52,8 @@ export default function Hero() {
                             <div className="overlay"></div>
                         </div>
                         <div className="carousel-caption">
-                            <h3 className='montserrat-unique-class'>Plan Your Next Adventure</h3>
-                            <h5 className='hind-madurai'>Let us help you create unforgettable memories.</h5>
+                            <h3 className="montserrat-unique-class">Plan Your Next Adventure</h3>
+                            <h5 className="hind-madurai">Let us help you create unforgettable memories.</h5>
                         </div>
                     </Carousel.Item>
 
@@ -69,8 +70,8 @@ export default function Hero() {
                             <div className="overlay"></div>
                         </div>
                         <div className="carousel-caption">
-                            <h3 className='montserrat-unique-class'>Create Memories</h3>
-                            <h5 className='hind-madurai'>Make every journey count with our expert services.</h5>
+                            <h3 className="montserrat-unique-class">Create Memories</h3>
+                            <h5 className="hind-madurai">Make every journey count with our expert services.</h5>
                         </div>
                     </Carousel.Item>
                 </Carousel>
@@ -106,6 +107,7 @@ export default function Hero() {
                                                 dateFormat="dd/MM/yyyy"
                                                 className="form-control datepicker-input py-3"
                                                 minDate={new Date()}
+                                                calendarClassName="custom-datepicker-calendar"
                                             />
                                         </FloatingLabel>
                                     </Col>
@@ -120,6 +122,7 @@ export default function Hero() {
                                                 dateFormat="dd/MM/yyyy"
                                                 className="form-control datepicker-input py-3"
                                                 minDate={checkInDate || new Date()}
+                                                calendarClassName="custom-datepicker-calendar"
                                             />
                                         </FloatingLabel>
                                     </Col>
@@ -138,7 +141,7 @@ export default function Hero() {
                 .hero-container {
                     position: relative;
                 }
-                    
+
                 .carousel-item-container {
                     position: relative;
                     height: 100vh;
@@ -148,56 +151,39 @@ export default function Hero() {
                 .object-fit-cover {
                     object-fit: cover;
                 }
-                
+
                 .overlay {
                     position: absolute;
                     top: 0;
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background: rgba(0, 0, 0, 0.5); 
-                    z-index: 1; 
+                    background: rgba(0, 0, 0, 0.5);
+                    z-index: 1;
                 }
-                
+
                 .carousel-caption {
                     z-index: 1;
                     position: absolute;
-                    top: 60%; 
-                    left: 50%; 
-                    transform: translate(-50%, -50%); 
+                    top: 60%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
                     text-align: center;
                     color: white;
-                }
-                    
-                .carousel-caption h3 {
-                    font-size: 4rem;
-                    font-weight:bold;
                 }
 
                 .card-inquiry-container {
                     position: absolute;
-                    z-index: 2;
+                    z-index: 3;
                     bottom: 2rem;
-                    left: 50%; 
+                    left: 50%;
                     transform: translateX(-50%);
                     width: 90%;
-                    opacity:0.85;
-                }
-
-                @media only screen and (max-width: 560px) {
-                     .carousel-item-container {
-                        position: relative;
-                        width: 100%;
-                    }    
-                
-                    .card-inquiry-container {
-                            font-size: 14px; 
-                            top:12rem;
-                    }
+                    opacity: 0.9;
                 }
 
                 .inquire-button {
-                    background-color: #e04b17; 
+                    background-color: #e04b17;
                     color: white;
                     border: none;
                     font-weight: bold;
@@ -206,22 +192,6 @@ export default function Hero() {
                 .inquire-button:hover {
                     background-color: #f28465;
                 }
-
-                .datepicker-input {
-                    height: calc(3.5rem + 2px);
-                    padding: 0.75rem 1rem;
-                    font-size: 1rem;
-                    line-height: 1.5;
-                    border: 1px solid #ced4da;
-                    border-radius: 0.375rem;
-                    color: #495057;
-                }
-
-                .datepicker-input:focus {
-                    border-color: #86b7fe;
-                    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-                }
-
             `}</style>
         </div>
     );
