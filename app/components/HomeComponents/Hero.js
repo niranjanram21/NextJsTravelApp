@@ -34,7 +34,7 @@ export default function Hero() {
                             <div className="overlay"></div>
                         </div>
                         <div className="carousel-caption">
-                            <h2 className="montserrat-unique-class">Explore the World</h2>
+                            <h1 className="montserrat-unique-class fs-1">Explore the World</h1>
                             <h5 className="hind-madurai">Find your next adventure with us.</h5>
                         </div>
                     </Carousel.Item>
@@ -52,7 +52,7 @@ export default function Hero() {
                             <div className="overlay"></div>
                         </div>
                         <div className="carousel-caption">
-                            <h3 className="montserrat-unique-class">Plan Your Next Adventure</h3>
+                            <h3 className="montserrat-unique-class fs-1">Plan Your Next Adventure</h3>
                             <h5 className="hind-madurai">Let us help you create unforgettable memories.</h5>
                         </div>
                     </Carousel.Item>
@@ -70,7 +70,7 @@ export default function Hero() {
                             <div className="overlay"></div>
                         </div>
                         <div className="carousel-caption">
-                            <h3 className="montserrat-unique-class">Create Memories</h3>
+                            <h3 className="montserrat-unique-class fs-1">Create Memories</h3>
                             <h5 className="hind-madurai">Make every journey count with our expert services.</h5>
                         </div>
                     </Carousel.Item>
@@ -144,7 +144,7 @@ export default function Hero() {
 
                 .carousel-item-container {
                     position: relative;
-                    height: 100vh;
+                    height: 120vh;
                     width: 100%;
                 }
 
@@ -174,7 +174,7 @@ export default function Hero() {
 
                 .card-inquiry-container {
                     position: absolute;
-                    z-index: 3;
+                    z-index: 2;
                     bottom: 2rem;
                     left: 50%;
                     transform: translateX(-50%);
