@@ -33,7 +33,7 @@ export default function NavBar() {
 
     return (
         <div
-            className={`navbar py-3 navbar-expand-lg position-fixed w-100 z-3 transition-all ${isScrolled ? 'scrolled-navbar' : 'bg-body-transparent'
+            className={`navbar py-3 mt-4 navbar-expand-lg position-fixed z-3 transition-all ${isScrolled ? 'scrolled-navbar' : 'bg-body-transparent'
                 }`}
         >
             <div className="container d-flex justify-content-between align-items-center">
@@ -103,10 +103,10 @@ export default function NavBar() {
                     </ul>
                     <div className="d-flex gap-4">
                         <span>
-                            <button className="search-button w-100 px-4 py-2 rounded">Search</button>
+                            <button className="search-button w-100 px-4 py-2">Search</button>
                         </span>
                         <Link href="/loginSignup">
-                            <button className="signup-button w-100 px-4 py-2 rounded">
+                            <button className="signup-button w-100 px-4 py-2">
                                 Sign Up
                             </button>
                         </Link>

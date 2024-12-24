@@ -105,7 +105,7 @@ export default function About() {
                 <div className="col-lg-5 d-block">
                     <div className="josefin-sans-unique text-start mt-5 mt-lg-2 px-2">
                         <div className="fw-bolder" style={{ 'color': "#e04b17" }}>INTRODUCTION ABOUT US</div>
-                        <div className="montserrat-unique-class my-3">ULTIMATE GUIDE TO EPIC ADVENTURE</div>
+                        <div className="montserrat-unique-class my-3 fs-1">ULTIMATE GUIDE TO EPIC ADVENTURE</div>
                         <div className="hind-madurai text-secondary">Ea qui est irure esse occaecat duis ullamco do ut mollit.
                             Ad ex dolor in ipsum consequat veniam veniam fugiat eiusmod magna duis.
                             Nostrud fugiat dolore enim sint eu ea laborum duis. Eu consequat nulla ea reprehenderit.</div>
@@ -139,7 +139,6 @@ export default function About() {
                     </div>
                 </div>
             </div>
-
 
             <style jsx>{`
                 .top-left {

@@ -17,10 +17,8 @@ export default function Hero() {
 
     return (
         <div className="poppins-medium">
-            {/* Hero Carousel */}
             <div className="hero-container position-relative d-flex align-items-center justify-content-center">
                 <Carousel className="w-100">
-                    {/* Carousel Items */}
                     <Carousel.Item>
                         <div className="carousel-item-container">
                             <Image
@@ -85,7 +83,7 @@ export default function Hero() {
                                 <Row className="g-3 align-items-center">
                                     <Col xs={12} sm={6} md={6} lg={3}>
                                         <label className="mb-1 d-md-block d-sm-none">Search Destination*</label>
-                                        <FloatingLabel controlId="floatingDestination" label="Enter a Destination">
+                                        <FloatingLabel controlId="floatingDestination" label="Enter a Destination" >
                                             <Form.Control type="text" placeholder="Destination" />
                                         </FloatingLabel>
                                     </Col>
@@ -128,7 +126,7 @@ export default function Hero() {
                                     </Col>
 
                                     <Col xs={12} sm={6} md={4} lg={2} className="text-center">
-                                        <button className="inquire-button w-100 px-2 py-3 mt-4 rounded">Inquire</button>
+                                        <button className="inquire-button w-100 px-2 py-3 mt-4">Inquire</button>
                                     </Col>
                                 </Row>
                             </Card.Body>
@@ -185,6 +183,7 @@ export default function Hero() {
                 .inquire-button {
                     background-color: #e04b17;
                     color: white;
+                    border-radius: 50px;
                     border: none;
                     font-weight: bold;
                 }
@@ -192,6 +191,13 @@ export default function Hero() {
                 .inquire-button:hover {
                     background-color: #f28465;
                 }
+
+                .form-floating > .form-control, 
+                .form-floating > .form-control-plaintext {
+                    padding: 1rem 0.75rem;
+                    border-radius: 50px !important;
+                }
+
             `}</style>
         </div>
     );
