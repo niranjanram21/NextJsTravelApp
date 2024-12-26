@@ -140,10 +140,16 @@ export default function About() {
                 </div>
             </div>
 
+            <div className="parallax"></div>
+            <div className="content">
+                <h1 className="text-white">Welcome to My Parallax</h1>
+                <p>This is a CSS-based parallax effect</p>
+            </div>
+
             <style jsx>{`
                 .top-left {
                     position: absolute;
-                    z-index: 5;
+                    z-index: 3;
                     top: 100px;
                     left: 180px;
                     height: 300px;
@@ -216,6 +222,30 @@ export default function About() {
                         margin: 0;
                         padding: 0;
                         height: auto;
+                    }
+                }
+                
+                .parallax {
+                    position: relative;
+                    background-image: url('/bgImg3.jpg');
+                    height: 500px;
+                    background-attachment: fixed;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+
+                .content {
+                    position: relative;
+                    text-align: center;
+                    color: white;
+                    top: -100px; /* Adjust for better visibility */
+                    font-size: 24px;
+                }
+
+                @media (max-width: 768px) {
+                    .parallax {
+                    background-attachment: scroll; /* Fix for mobile browsers */
                     }
                 }
 

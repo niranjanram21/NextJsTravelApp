@@ -1,4 +1,4 @@
-'use client';
+    'use client';
 
 import { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
@@ -97,32 +97,27 @@ export default function Hero() {
 
                                     <Col xs={12} sm={6} md={4} lg={2}>
                                         <label className="mb-1 d-md-block d-sm-none">Check-in Date*</label>
-                                        <FloatingLabel controlId="floatingCheckIn">
-                                            <DatePicker
-                                                selected={checkInDate}
-                                                onChange={(date) => setCheckInDate(date)}
-                                                placeholderText="Select Check-in Date"
-                                                dateFormat="dd/MM/yyyy"
-                                                className="form-control datepicker-input py-3"
-                                                minDate={new Date()}
-                                                calendarClassName="custom-datepicker-calendar"
-                                            />
-                                        </FloatingLabel>
+                                        <DatePicker
+                                            selected={checkInDate}
+                                            onChange={(date) => setCheckInDate(date)}
+                                            placeholderText="Select Check-in Date"
+                                            dateFormat="dd/MM/yyyy"
+                                            className="form-control datepicker-input py-3"
+                                            minDate={new Date()}
+                                        />
                                     </Col>
 
                                     <Col xs={12} sm={6} md={4} lg={2}>
                                         <label className="mb-1 d-md-block d-sm-none">Check-out Date</label>
-                                        <FloatingLabel controlId="floatingCheckOut">
-                                            <DatePicker
-                                                selected={checkOutDate}
-                                                onChange={(date) => setCheckOutDate(date)}
-                                                placeholderText="Select Check-out Date"
-                                                dateFormat="dd/MM/yyyy"
-                                                className="form-control datepicker-input py-3"
-                                                minDate={checkInDate || new Date()}
-                                                calendarClassName="custom-datepicker-calendar"
-                                            />
-                                        </FloatingLabel>
+                                        <DatePicker
+                                            selected={checkOutDate}
+                                            onChange={(date) => setCheckOutDate(date)}
+                                            placeholderText="Select Check-out Date"
+                                            dateFormat="dd/MM/yyyy"
+                                            className="form-control datepicker-input py-3"
+                                            minDate={checkInDate || new Date()}
+                                            calendarClassName="custom-datepicker-calendar"
+                                        />
                                     </Col>
 
                                     <Col xs={12} sm={6} md={4} lg={2} className="text-center">
@@ -142,7 +137,7 @@ export default function Hero() {
 
                 .carousel-item-container {
                     position: relative;
-                    height: 120vh;
+                    height: 110vh;
                     width: 100%;
                 }
 
@@ -177,6 +172,7 @@ export default function Hero() {
                     left: 50%;
                     transform: translateX(-50%);
                     width: 90%;
+                    border-radius: 50px;
                     opacity: 0.9;
                 }
 
@@ -191,13 +187,6 @@ export default function Hero() {
                 .inquire-button:hover {
                     background-color: #f28465;
                 }
-
-                .form-floating > .form-control, 
-                .form-floating > .form-control-plaintext {
-                    padding: 1rem 0.75rem;
-                    border-radius: 50px !important;
-                }
-
             `}</style>
         </div>
     );

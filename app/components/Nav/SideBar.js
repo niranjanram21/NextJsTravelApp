@@ -41,7 +41,7 @@ export default function SideBar() {
                     <li className="nav-item">
                         <Link href="/destination" className={`nav-link  ${activeTab === "Destinations" ? "navtabs-color fw-bold" : ""}`}
                             onClick={() => handleTabClick("Destinations")}>
-                            Destinations    
+                            Destinations   
                         </Link>
                     </li>
                     <li className="nav-item">
