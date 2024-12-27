@@ -9,6 +9,7 @@ import NavBar from "./components/Nav/NavBar";
 import SideBar from "./components/Nav/SideBar";
 import { SidebarProvider } from './context/SidebarProvider';
 import { FetchProductProvider } from './context/FetchProductProvider';
+import Footer from "./components/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -60,6 +61,7 @@ export default function RootLayout({ children }) {
             {children}
           </FetchProductProvider>
         </SidebarProvider>
+        <Footer />
       </body>
     </html>
   );

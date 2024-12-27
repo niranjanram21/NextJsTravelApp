@@ -123,13 +123,13 @@ export default function Signup() {
                                 />
                             </div>
                             <div
-                                className="w-100 search-button px-3 py-3 rounded"
+                                className="w-100 search-button px-3 py-3"
                                 onClick={loginState === "Signup" ? handleSignup : handleLogin}
                             >
                                 {loginState}
                             </div>
                             <div className='text-white'>{loginState == "Signup" ? <span>Already have an account, <span className='login-tab fw-semibold' onClick={handleLoginStateChange}>Login</span></span>
-                                : <span>Don't have an account, <span className='login-tab fw-semibold' onClick={handleLoginStateChange}>Resgister</span></span>}</div>
+                                : <span>Don`&apos;t have an account, <span className='login-tab fw-semibold' onClick={handleLoginStateChange}>Resgister</span></span>}</div>
                         </div>
                     </div>
                 </div>
@@ -193,13 +193,13 @@ export default function Signup() {
                 }
                 .form-control {
                     background-color: rgba(255, 255, 255, 0.1);
-                    border-radius: 8px;
+                    border-radius: 50px;
                     color: white;
                     padding: 5px;
                 }
                 .input-group-text {
                     background-color: rgba(255, 255, 255, 0.1);
-                    border-radius: 8px;
+                    border-radius: 50px;
                     padding: 10px;
                     color: white;
                 }

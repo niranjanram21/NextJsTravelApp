@@ -15,22 +15,18 @@ export default function SideBar() {
 
     return (
         <>
-            {/* Sidebar */}
-            <div className={`sidebar-container h-100 px-2 position-fixed z-3 text-start py-4 shadow-lg ${isSidebarOpen ? 'visible' : 'hidden'}`}>
-                {/* Sidebar Header */}
+            <div className={`sidebar-container h-100 px-2 position-fixed z-5 text-start py-4 shadow-lg ${isSidebarOpen ? 'visible' : 'hidden'}`}>
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                    <Link href="/" className="navbar-brand fs-3 fw-bold d-flex align-items-center">
-                        <MdTravelExplore className="navtabs-color me-2" />
+                    <Link href="/" className="navbar-brand text-black montserrat-unique-class fs-3 fw-bolder d-flex align-items-center">
+                        <MdTravelExplore className="travel-logo me-2" />
                         GoTrip
                     </Link>
-                    <RxCross2 onClick={toggleSidebar} className="fs-4 fw-bold toggleButton" />
+                    <RxCross2 onClick={toggleSidebar} className="text-secondary fs-3 fw-bold toggleButton" />
                 </div>
                 <hr />
 
-                {/* Sidebar Inner Overlay (this overlay is inside the sidebar) */}
                 <div className={`inner-overlay ${isSidebarOpen ? 'visible' : 'hidden'}`}></div>
 
-                {/* Sidebar Navigation Links */}
                 <ul className="nav nav-pills flex-column mb-auto ">
                     <li className="nav-item">
                         <Link href="/" className={`nav-link  ${activeTab === "Home" ? "navtabs-color fw-bold" : ""}`}
@@ -41,7 +37,7 @@ export default function SideBar() {
                     <li className="nav-item">
                         <Link href="/destination" className={`nav-link  ${activeTab === "Destinations" ? "navtabs-color fw-bold" : ""}`}
                             onClick={() => handleTabClick("Destinations")}>
-                            Destinations   
+                            Destinations
                         </Link>
                     </li>
                     <li className="nav-item">
@@ -66,19 +62,17 @@ export default function SideBar() {
                 <hr />
             </div>
 
-            {/* Overlay */}
             <div
                 className={`overlay ${isSidebarOpen ? 'visible' : 'hidden'}`}
                 onClick={toggleSidebar}
             ></div>
 
-            {/* Styling */}
             <style jsx>{`
                 .sidebar-container {
                     position: fixed;
                     top: 0;
                     left: 0;
-                    width: 330px; /* Sidebar width */
+                    width: 350px; /* Sidebar width */
                     height: 100%;
                     background: white;
                     transform: translateX(-100%); /* Hide sidebar by default */

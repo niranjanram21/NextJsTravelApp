@@ -5,6 +5,10 @@ import Image from 'next/image';
 import { FaHandHoldingUsd } from "react-icons/fa";
 import { MdTravelExplore } from "react-icons/md";
 import { BsPersonGear } from "react-icons/bs";
+import { FaMountainSun } from "react-icons/fa6";
+import { TbTrekking } from "react-icons/tb";
+import { GiCampfire } from "react-icons/gi";
+import { FaMapLocationDot } from "react-icons/fa6";
 
 export default function About() {
     return (
@@ -140,11 +144,52 @@ export default function About() {
                 </div>
             </div>
 
-            <div className="parallax"></div>
-            <div className="content">
-                <h1 className="text-white">Welcome to My Parallax</h1>
-                <p>This is a CSS-based parallax effect</p>
+            <div className="parallax-container">
+                <div className="parallax"></div>
+                <div className="overlay"></div>
+
+                <div className="content">
+                    <p className="josefin-sans-unique fw-bolder fs-5" style={{ color: "#e04b17" }}>What do we Offer?</p>
+                    <h1 className="montserrat-unique-class fw-bolder fs-1 mb-5">EXPLORE GREAT EXPERIENCE</h1>
+
+                    <div className="text-center mt-5">
+                        <div className="d-flex flex-wrap flex-row gap-4 justify-content-center align-items-center">
+                            <div className="">
+                                <div className="px-3 py-2">
+                                    <FaMountainSun className="fs-2 mb-3" />
+                                    <h3 className="fs-5">Adventure</h3>
+                                    <p className="fs-6">15 Destinations</p>
+                                </div>
+                            </div>
+                            <span className="border d-none d-md-block mx-2"></span>
+                            <div className="">
+                                <div className="px-3 py-2">
+                                    <TbTrekking className="fs-2 mb-3" />
+                                    <h3 className="fs-5">Trekking</h3>
+                                    <p className="fs-6">10 Destinations</p>
+                                </div>
+                            </div>
+                            <span className="border d-none d-md-block mx-2"></span>
+                            <div className="">
+                                <div className="px-3 py-2">
+                                    <GiCampfire className="fs-2 mb-3" />
+                                    <h3 className="fs-5">Camp Fire</h3>
+                                    <p className="fs-6">12 Destinations</p>
+                                </div>
+                            </div>
+                            <span className="border d-none d-md-block mx-2"></span>
+                            <div className="">
+                                <div className="px-3 py-2">
+                                    <FaMapLocationDot className="fs-2 mb-3" />
+                                    <h3 className="fs-5">Exploring</h3>
+                                    <p className="fs-6">20 Destinations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
 
             <style jsx>{`
                 .top-left {
@@ -217,6 +262,7 @@ export default function About() {
                     padding: 0 4rem;
                     height: 600px; 
                 }
+
                 @media only screen and (max-width: 990px) {
                     .row {
                         margin: 0;
@@ -224,30 +270,95 @@ export default function About() {
                         height: auto;
                     }
                 }
-                
+
+                .parallax-container {
+                    position: relative;
+                    width: 100%;
+                }
+
                 .parallax {
                     position: relative;
-                    background-image: url('/bgImg3.jpg');
-                    height: 500px;
+                    background-image: url('/bgImg5.jpg');
+                    height: 600px;
                     background-attachment: fixed;
                     background-position: center;
                     background-repeat: no-repeat;
                     background-size: cover;
                 }
 
-                .content {
-                    position: relative;
-                    text-align: center;
-                    color: white;
-                    top: -100px; /* Adjust for better visibility */
-                    font-size: 24px;
+                .overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.75);
+                    z-index: 1;
                 }
 
+                .content {
+                    position: absolute;
+                    z-index: 2;
+                    color: white;
+                    text-align: center;
+                    top: 50%; /* Adjust as needed */
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+
+                .border {
+                    border-left: 2px solid #fff;
+                    height: 50px;
+                    display: inline-block;
+                }
+
+                /* Responsive Design */
                 @media (max-width: 768px) {
                     .parallax {
-                    background-attachment: scroll; /* Fix for mobile browsers */
+                        background-attachment: scroll; /* Disable parallax effect on smaller screens */
+                    }
+
+                    .content {
+                        top: 60%; /* Adjust alignment for smaller screens */
+                    }
+
+                    .d-flex {
+                        gap: 2rem; /* Smaller gaps between items */
+                    }
+
+                    .border {
+                        display: none; /* Hide borders on smaller screens */
+                    }
+
+                    .content h1 {
+                        font-size: 1.75rem; /* Smaller heading */
+                    }
+
+                    .content p {
+                        font-size: 1rem; /* Smaller paragraph text */
                     }
                 }
+
+                @media (max-width: 480px) {
+                    .content {
+                        top: 65%; /* Further adjust for very small screens */
+                    }
+
+                    .d-flex {
+                        flex-direction: column; /* Stack items vertically */
+                        align-items: center;
+                    }
+
+                    .content h1 {
+                        font-size: 1.5rem; /* Smaller heading for very small screens */
+                    }
+
+                    .content p {
+                        font-size: 0.9rem; /* Smaller text */
+                    }
+                }
+
+
 
             `}</style>
         </>
