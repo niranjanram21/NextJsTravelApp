@@ -71,7 +71,7 @@ export default function About() {
                         <button className="learn-more-button w-100 px-2 py-3 mt-2">LEARN MORE</button>
                     </span>
 
-                    <span className="top-right position-absolute z-2 top-0 end-0 border-white">
+                    <span className="top-right position-absolute z-1 top-0 end-0 border-white">
                         <Image
                             src="/AboutImg1.jpg"
                             alt="Slide 1"
@@ -153,37 +153,26 @@ export default function About() {
                     <h1 className="montserrat-unique-class fw-bolder fs-1 mb-5">EXPLORE GREAT EXPERIENCE</h1>
 
                     <div className="text-center mt-5">
-                        <div className="d-flex flex-wrap flex-row gap-4 justify-content-center align-items-center">
-                            <div className="">
-                                <div className="px-3 py-2">
-                                    <FaMountainSun className="fs-2 mb-3" />
-                                    <h3 className="fs-5">Adventure</h3>
-                                    <p className="fs-6">15 Destinations</p>
-                                </div>
+                        <div className="d-flex flex-wrap gap-2 gap-md-5 justify-content-center align-items-center">
+                            <div className="feature-card">
+                                <FaMountainSun className="fs-1 mb-3 text-secondary" />
+                                <h2>Adventure</h2>
+                                <p className="fs-6 text-secondary">15 Destinations</p>
                             </div>
-                            <span className="border d-none d-md-block mx-2"></span>
-                            <div className="">
-                                <div className="px-3 py-2">
-                                    <TbTrekking className="fs-2 mb-3" />
-                                    <h3 className="fs-5">Trekking</h3>
-                                    <p className="fs-6">10 Destinations</p>
-                                </div>
+                            <div className="feature-card">
+                                <TbTrekking className="fs-1 mb-3 text-secondary" />
+                                <h2>Trekking</h2>
+                                <p className="fs-6 text-secondary">10 Destinations</p>
                             </div>
-                            <span className="border d-none d-md-block mx-2"></span>
-                            <div className="">
-                                <div className="px-3 py-2">
-                                    <GiCampfire className="fs-2 mb-3" />
-                                    <h3 className="fs-5">Camp Fire</h3>
-                                    <p className="fs-6">12 Destinations</p>
-                                </div>
+                            <div className="feature-card">
+                                <GiCampfire className="fs-1 mb-3 text-secondary" />
+                                <h2>Camp Fire</h2>
+                                <p className="fs-6 text-secondary">12 Destinations</p>
                             </div>
-                            <span className="border d-none d-md-block mx-2"></span>
-                            <div className="">
-                                <div className="px-3 py-2">
-                                    <FaMapLocationDot className="fs-2 mb-3" />
-                                    <h3 className="fs-5">Exploring</h3>
-                                    <p className="fs-6">20 Destinations</p>
-                                </div>
+                            <div className="feature-card">
+                                <FaMapLocationDot className="fs-1 mb-3 text-secondary" />
+                                <h2>Exploring</h2>
+                                <p className="fs-6 text-secondary">20 Destinations</p>
                             </div>
                         </div>
                     </div>
@@ -273,6 +262,7 @@ export default function About() {
 
                 .parallax-container {
                     position: relative;
+                    margin: 8rem 0;
                     width: 100%;
                 }
 
@@ -306,20 +296,23 @@ export default function About() {
                     transform: translate(-50%, -50%);
                 }
 
+                .feature-color{
+                    color:#e04b17 ;
+                }
+
                 .border {
                     border-left: 2px solid #fff;
                     height: 50px;
                     display: inline-block;
                 }
 
-                /* Responsive Design */
                 @media (max-width: 768px) {
                     .parallax {
                         background-attachment: scroll; /* Disable parallax effect on smaller screens */
                     }
 
                     .content {
-                        top: 60%; /* Adjust alignment for smaller screens */
+                        top: 50%; /* Adjust alignment for smaller screens */
                     }
 
                     .d-flex {
@@ -340,8 +333,13 @@ export default function About() {
                 }
 
                 @media (max-width: 480px) {
+
+                    .parallax {
+                        height: 800px;
+                    }
+
                     .content {
-                        top: 65%; /* Further adjust for very small screens */
+                        top: 50%; /* Further adjust for very small screens */
                     }
 
                     .d-flex {

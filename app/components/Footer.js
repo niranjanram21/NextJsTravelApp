@@ -1,72 +1,129 @@
 'use client';
 
 import React from "react";
+import Image from 'next/image';
 import { FaInstagramSquare } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 import { IoLogoYoutube } from "react-icons/io";
+import { FaPhone } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { FaLocationDot } from "react-icons/fa6";
 
 export default function Footer() {
     return (
-        <div className="container">
-            <footer className="py-2">
-                <div className="row">
-                    <div className="col-6 col-md-2 mb-3">
-                        <h5>Section</h5>
-                        <ul className="nav flex-column">
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Home</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Features</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Pricing</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">FAQs</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">About</a></li>
-                        </ul>
-                    </div>
-
-                    <div className="col-6 col-md-2 mb-3">
-                        <h5>Section</h5>
-                        <ul className="nav flex-column">
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Home</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Features</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Pricing</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">FAQs</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">About</a></li>
-                        </ul>
-                    </div>
-
-                    <div className="col-6 col-md-2 mb-3">
-                        <h5>Section</h5>
-                        <ul className="nav flex-column">
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Home</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Features</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">Pricing</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">FAQs</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary">About</a></li>
-                        </ul>
-                    </div>
-
-                    <div className="col-md-5 offset-md-1 mb-3">
-                        <form>
-                            <h5>Subscribe to our newsletter</h5>
-                            <p>Monthly digest of what&apos;s new and exciting from us.</p>
-                            <div className="d-flex flex-column flex-sm-row w-100 gap-2">
-                                <label for="newsletter1" className="visually-hidden">Email address</label>
-                                <input id="newsletter1" type="text" className="form-control" placeholder="Email address" />
-                                <button className="search-button w-50 px-2 py-3">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
+        <>
+            <div className="footer-img-container">
+                <div className="image-wrapper">
+                    <Image
+                        src="/bgImg8.jpg"
+                        alt="Footer Background"
+                        fill
+                        className="object-fit-cover"
+                        priority
+                        loading="eager"
+                    />
                 </div>
-
-                <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-                    <p>© 2024 GoTrip, Inc. All rights reserved.</p>
-                    <ul className="list-unstyled d-flex fs-4">
-                        <li className="ms-3"><FaInstagramSquare /></li>
-                        <li className="ms-3"><FaFacebook /></li>
-                        <li className="ms-3"><BsTwitterX /></li>
-                        <li className="ms-3"><IoLogoYoutube /></li>
-                    </ul>
+                <div className="overlay"></div>
+                <div className="footer-caption">
+                    <h1 className="montserrat-unique-class fs-1">Explore the World</h1>
+                    <h5 className="hind-madurai">Find your next adventure with us.</h5>
                 </div>
-            </footer>
-        </div>
-    )
+            </div>
+
+            <div className="footer-text-container row text-start">
+                <div className="col-md-3">
+                    <span className='border border-primary me-2 my-1'></span>
+                    <span className="josefin-sans-unique fw-bold">
+                        ABOUT US
+                    </span>
+                    <p className="mt-2 text-secondary">
+                        Ad ex dolor in ipsum consequat veniam veniam fugiat eiusmod magna duis.
+                        Nostrud fugiat dolore enim sint eu ea laborum duis.
+                    </p>
+                </div>
+                <div className="col-md-3">
+                    <span className='border border-primary me-2 my-1'></span>
+                    <span className="josefin-sans-unique fw-bold">
+                        CONTACT US
+                    </span>
+                    <p className="mt-2 text-secondary">
+                        Ad ex dolor in ipsum consequat veniam veniam fugiat eiusmod magna duis.
+                    </p>
+                    <p><FaPhone className="me-3 text-primary" />(+91) - 982 367 3892</p>
+                    <p><MdEmail className="me-3 text-primary" />gotrip@gmail.com</p>
+                    <p><FaLocationDot className="me-3 text-primary" />400143, MUMBAI </p>
+                </div>
+                <div className="col-md-3">Section 2</div>
+                <div className="col-md-3">Section 3</div>
+            </div>
+
+            <style jsx>{`
+                .footer-img-container {
+                    position: relative;
+                    height: 25vh;
+                    width: 100%;
+                    overflow: hidden;
+                }
+
+                .image-wrapper {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0;
+                }
+
+                .object-fit-cover {
+                    object-fit: cover;
+                }
+
+                .overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.7);
+                    z-index: 1;
+                }
+
+                .footer-caption {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 2; 
+                    text-align: center;
+                    color: white;
+                }
+
+                @media (max-width: 768px) {
+                    .footer-container {
+                        height: 40vh;
+                    }
+
+                    .footer-caption h1 {
+                        font-size: 1.5rem;
+                    }
+
+                    .footer-caption h5 {
+                        font-size: 1rem;
+                    }
+                }
+
+                .footer-text-container {
+                    padding: 2rem 12%; /* Responsive padding */
+                    background-color: #171717;
+                    color: white;  
+                    margin: 0; /* Ensure no unexpected horizontal margin */
+                }
+
+                .footer-text-container .col-md-3 {
+                    padding: 1rem;
+                }
+            `}</style>
+        </>
+    );
 }

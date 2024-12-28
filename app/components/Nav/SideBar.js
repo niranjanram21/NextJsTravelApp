@@ -91,7 +91,7 @@ export default function SideBar() {
                     width: 100%;
                     height: 100%;
                     background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-                    z-index: 1; /* Ensure overlay is below the sidebar */
+                    z-index: 4; /* Ensure overlay is below the sidebar */
                     visibility: hidden; /* Hide overlay by default */
                     opacity: 0;
                     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
