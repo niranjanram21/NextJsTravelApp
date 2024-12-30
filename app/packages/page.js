@@ -57,8 +57,8 @@ export default function Packages() {
             </div>
 
             <div className="product-container">
-                <Row xs={1} md={2} className="g-4">
-                    {productsToDisplay.map((product) => (
+                <Row xs={1} md={2} className="g-4"> 
+                       {productsToDisplay.map((product) => (
                         <Col key={product.id}>
                             <Card className="product-card position-relative z-1" style={{ height: "22rem", backgroundColor: "#121212" }}>
                                 <div className="d-flex" style={{ height: "100%" }}>

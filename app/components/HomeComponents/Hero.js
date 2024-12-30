@@ -1,4 +1,4 @@
-    'use client';
+'use client';
 
 import { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
@@ -28,7 +28,7 @@ export default function Hero() {
                                 className="object-fit-cover"
                                 priority
                                 loading="eager"
-                            />  
+                            />
                             <div className="overlay"></div>
                         </div>
                         <div className="carousel-caption">

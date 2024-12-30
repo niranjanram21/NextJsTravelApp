@@ -28,6 +28,10 @@ body {
     font-style: normal;
 }
 
+.primary-text-color {
+    color: #e04b17;
+}
+
 .search-button {
     background-color: #e04b17;
     color: white;
