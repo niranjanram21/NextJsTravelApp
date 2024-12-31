@@ -11,6 +11,7 @@ import { MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 
 export default function Footer() {
+    
     return (
         <>
             <div className="footer-img-container">
@@ -27,16 +28,15 @@ export default function Footer() {
                 <div className="overlay"></div>
                 <div className="footer-caption row">
                     <div className="col-md-6 text-start">
-                        <div className="josefin-sans-unique fw-bold fs-1">JOIN US FOR MORE UPDATE!</div>
-                        <div className="">Ad ex dolor in ipsum consequat veniam veniam fugiat eiusmod magna duis.
+                        <div className="josefin-sans-unique fw-bold fs-1">JOIN US FOR MORE UPDATES!</div>
+                        <div className="text-secondary">Ad ex dolor in ipsum consequat veniam veniam fugiat eiusmod magna duis.
                         </div>
                     </div>
                     <div className="col-md-3 d-none d-lg-block"></div>
                     <div className="col-md-3">
-                        <input className="form-control px-2 py-3 w-100" type="text" placeholder="Enter your email" />
+                        <input className="form-control px-2 py-3 w-100 bg-transparent" type="text" placeholder="Enter your email .." />
                         <button className="subscribe-button w-100 px-2 py-3 mt-2">Subscribe</button>
                     </div>
-
                 </div>
             </div>
 
@@ -120,7 +120,7 @@ export default function Footer() {
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background: rgba(0, 0, 0, 0.7);
+                    background: rgba(0, 0, 0, 0.8);
                     z-index: 1;
                 }
 
@@ -136,15 +136,17 @@ export default function Footer() {
                 }
 
                 .subscribe-button {
-                    background-color: #e04b17;
+                    background-color: transparent;
+                    border: 1px solid #e04b17;
                     color: white;
                     // border-radius: 50px;
-                    border: none;
+                    // border: none;
                     font-weight: bold;
+                    transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
                 }
 
                 .subscribe-button:hover {
-                    background-color: #f28465;
+                    background-color: #e04b17;
                 }
 
                 @media (max-width: 768px) {
@@ -162,10 +164,17 @@ export default function Footer() {
                 }
 
                 .footer-text-container {
-                    padding: 2rem 12%; /* Responsive padding */
+                    padding: 2rem 12%;
                     background-color: #171717;
-                    color: white;  
-                    margin: 0; /* Ensure no unexpected horizontal margin */
+                    color: white;
+                    margin: 0;
+                    z-index: 2;
+                    position: relative;
+                }
+                
+                input::placeholder, textarea::placeholder {
+                    color:rgb(255, 255, 255); /* Replace with your desired color */
+                    opacity: 1; /* Ensures full color visibility */
                 }
 
                 .footer-text-container .col-md-3 {

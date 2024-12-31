@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Image from 'next/image';
 import { IoMdTime } from "react-icons/io";
-    import { MdLocationOn } from "react-icons/md";
+import { MdLocationOn } from "react-icons/md";
 import { useProducts } from '../context/FetchProductProvider';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -57,8 +57,8 @@ export default function Packages() {
             </div>
 
             <div className="product-container">
-                <Row xs={1} md={2} className="g-4"> 
-                       {productsToDisplay.map((product) => (
+                <Row xs={1} md={2} className="g-4">
+                    {productsToDisplay.map((product) => (
                         <Col key={product.id}>
                             <Card className="product-card position-relative z-1" style={{ height: "22rem", backgroundColor: "#121212" }}>
                                 <div className="d-flex" style={{ height: "100%" }}>
@@ -121,7 +121,7 @@ export default function Packages() {
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0, 0, 0, 0.7);
+                background: rgba(0, 0, 0, 0.85);
                 z-index: 0;
                 }
                 .product-container {
