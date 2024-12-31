@@ -60,8 +60,8 @@ export default function RootLayout({ children }) {
           <FetchProductProvider>
             {children}
           </FetchProductProvider>
+          <Footer />
         </SidebarProvider>
-        <Footer />
       </body>
     </html>
   );
