@@ -4,6 +4,10 @@ import Image from "next/image";
 export default function PopularDestinations() {
     return (
         <>
+            <div className="text-center">
+                <div className="fw-bolder" style={{ 'color': "#e04b17" }}>POPULAR DESTINATION</div>
+                <div className="montserrat-unique-class mb-4 fs-1">TOP NOTCH DESTINATIONS</div>
+            </div>
             <div className="card-container row text-center justify-content-center">
                 <div className="col-lg-3 col-md-5 col-sm-8 card-body">
                     <div className="image-wrapper">
