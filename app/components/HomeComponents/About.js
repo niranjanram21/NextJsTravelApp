@@ -262,7 +262,7 @@ export default function About() {
 
                 .parallax-container {
                     position: relative;
-                    margin: 8rem 0;
+                    margin: 4rem 0;
                     width: 100%;
                 }
 

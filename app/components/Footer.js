@@ -11,10 +11,10 @@ import { MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 
 export default function Footer() {
-    
+
     return (
         <>
-            <div className="footer-img-container">
+            <div className="footer-img-container mt-5">
                 <div className="image-wrapper">
                     <Image
                         src="/bgImg8.jpg"
