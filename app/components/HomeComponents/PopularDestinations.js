@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function PopularDestinations() {
     return (
@@ -62,10 +63,11 @@ export default function PopularDestinations() {
 
             </div>
 
-            <div className="text-center mt-2 mb-4">
-                <button className="more-products-button px-4 py-3 mt-2">MORE DESTINATIONS</button>
+            <div className="text-center my-4">
+                <Link href='/packages'>
+                    <button className="more-products-button px-4 py-3 mt-2">MORE DESTINATIONS</button>
+                </Link>
             </div>
-
 
             <style jsx>{`
                 .card-container {

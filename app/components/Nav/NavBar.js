@@ -80,12 +80,12 @@ export default function NavBar() {
                         </li>
                         <li className="nav-item mx-2">
                             <Link
-                                href="/about"
+                                href="/blogs"
                                 className={`nav-link ${activeTab === 'About' ? 'navtabs-color fw-bold' : ''
                                     }`}
                                 onClick={() => handleTabClick('About')}
                             >
-                                About
+                                Blogs
                             </Link>
                         </li>
                         <li className="nav-item mx-2">
