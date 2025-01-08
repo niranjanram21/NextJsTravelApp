@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed:products": "node scripts/importProducts.js"
+    "seed:products": "node scripts/importProducts.js",
+    "seed:blogs": "node scripts/importBlogs.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
