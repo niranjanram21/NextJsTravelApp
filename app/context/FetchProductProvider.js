@@ -2,13 +2,11 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 
-// Create the context
 const FetchProductsContext = createContext();
 
-// Provider Component
 export const FetchProductProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true); // Boolean value for loading
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedId, setSelectedId] = useState(null);
 
@@ -29,7 +27,7 @@ export const FetchProductProvider = ({ children }) => {
         };
 
         fetchProducts();
-    }, []); // Empty dependency array to fetch only on mount
+    }, []);
 
     return (
         <FetchProductsContext.Provider value={{ products, loading, error, selectedId, setSelectedId }}>
@@ -38,7 +36,6 @@ export const FetchProductProvider = ({ children }) => {
     );
 };
 
-// Custom Hook to Consume the Context
 export const useProducts = () => {
     const context = useContext(FetchProductsContext);
 
