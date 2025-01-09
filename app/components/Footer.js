@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from 'next/image';
 import { FaInstagramSquare } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
@@ -12,9 +12,19 @@ import { FaLocationDot } from "react-icons/fa6";
 
 export default function Footer() {
 
+    const [isReady, setIsReady] = useState(false);
+
+    useEffect(() => {
+        setIsReady(true);
+    }, []);
+
+    if (!isReady) {
+        return null;
+    }
+
     return (
         <>
-            <div className="footer-img-container mt-5">
+            <div className="footer-img-container">
                 <div className="image-wrapper">
                     <Image
                         src="/bgImg8.jpg"

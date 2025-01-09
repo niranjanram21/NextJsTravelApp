@@ -21,7 +21,7 @@ export default function Packages() {
         if (products.length > 0 && productsToDisplay.length === 0) {
             setProductsToDisplay(products.slice(0, 4));
         }
-    }, [products]);
+    }, [products, productsToDisplay.length]);
 
     useEffect(() => {
         if (productsToDisplay.length === products.length) {
@@ -83,10 +83,10 @@ export default function Packages() {
                                         </div>
 
                                         <div className="d-flex gap-4 mt-auto">
-                                            <button className="wishlist-button w-100 px-3 py-2 rounded">
+                                            <button className="wishlist-button w-100 px-3 py-2">
                                                 Wishlist
                                             </button>
-                                            <button className="book-button w-100 px-3 py-2 rounded"
+                                            <button className="book-button w-100 px-3 py-2"
                                                 key={product.id} onClick={() => handleBookNow(product.id)}>
                                                 Book Now
                                             </button>
@@ -106,108 +106,108 @@ export default function Packages() {
 
             <style jsx>{`
                 .bg-container {
-                height: 100vh;
-                width: 100%;
-                overflow: hidden;
+                    height: 100vh;
+                    width: 100%;
+                    overflow: hidden;
                 }
                 .blurred-image {
-                object-fit: cover;
-                filter: blur(4px);
-                z-index: -1;
+                    object-fit: cover;
+                    filter: blur(4px);
+                    z-index: -1;
                 }
                 .overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.85);
-                z-index: 0;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
+                    z-index: 0;
                 }
                 .product-container {
-                position: relative;
-                z-index: 1;
-                padding: 8rem 8rem;
-                max-width: 90%;
-                margin: auto;
-                border-radius: 10px;
+                    position: relative;
+                    z-index: 1;
+                    padding: 8rem 8rem;
+                    max-width: 90%;
+                    margin: auto;
+                    border-radius: 10px;
                 }
                 .product-card {
-                box-shadow: 5px 10px 18px red;   !important;
-                display: flex;
-                flex-direction: column;
-                overflow: hidden;
+                    box-shadow: 5px 10px 18px red;   !important;
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
                 }
                 .product-image {
-                height: 12rem !important;
-                object-fit: cover !important;
-                width: 100%;
+                    height: 12rem !important;
+                    object-fit: cover !important;
+                    width: 100%;
                 }
                 .price-tag{
-                background-color: #e04b17;
-                color:white;
-                font-weight:bold;
+                    background-color: #e04b17;
+                    color:white;
+                    font-weight:bold;
                 }
                 .trip-details{
-                width:50%;
-                background-color: #179ae0;
-                color:white;
+                    width:50%;
+                    background-color: #179ae0;
+                    color:white;
                 }
                 .book-button {
-                background-color: transparent;
-                font-size:14px;
-                color: white;
-                border: 1px solid #e04b17;
-                font-weight: 600;
-                padding: 10px 20px;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background-color 0.4s ease, transform 0.3s ease;
+                    background-color: transparent;
+                    font-size:14px;
+                    color: white;
+                    border: 1px solid #e04b17;
+                    font-weight: 600;
+                    padding: 10px 20px;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    transition: background-color 0.4s ease, transform 0.3s ease;
                 }
                 .book-button:hover {
-                background-color: #e04b17;
-                color: white;
-                transform: scale(1.05);
-                box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
+                    background-color: #e04b17;
+                    color: white;
+                    transform: scale(1.05);
+                    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
                 }
                 .wishlist-button {
-                background-color: transparent;
-                font-size:14px;
-                color: white;
-                border: 1px solid white;
-                font-weight: 600;
-                padding: 10px 20px;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+                    background-color: transparent;
+                    font-size:14px;
+                    color: white;
+                    border: 1px solid white;
+                    font-weight: 600;
+                    padding: 10px 20px;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
                 }
                 .wishlist-button:hover {
-                background-color: white;
-                color: black;
-                border: 1px solid white;
-                transform: scale(1.05);
-                box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
+                    background-color: white;
+                    color: black;
+                    border: 1px solid white;
+                    transform: scale(1.05);
+                    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
                 }
                 .load-more-button {
-                background-color: white;
-                color: black;
-                border: none;
-                font-weight: 600;
-                padding: 10px 20px;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+                    background-color: white;
+                    color: black;
+                    border: none;
+                    font-weight: 600;
+                    padding: 10px 20px;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
                 }
                 .load-more-button:hover {
-                background-color: transparent;
-                color: white;
-                border: 1px solid white;
-                transform: scale(1.05);
-                box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
+                    background-color: transparent;
+                    color: white;
+                    border: 1px solid white;
+                    transform: scale(1.05);
+                    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
                 }
                 @media (max-width: 768px) {
-                    .product - container {
-                    padding: 4rem 2rem;
+                    .product-container {
+                        padding: 4rem 2rem;
                     }
                 }
             `}</style>

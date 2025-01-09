@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { RxCross2 } from "react-icons/rx";
 import { MdTravelExplore } from "react-icons/md";
 import { useSidebar } from '../../context/SidebarProvider';
@@ -12,6 +13,17 @@ export default function SideBar() {
         updateActiveTab(tabName);
         toggleSidebar();
     };
+
+    const [isReady, setIsReady] = useState(false);
+
+    useEffect(() => {
+        setIsReady(true);
+    }, []);
+
+    if (!isReady) {
+        return null;
+    }
+
 
     return (
         <>

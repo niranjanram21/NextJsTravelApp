@@ -9,8 +9,8 @@ import "./SideBar.css";
 
 export default function NavBar() {
     const { toggleSidebar, activeTab, updateActiveTab } = useSidebar();
-
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -27,9 +27,17 @@ export default function NavBar() {
         };
     }, []);
 
+    useEffect(() => {
+        setIsReady(true);
+    }, []);
+
     const handleTabClick = (tabName) => {
         updateActiveTab(tabName);
     };
+
+    if (!isReady) {
+        return null;
+    }
 
     return (
         <div
@@ -101,16 +109,16 @@ export default function NavBar() {
                     </ul>
                     <div className="d-flex gap-4">
                         <span>
-                            <button className="search-button w-100 px-4 py-2">Search</button>
+                            <button className="search-button w-100 px-4 py-2" onClick={() => handleTabClick('')}>Search</button>
                         </span>
                         <Link href="/loginSignup">
-                            <button className="signup-button w-100 px-4 py-2">
+                            <button className="signup-button w-100 px-4 py-2" onClick={() => handleTabClick('')}>
                                 Sign Up
                             </button>
                         </Link>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
