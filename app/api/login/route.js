@@ -1,4 +1,4 @@
-import clientPromise from "@/lib/mongodb"; // Import clientPromise directly
+import clientPromise from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
