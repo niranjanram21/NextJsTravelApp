@@ -49,7 +49,7 @@ export default function AdminLoginSignup() {
             if (res.ok) {
                 alert(data.message);
                 localStorage.setItem('token', data.token);
-                router.push('/');
+                router.push('/dashboard');
             } else {
                 alert(data.error);
             }
@@ -66,7 +66,7 @@ export default function AdminLoginSignup() {
         <>
             <div className="container-fluid" style={{ height: "100vh", width: "100%" }}>
                 <Image
-                    src="/bgImg4.jpg"
+                    src="/bgImg9.jpg"
                     alt="Background"
                     fill
                     className="object-fit-cover blurred-image"
@@ -78,7 +78,7 @@ export default function AdminLoginSignup() {
                 <div className="row g-0">
                     <div className="col-md-5 d-none d-md-block">
                         <Image
-                            src="/travellerImg.jpg"
+                            src="/bgImg10.jpg"
                             alt="traveller"
                             width={600}
                             height={750}
@@ -91,7 +91,7 @@ export default function AdminLoginSignup() {
                         <div className="d-flex flex-column gap-4 align-items-center"
                             style={{ width: "100%", maxWidth: "400px" }}>
                             <div className="text-center head-line fs-2 fw-bold">
-                                Travel around the world!
+                                Admin Login
                             </div>
                             {loginState === "Signup" && <div className="input-group mb-3 bg-transparent">
                                 <span className="input-group-text text-white px-3 py-3">

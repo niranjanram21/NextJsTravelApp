@@ -15,7 +15,7 @@ export default function About() {
         <>
 
             <div className="position-relative d-lg-none" style={{ 'margin': '2rem 1rem', 'padding': '0 2rem', 'height': '300px' }}>
-                <span className="top-left-sm josefin-sans-unique text-container-sm d-flex flex-column align-items-start justify-content-center px-2 py-1">
+                <span className="top-left-sm josefin-sans-unique text-container-sm d-flex flex-column align-items-start justify-content-center px-2 py-3">
                     <span className="text-start">
                         <h4 className="text-white fw-bold">Explore</h4>
                         <h4 className="text-white fw-bold">Dream</h4>
@@ -117,7 +117,7 @@ export default function About() {
                             <div className="bg-icons py-3 px-4">
                                 <FaHandHoldingUsd className="fs-1 text-white" />
                             </div>
-                            <div className="d-flex flex-column justify-content-between">
+                            <div className="d-flex flex-column justify-content-between gap-0 gap-md-3">
                                 <h5>BEST PRICE GUARANTEED</h5>
                                 <p>Ea qui est irure esse occaecat duis ullamco do ut mollit.</p>
                             </div>
@@ -126,7 +126,7 @@ export default function About() {
                             <div className="bg-icons py-3 px-4">
                                 <MdTravelExplore className="fs-1 text-white" />
                             </div>
-                            <div className="d-flex flex-column justify-content-between">
+                            <div className="d-flex flex-column justify-content-between gap-0 gap-md-3">
                                 <h5>AMAZING DESTINATION</h5>
                                 <p>Ea qui est irure esse occaecat duis ullamco do ut mollit.</p>
                             </div>
@@ -135,7 +135,7 @@ export default function About() {
                             <div className="bg-icons py-3 px-4">
                                 <BsPersonGear className="fs-1 text-white" />
                             </div>
-                            <div className="d-flex flex-column justify-content-between">
+                            <div className="d-flex flex-column justify-content-between gap-0 gap-md-3">
                                 <h5>PERSONAL SERVICES</h5>
                                 <p>Ea qui est irure esse occaecat duis ullamco do ut mollit.</p>
                             </div>
@@ -194,9 +194,9 @@ export default function About() {
                 }
                 .top-left-sm {
                     position: absolute;
-                    z-index: 5;
-                    top: 20px;
-                    left: 20px;
+                    z-index: 3;
+                    top: 30px;
+                    left: 60px;
                     height: 200px;
                     width: 150px;
                     display: flex;

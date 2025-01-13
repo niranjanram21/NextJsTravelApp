@@ -4,10 +4,15 @@ import React from "react";
 import Image from 'next/image';
 import { useBlogs } from '../context/FetchBlogProvider';
 import { useState, useEffect } from 'react';
+import { FaInstagramSquare } from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa6";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 
 export default function BlogPage() {
 
     const [blogsToDisplay, setBlogsToDisplay] = useState([]);
+    const [blogsList, setBlogsList] = useState([]);
     const [loadMoreBTn, setLoadMoreBtn] = useState("d-block");
     const { blogs, loading, error } = useBlogs();
 
@@ -24,6 +29,12 @@ export default function BlogPage() {
             setLoadMoreBtn("d-block");
         }
     }, [blogsToDisplay.length, blogs.length]);
+
+    useEffect(() => {
+        const blogsFromEnd = [...blogs].reverse();
+        setBlogsList(blogsFromEnd.slice(0, 5));
+
+    }, [blogs])
 
     const handleVisibleProducts = () => {
         const additionalBlogs = blogs.slice(blogsToDisplay.length, blogsToDisplay.length + 4);
@@ -61,8 +72,8 @@ export default function BlogPage() {
                     <h1 className="montserrat-unique-class fw-bolder fs-1 mb-5">Archived posts</h1>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-md-9">
+            <div className="row blog-container">
+                <div className="col-md-8">
                     <div className="card-container row text-center justify-content-center">
                         {blogsToDisplay.map((blog) => {
                             return (
@@ -102,7 +113,58 @@ export default function BlogPage() {
                         </button>
                     </div>
                 </div>
-                <div className="col-md-3">hello</div>
+                <div className="col-md-4">
+                    {blogsList.map((b) => (
+                        <>
+                            <div key={b.id} className="mt-4 d-flex flex-row gap-4">
+                                <Image
+                                    src={b.image}
+                                    alt={b.title}
+                                    width={100}
+                                    height={80}
+                                    className="object-fit-cover"
+                                />
+                                <div className="">
+                                    <h6 className="fw-bold mb-2">{b.title}</h6>
+                                    <h6 className="">{new Date(b.date).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: '2-digit',
+                                    })}</h6>
+                                    <h6 className="fw-semibold primary-text-color mb-0">@{b.username}</h6>
+                                </div>
+                            </div>
+                            <hr />
+                        </>
+                    ))}
+                    <div className="text-center mt-5">
+                        <button className="social-share-button w-50 px-4 py-2">
+                            SOCIAL SHARE
+                        </button>
+                    </div>
+
+                    <div className="mt-5 text-white px-3 d-flex flex-row justify-content-between">
+                        <div>
+                            <span className="social-share-logos social-handle-insta-logo border-end fs-6"><FaInstagramSquare /></span>
+                            <span className="py-3 ps-3 pe-5 social-handle-insta fs-6 text-start fw-semibold">Instagram</span>
+                        </div>
+                        <div>
+                            <span className="social-share-logos social-handle-fb-logo border-end fs-6"><FaFacebookF /></span>
+                            <span className="py-3 ps-3 pe-5 social-handle-fb fs-6 text-start fw-semibold">Facebook</span>
+                        </div>
+                    </div>
+
+                    <div className="mt-5 text-white px-3 d-flex flex-row justify-content-between">
+                        <div>
+                            <span className="social-share-logos social-handle-li-logo border-end fs-6"><FaLinkedin /></span>
+                            <span className="py-3 ps-3 pe-5 social-handle-li fs-6 text-start fw-semibold">Linked-in</span>
+                        </div>
+                        <div>
+                            <span className="social-share-logos social-handle-wa-logo border-end fs-6"><FaWhatsapp /></span>
+                            <span className="py-3 ps-3 pe-5 social-handle-wa fs-6 text-start fw-semibold">Whatsapp</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <style jsx>{`
@@ -155,12 +217,22 @@ export default function BlogPage() {
                     z-index: 2;
                 }
 
-                .card-container {
-                    width: 55%;
+                .blog-container{
+                    width: 70%;
                     margin: 2rem auto;
-                    gap: 4rem;
+                }
+
+                .card-container {
+                    // width: 60%;
+                    margin: 0 2rem;
+                    gap: 2rem;
                     display: flex;
                     flex-wrap: wrap;
+                }
+                @media (max-width:450px){
+                    .blog-container{
+                        width: 95%;
+                    }
                 }
 
                 .card-body {
@@ -204,6 +276,48 @@ export default function BlogPage() {
                     color: black;
                     transform: scale(1.05);
                     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+                }
+              .social-share-button {
+                    background:  white;
+                    color: #1d8ed1;
+                    border: 1px solid #1d8ed1;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+                }
+                .social-share-button:hover {
+                    background: #1d8ed1;
+                    color: white; 
+                    transform: translateY(-2px) scale(1.05);
+                    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+                }
+                .social-share-logos {
+                    padding:1rem;
+                }
+                .social-handle-insta{
+                    background-image: linear-gradient(to right, #ff0080, #ff1a8c, #ff3399);
+                }
+                .social-handle-insta-logo{
+                    background-color: #ff1a8c;
+                }
+                .social-handle-fb{
+                    background-image: linear-gradient(to right, #0040ff, #1a53ff, #3366ff);
+                }
+                .social-handle-fb-logo{
+                    background-color: #1a53ff;
+                }
+                .social-handle-wa{
+                    background-image: linear-gradient(to right, #339933, #39ac39, #40bf40);
+                }
+                .social-handle-wa-logo{
+                    background-color: #39ac39;
+                }
+                .social-handle-li{
+                    background-image: linear-gradient(to right, #00b8e6, #00ccff, #1ad1ff);
+                }
+                .social-handle-li-logo{
+                    background-color: #00ccff;
                 }
             `}</style>
         </>

@@ -103,6 +103,7 @@ export default function Hero() {
                                             placeholderText="Select Check-in Date"
                                             dateFormat="dd/MM/yyyy"
                                             className="form-control datepicker-input py-3"
+                                            calendarClassName="custom-datepicker-calendar"
                                             minDate={new Date()}
                                         />
                                     </Col>
