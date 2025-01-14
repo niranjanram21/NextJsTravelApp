@@ -5,12 +5,7 @@ import { Poppins } from 'next/font/google';
 import { Hind_Madurai } from "next/font/google";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import NavBar from "./components/Nav/NavBar";
-import SideBar from "./components/Nav/SideBar";
-import { SidebarProvider } from './context/SidebarProvider';
-import { FetchProductProvider } from './context/FetchProductProvider';
-import Footer from "./components/Footer";
-import { FetchBlogProvider } from "./context/FetchBlogProvider";
+import LayoutManager from "./components/LayoutManager";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -55,17 +50,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable}`}>
-        <SidebarProvider>
-          <NavBar />
-          <SideBar />
-          <FetchProductProvider>
-            <FetchBlogProvider>
-              {children}
-            </FetchBlogProvider>
-          </FetchProductProvider>
-          <Footer />
-        </SidebarProvider>
+        <LayoutManager>{children}</LayoutManager>
       </body>
-    </html >
+    </html>
   );
 }

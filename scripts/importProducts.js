@@ -20,21 +20,21 @@ const importProducts = async () => {
         const filePath = path.join(process.cwd(), "data/products.json");
         const productData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-        await Product.deleteMany();
-        console.log("Cleared existing products from the database.");
+        // await Product.deleteMany();
+        // console.log("Cleared existing products from the database.");
 
         await Product.insertMany(productData);
         console.log("Products seeded successfully!");
 
-        // await Promise.all(
-        //     productData.map(async (product) => {
-        //         await Product.updateOne(
-        //             { id: product.id },
-        //             { $set: product }, 
-        //             { upsert: true }
-        //         );
-        //     })
-        // );
+        await Promise.all(
+            productData.map(async (product) => {
+                await Product.updateOne(
+                    { id: product.id },
+                    { $set: product },
+                    { upsert: true }
+                );
+            })
+        );
 
         process.exit(0);
     } catch (error) {
