@@ -1,11 +1,8 @@
 'use client';
 
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Image from 'next/image';
 import { IoMdTime } from "react-icons/io";
-import { IoPeople } from "react-icons/io5";
 import { MdLocationOn } from "react-icons/md";
 import { useProducts } from '../../context/FetchProductProvider';
 
@@ -41,15 +38,14 @@ export default function PackageDetail({ params }) {
                         />
 
                         <Card.Body className="d-flex flex-column" style={{ padding: "1rem 2rem", color: "white", flex: "1" }}>
-                            <div>
-                                <div className="fs-4 fw-bold mb-3" style={{ color: '#179ae0' }}>{selectedProduct.title}</div>
-                                <div><MdLocationOn className='mb-1' /> {selectedProduct.location}</div>
-                                <div className="text-white-50 my-3">{selectedProduct.detailedDescription}</div>
-                            </div>
+                            <div className="fs-4 fw-bold mb-3" style={{ color: '#179ae0' }}>{selectedProduct.title}</div>
+                            <div><MdLocationOn className='mb-1' /> {selectedProduct.location}</div>
                             <div className=' my-1 fs-5'><span className='fs-6 me-2' style={{ color: '#179ae0' }}>Price:</span>
                                 ${selectedProduct.price} <span className='fw-light fs-6'>/person</span>
                             </div>
                             <div className=' my-1 fs-5'><span className='fs-6 me-2' style={{ color: '#179ae0' }}>Duration:</span><IoMdTime className='mb-1' /> {selectedProduct.duration}</div>
+                            <div className="my-3">{selectedProduct.description}</div>
+                            <div className="my-3">{selectedProduct.detailedDescription}</div>
                             <div className="d-flex gap-4 mt-auto">
                                 <button className="wishlist-button w-100 px-3 py-2 rounded">
                                     Wishlist
