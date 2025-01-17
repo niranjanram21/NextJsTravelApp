@@ -30,10 +30,11 @@ export const FetchProductProvider = ({ children }) => {
     }, []);
 
     return (
-        <FetchProductsContext.Provider value={{ products, loading, error, selectedId, setSelectedId }}>
+        <FetchProductsContext.Provider value={{ products, setProducts, loading, error, selectedId, setSelectedId }}>
             {children}
         </FetchProductsContext.Provider>
     );
+
 };
 
 export const useProducts = () => {

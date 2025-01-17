@@ -11,13 +11,16 @@ import { useProducts } from '../context/FetchProductProvider';
 
 export default function Dashboard() {
     const router = useRouter();
-    const { products, loading, error } = useProducts();
+    const { products, setProducts, loading, error } = useProducts();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     const [showViewModal, setShowViewModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [selectedProductForUpdateModal, setSelectedProductForUpdateModal] = useState(null);
+    const [updatedProduct, setUpdatedProduct] = useState(null);
 
+    // Modals
     const handleViewShow = (id) => {
         const product = products.find((product) => product.id === id);
         setSelectedProduct(product);
@@ -31,7 +34,9 @@ export default function Dashboard() {
 
     const handleUpdateModalShow = (id) => {
         const product = products.find((product) => product.id === id);
-        setSelectedProduct(product);
+        setShowViewModal(false);
+        setSelectedProductForUpdateModal(product);
+        setUpdatedProduct(product);
         setShowUpdateModal(true);
     };
 
@@ -40,6 +45,7 @@ export default function Dashboard() {
         setSelectedProduct(null);
     };
 
+    // Pagination
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const productsToDisplay = products.slice(indexOfFirstItem, indexOfLastItem);
@@ -78,6 +84,40 @@ export default function Dashboard() {
         }
 
         return pages;
+    };
+
+    // Update Product
+    const handleUpdateSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch("/api/updateProducts", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    _id: updatedProduct.id,
+                    updatedData: updatedProduct,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to update product");
+            }
+
+            const data = await response.json();
+            console.log(data.message);
+
+            setProducts((prevProducts) =>
+                prevProducts.map((product) =>
+                    product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
+                )
+            );
+
+            // Close modal
+            setShowUpdateModal(false);
+        } catch (error) {
+            console.error("Error updating product:", error);
+        }
     };
 
     useEffect(() => {
@@ -177,7 +217,7 @@ export default function Dashboard() {
                                         <div className=" fw-light"><span className="fw-semibold">Detailed Description: </span>{selectedProduct.detailedDescription}</div>
 
                                         <div className="d-flex gap-4 mt-5">
-                                            <button className="update-button w-25 px-3 py-1" onClick={handleUpdateModalShow}>
+                                            <button className="update-button w-25 px-3 py-1" onClick={() => handleUpdateModalShow(selectedProduct.id)}>
                                                 Update
                                             </button>
                                             <button className="delete-button w-25 px-3 py-1">
@@ -200,16 +240,58 @@ export default function Dashboard() {
 
 
                     {/* Update Modal */}
-                    <Modal show={showUpdateModal} onHide={handleUpdateModalClose} size="xl"
+                    <Modal show={showUpdateModal} onHide={handleUpdateModalClose} size="lg"
                         // backdrop="static"
                         aria-labelledby="contained-modal-title-vcenter" centered>
                         <Modal.Header closeButton>
-                            <Modal.Title>Package Id : {selectedProduct?.id || "Loading..."}
+                            <Modal.Title>Package Id : {selectedProductForUpdateModal?.id || "Loading..."}
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            hello
-
+                            {selectedProductForUpdateModal && (
+                                <form>
+                                    <div className="mb-3">
+                                        <label htmlFor="title" className="form-label">Title</label>
+                                        <input type="text" id="title" className="form-control"
+                                            value={updatedProduct.title || ""}
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, title: e.target.value })} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="location" className="form-label">Location</label>
+                                        <input type="text" id="location" className="form-control"
+                                            value={updatedProduct.location || ""}
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, location: e.target.value })} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="price" className="form-label">Price</label>
+                                        <input type="text" id="price" className="form-control"
+                                            value={updatedProduct.price || ""}
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, price: e.target.value })} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="duration" className="form-label">Duation</label>
+                                        <input type="text" id="duration" className="form-control"
+                                            value={updatedProduct.duration || ""}
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, duration: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="description" className="form-label">Description</label>
+                                        <input type="text" id="description" className="form-control"
+                                            value={updatedProduct.description || ""}
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, description: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="detailedDescription" className="form-label">Detailed Description</label>
+                                        <textarea className="form-control" id="detailedDescription" rows="3" style={{ width: "100%" }}
+                                            value={updatedProduct.detailedDescription || ""}
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, detailedDescription: e.target.value })}
+                                        ></textarea>
+                                    </div>
+                                    <button type="submit" className="btn btn-primary" onClick={handleUpdateSubmit}>Update Product</button>
+                                </form>
+                            )}
                         </Modal.Body>
                         <Modal.Footer>
                             <button className="view-button w-20 px-3 py-1" onClick={handleUpdateModalClose}>
