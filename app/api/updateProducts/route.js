@@ -1,51 +1,74 @@
 import clientPromise from "@/lib/mongodb";
-import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
+import { ObjectId } from "mongodb";
+import fs from "fs";
+import path from "path";
 
 export async function PUT(req) {
     try {
         const client = await clientPromise;
         const db = client.db("travel_app_db");
-        const body = await req.json();
 
-        const { _id, updatedData } = body;
+        // Parse formData from the request
+        const formData = await req.formData();
+
+        // Extract fields from the form data
+        const _id = formData.get("_id");
+        const title = formData.get("title");
+        const location = formData.get("location");
+        const price = parseFloat(formData.get("price"));
+        const duration = formData.get("duration");
+        const description = formData.get("description");
+        const detailedDescription = formData.get("detailedDescription");
+        const imageFile = formData.get("image");
 
         // Debug logs
         console.log("Received _id:", _id);
-        console.log("Updated Data 1:", updatedData);
+        console.log("Received Image:", imageFile);
 
         // Validate ObjectId
         if (!ObjectId.isValid(_id)) {
-            console.error("Invalid ObjectId:", _id);
-            return new NextResponse(
-                JSON.stringify({ message: "Invalid ObjectId provided." }),
-                { status: 400, headers: { "Content-Type": "application/json" } }
+            return NextResponse.json(
+                { message: "Invalid ObjectId provided." },
+                { status: 400 }
             );
         }
 
+        let updateFields = { title, location, price, duration, description, detailedDescription };
+
+        // Handle file upload if an image is provided
+        if (imageFile && typeof imageFile === "object") {
+            const bytes = await imageFile.arrayBuffer();
+            const buffer = Buffer.from(bytes);
+
+            // Define the file path and save the image to the public directory
+            const fileName = `${Date.now()}_${imageFile.name}`;
+            const filePath = path.join(process.cwd(), "public/images", fileName);
+
+            fs.writeFileSync(filePath, buffer);
+
+            updateFields.image = `/images/${fileName}`;
+        }
+
+        // Update the product in MongoDB
         const result = await db.collection("products").updateOne(
             { _id: new ObjectId(_id) },
-            { $set: updatedData }
+            { $set: updateFields }
         );
 
-        console.log("Update result:", result);
-
         if (result.matchedCount === 0) {
-            console.warn("No document matched with the given _id.");
-            return new NextResponse(
-                JSON.stringify({
-                    message: "No product updated. Check if the ID exists.",
-                }),
-                { status: 404, headers: { "Content-Type": "application/json" } }
+            return NextResponse.json(
+                { message: "No product updated. Check if the ID exists." },
+                { status: 404 }
             );
         }
 
         return NextResponse.json({ message: "Product updated successfully!" });
     } catch (error) {
         console.error("Error updating product:", error);
-        return new NextResponse(
-            JSON.stringify({ message: "Internal Server Error" }),
-            { status: 500, headers: { "Content-Type": "application/json" } }
+        return NextResponse.json(
+            { message: "Internal Server Error" },
+            { status: 500 }
         );
     }
 }

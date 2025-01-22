@@ -87,47 +87,49 @@ export default function Dashboard() {
     };
 
     // Update Product
-
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
-
         if (!updatedProduct || !updatedProduct._id) {
             console.error("Error: updatedProduct or its _id is missing.");
             return;
         }
+        const formData = new FormData();
+        formData.append("_id", updatedProduct._id);
+        formData.append("title", updatedProduct.title);
+        formData.append("location", updatedProduct.location);
+        formData.append("price", updatedProduct.price);
+        formData.append("duration", updatedProduct.duration);
+        formData.append("description", updatedProduct.description);
+        formData.append("detailedDescription", updatedProduct.detailedDescription);
 
-        const { _id, ...updateFields } = updatedProduct;
-
+        if (updatedProduct.image instanceof File) {
+            formData.append("image", updatedProduct.image);
+        }
         try {
             const response = await fetch("/api/updateProducts", {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    _id,
-                    updatedData: updateFields,
-                }),
+                body: formData,
             });
 
             if (!response.ok) {
-                throw new Error(`Failed to update product: ${response.statusText}`);
+                throw new Error("Failed to update product");
             }
-
             const data = await response.json();
-            console.log("Success:", data.message);
             alert("Product updated successfully");
 
             setProducts((prevProducts) =>
                 prevProducts.map((product) =>
-                    product._id === _id ? { ...product, ...updateFields } : product
+                    product._id === updatedProduct._id
+                        ? { ...product, ...updatedProduct, image: `/images/${updatedProduct.image.name}` }
+                        : product
                 )
             );
-
             setShowUpdateModal(false);
+
         } catch (error) {
             console.error("Error updating product:", error);
         }
     };
-
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -265,46 +267,51 @@ export default function Dashboard() {
                                             value={updatedProduct.title || ""}
                                             onChange={(e) => setUpdatedProduct({ ...updatedProduct, title: e.target.value })} />
                                     </div>
+
                                     <div className="mb-3">
-                                        <label htmlFor="title" className="form-label">Image</label>
+                                        <label htmlFor="image" className="form-label">Image</label>
                                         <input type="file" id="image" className="form-control"
-                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, image: e.target.value })} />
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, image: e.target.files[0] })} />
                                     </div>
+
                                     <div className="mb-3">
                                         <label htmlFor="location" className="form-label">Location</label>
                                         <input type="text" id="location" className="form-control"
                                             value={updatedProduct.location || ""}
                                             onChange={(e) => setUpdatedProduct({ ...updatedProduct, location: e.target.value })} />
                                     </div>
+
                                     <div className="mb-3">
                                         <label htmlFor="price" className="form-label">Price</label>
                                         <input type="text" id="price" className="form-control"
                                             value={updatedProduct.price || ""}
                                             onChange={(e) => setUpdatedProduct({ ...updatedProduct, price: e.target.value })} />
                                     </div>
+
                                     <div className="mb-3">
-                                        <label htmlFor="duration" className="form-label">Duation</label>
+                                        <label htmlFor="duration" className="form-label">Duration</label>
                                         <input type="text" id="duration" className="form-control"
                                             value={updatedProduct.duration || ""}
-                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, duration: e.target.value })}
-                                        />
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, duration: e.target.value })} />
                                     </div>
+
                                     <div className="mb-3">
                                         <label htmlFor="description" className="form-label">Description</label>
                                         <input type="text" id="description" className="form-control"
                                             value={updatedProduct.description || ""}
-                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, description: e.target.value })}
-                                        />
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, description: e.target.value })} />
                                     </div>
+
                                     <div className="mb-3">
                                         <label htmlFor="detailedDescription" className="form-label">Detailed Description</label>
-                                        <textarea className="form-control" id="detailedDescription" rows="3" style={{ width: "100%" }}
+                                        <textarea className="form-control" id="detailedDescription" rows="3"
                                             value={updatedProduct.detailedDescription || ""}
-                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, detailedDescription: e.target.value })}
-                                        ></textarea>
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, detailedDescription: e.target.value })}></textarea>
                                     </div>
+
                                     <button type="submit" className="btn btn-primary" onClick={handleUpdateSubmit}>Update Product</button>
                                 </form>
+
                             )}
                         </Modal.Body>
                         <Modal.Footer>
