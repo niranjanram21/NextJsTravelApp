@@ -87,38 +87,47 @@ export default function Dashboard() {
     };
 
     // Update Product
+
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
+
+        if (!updatedProduct || !updatedProduct._id) {
+            console.error("Error: updatedProduct or its _id is missing.");
+            return;
+        }
+
+        const { _id, ...updateFields } = updatedProduct;
 
         try {
             const response = await fetch("/api/updateProducts", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    _id: updatedProduct.id,
-                    updatedData: updatedProduct,
+                    _id,
+                    updatedData: updateFields,
                 }),
             });
 
             if (!response.ok) {
-                throw new Error("Failed to update product");
+                throw new Error(`Failed to update product: ${response.statusText}`);
             }
 
             const data = await response.json();
-            console.log(data.message);
+            console.log("Success:", data.message);
+            alert("Product updated successfully");
 
             setProducts((prevProducts) =>
                 prevProducts.map((product) =>
-                    product.id === updatedProduct.id ? { ...product, ...updatedProduct } : product
+                    product._id === _id ? { ...product, ...updateFields } : product
                 )
             );
 
-            // Close modal
             setShowUpdateModal(false);
         } catch (error) {
             console.error("Error updating product:", error);
         }
     };
+
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -255,6 +264,11 @@ export default function Dashboard() {
                                         <input type="text" id="title" className="form-control"
                                             value={updatedProduct.title || ""}
                                             onChange={(e) => setUpdatedProduct({ ...updatedProduct, title: e.target.value })} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="title" className="form-label">Image</label>
+                                        <input type="file" id="image" className="form-control"
+                                            onChange={(e) => setUpdatedProduct({ ...updatedProduct, image: e.target.value })} />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="location" className="form-label">Location</label>

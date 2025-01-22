@@ -12,7 +12,7 @@ export async function PUT(req) {
 
         // Debug logs
         console.log("Received _id:", _id);
-        console.log("Updated Data:", updatedData);
+        console.log("Updated Data 1:", updatedData);
 
         // Validate ObjectId
         if (!ObjectId.isValid(_id)) {
@@ -23,7 +23,7 @@ export async function PUT(req) {
             );
         }
 
-        const result = await db.collection("Products").updateOne(
+        const result = await db.collection("products").updateOne(
             { _id: new ObjectId(_id) },
             { $set: updatedData }
         );
