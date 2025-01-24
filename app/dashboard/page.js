@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import Image from 'next/image';
 import { IoMdTime } from "react-icons/io";
 import { MdLocationOn } from "react-icons/md";
+import { MdTravelExplore } from "react-icons/md";
 import { useProducts } from '../context/FetchProductProvider';
 
 export default function Dashboard() {
@@ -16,9 +17,11 @@ export default function Dashboard() {
     const itemsPerPage = 5;
     const [showViewModal, setShowViewModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [showAddPackageModal, setShowAddPackageModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectedProductForUpdateModal, setSelectedProductForUpdateModal] = useState(null);
     const [updatedProduct, setUpdatedProduct] = useState(null);
+    const [addProduct, setAddProduct] = useState(null);
 
     // Modals
     const handleViewShow = (id) => {
@@ -30,6 +33,13 @@ export default function Dashboard() {
     const handleViewClose = () => {
         setShowViewModal(false);
         setSelectedProduct(null);
+    };
+    const handleAddPackageShow = () => {
+        setShowAddPackageModal(true);
+    };
+
+    const handleAddPackageClose = () => {
+        setShowAddPackageModal(false);
     };
 
     const handleUpdateModalShow = (id) => {
@@ -89,10 +99,12 @@ export default function Dashboard() {
     // Update Product
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
+
         if (!updatedProduct || !updatedProduct._id) {
             console.error("Error: updatedProduct or its _id is missing.");
             return;
         }
+
         const formData = new FormData();
         formData.append("_id", updatedProduct._id);
         formData.append("title", updatedProduct.title);
@@ -102,9 +114,13 @@ export default function Dashboard() {
         formData.append("description", updatedProduct.description);
         formData.append("detailedDescription", updatedProduct.detailedDescription);
 
+        // Check if a new image has been provided
         if (updatedProduct.image instanceof File) {
             formData.append("image", updatedProduct.image);
+        } else {
+            formData.append("existingImage", updatedProduct.image);
         }
+
         try {
             const response = await fetch("/api/updateProducts", {
                 method: "PUT",
@@ -114,22 +130,36 @@ export default function Dashboard() {
             if (!response.ok) {
                 throw new Error("Failed to update product");
             }
+
             const data = await response.json();
             alert("Product updated successfully");
 
+            // Update the product list with the updated data
             setProducts((prevProducts) =>
                 prevProducts.map((product) =>
                     product._id === updatedProduct._id
-                        ? { ...product, ...updatedProduct, image: `/images/${updatedProduct.image.name}` }
+                        ? {
+                            ...product,
+                            ...updatedProduct,
+                            image: updatedProduct.image instanceof File
+                                ? `/images/${updatedProduct.image.name}`
+                                : updatedProduct.image // Keep existing image if no new one is provided
+                        }
                         : product
                 )
             );
+
             setShowUpdateModal(false);
 
         } catch (error) {
             console.error("Error updating product:", error);
         }
     };
+
+
+    const handleAddSubmit = () => {
+
+    }
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -143,56 +173,116 @@ export default function Dashboard() {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <>
-            <h1>Admin Dashboard</h1>
-            <p>Welcome to the admin dashboard!</p>
+        <div className="bg-color py-4">
+            <h2 className="panel-logo montserrat-unique-class fw-bolder ms-4">
+                <MdTravelExplore className="travel-logo me-2 mb-1" />
+                GoTrip
+            </h2>
+            {/* <h3 className="josefin-sans-unique text-center mb-4">Welcome to the admin dashboard!</h3> */}
+            <div className="me-5 my-3 text-end">
+                <button className="add-product-button py-2" onClick={handleAddPackageShow}>Add New Package</button>
+            </div>
+            {/* Add new package modal */}
+            <Modal show={showAddPackageModal} onHide={setShowAddPackageModal} size="lg"
+                // backdrop="static"
+                aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add New Package
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form>
+                        <div className="mb-3">
+                            <label htmlFor="title" className="form-label">Title</label>
+                            <input type="text" id="title" className="form-control"
+                                onChange={(e) => setAddProduct({ ...addProduct, title: e.target.value })} />
+                        </div>
 
-            <div className="card bg-tertiary poppins-medium">
+                        <div className="mb-3">
+                            <label htmlFor="image" className="form-label">Image</label>
+                            <input type="file" id="image" className="form-control"
+                                onChange={(e) => setAddProduct({ ...addProduct, image: e.target.files[0] })} />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="location" className="form-label">Location</label>
+                            <input type="text" id="location" className="form-control"
+                                onChange={(e) => setAddProduct({ ...addProduct, location: e.target.value })} />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="price" className="form-label">Price</label>
+                            <input type="text" id="price" className="form-control"
+                                onChange={(e) => setAddProduct({ ...addProduct, price: e.target.value })} />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="duration" className="form-label">Duration</label>
+                            <input type="text" id="duration" className="form-control"
+                                onChange={(e) => setAddProduct({ ...addProduct, duraion: e.target.value })} />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="description" className="form-label">Description</label>
+                            <input type="text" id="description" className="form-control"
+                                onChange={(e) => setAddProduct({ ...addProduct, description: e.target.value })} />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="detailedDescription" className="form-label">Detailed Description</label>
+                            <textarea className="form-control" id="detailedDescription" rows="3"
+                                onChange={(e) => setAddProduct({ ...addProduct, detailedDescription: e.target.value })} ></textarea>
+                        </div>
+                        <button type="submit" className="update-button py-2 px-3" onClick={handleAddSubmit}>Add Package</button>
+                    </form>
+
+                </Modal.Body>
+                <Modal.Footer>
+                    <button className="view-button w-20 px-3 py-1" onClick={handleAddPackageClose}>
+                        Close
+                    </button>
+                </Modal.Footer>
+            </Modal >
+            <div className="card mx-3 poppins-medium">
                 <div className="card-body">
-                    <table className="table text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Duration</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {productsToDisplay.map((product, index) => (
-                                <tr key={product.id}>
-                                    <th scope="row">{(currentPage - 1) * itemsPerPage + index + 1}</th>
-                                    <td>
-                                        <Image
-                                            src={product.image}
-                                            alt={product.title}
-                                            width={150}
-                                            height={80}
-                                            className="image"
-                                        />
-                                    </td>
-                                    <td>{product.title}</td>
-                                    <td>{product.location}</td>
-                                    <td>${product.price}</td>
-                                    <td>{product.duration}</td>
-                                    <td className="text-end">
-                                        <button className="view-button w-50 px-3 py-1" onClick={() => handleViewShow(product.id)}>
-                                            View
-                                        </button>
-                                    </td>
-
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <div className="table text-center">
+                        <div className="row mb-4 fw-bold" style={{ margin: '2rem' }}>
+                            <div className="col-md-1">Sr No.</div>
+                            <div className="col-md-3">Image</div>
+                            <div className="col-md-2">Title</div>
+                            <div className="col-md-2">Location</div>
+                            <div className="col-md-1">Price($)</div>
+                            <div className="col-md-1">Duration</div>
+                            <div className="col-md-2"></div>
+                        </div>
+                        <div style={{ margin: '2rem', borderBottom: '1px dashed #bfbfbf' }}></div>
+                        {productsToDisplay.map((product, index) => (
+                            <div key={product.id} className="row product-entry mt-3">
+                                <div className="col-md-1">{(currentPage - 1) * itemsPerPage + index + 1}</div>
+                                <div className="col-md-3">
+                                    <Image
+                                        src={product.image}
+                                        alt={product.title}
+                                        width={150}
+                                        height={80}
+                                        className="image"
+                                    />
+                                </div>
+                                <div className="col-md-2">{product.title}</div>
+                                <div className="col-md-2">{product.location}</div>
+                                <div className="col-md-1">{product.price}</div>
+                                <div className="col-md-1">{product.duration}</div>
+                                <div className="col-md-2">
+                                    <button className="view-button w-50 py-2" onClick={() => handleViewShow(product.id)}>
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
                     {/* View Modal */}
-                    <Modal show={showViewModal} onHide={handleViewClose} size="xl"
-                        // backdrop="static"
+                    <Modal show={showViewModal} onHide={handleViewClose} size="xl" backdrop="static"
                         aria-labelledby="contained-modal-title-vcenter" centered>
                         <Modal.Header closeButton>
                             <Modal.Title>Package Id : {selectedProduct?.id || "Loading..."}
@@ -249,10 +339,8 @@ export default function Dashboard() {
                         </Modal.Footer>
                     </Modal >
 
-
                     {/* Update Modal */}
-                    <Modal show={showUpdateModal} onHide={handleUpdateModalClose} size="lg"
-                        // backdrop="static"
+                    <Modal show={showUpdateModal} onHide={handleUpdateModalClose} size="lg" backdrop="static"
                         aria-labelledby="contained-modal-title-vcenter" centered>
                         <Modal.Header closeButton>
                             <Modal.Title>Package Id : {selectedProductForUpdateModal?.id || "Loading..."}
@@ -308,8 +396,7 @@ export default function Dashboard() {
                                             value={updatedProduct.detailedDescription || ""}
                                             onChange={(e) => setUpdatedProduct({ ...updatedProduct, detailedDescription: e.target.value })}></textarea>
                                     </div>
-
-                                    <button type="submit" className="btn btn-primary" onClick={handleUpdateSubmit}>Update Product</button>
+                                    <button type="submit" className="update-button py-2 px-3" onClick={handleUpdateSubmit}>Update Package</button>
                                 </form>
 
                             )}
@@ -361,14 +448,31 @@ export default function Dashboard() {
             </div >
 
             <style jsx>{`
-                .table{
-                    margin:2rem auto;
+                .bg-color{
+                    background-color:#ffebe6;
+                    background-image: linear-gradient(to right, #f2f2f2, #ffffff, #ffebe6);
+                    height:100vh;
                 }
-                thead th {
-                    padding: 20px 0;
-                    font-size:1.2rem;
+                .card{
+                    border-radius:3rem;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                 }
-
+               .product-entry {
+                    margin: 0 2rem;
+                    // padding:.5rem 0;
+                    cursor: pointer;
+                    transition: all 0.3s ease-in-out;
+                    background-color: transparent;
+                    div{
+                        margin: 0.5rem auto;
+                    }
+                }
+                .product-entry:hover {
+                    background-color: #ffe6e6;
+                    transform: scale(1.01);
+                    border-radius: 2rem; 
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
                 .view-button {
                     background-color: transparent;
                     color:  #666666;
@@ -432,8 +536,41 @@ export default function Dashboard() {
                     transform: scale(1.05);
                     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
                 }
+                .add-product-button {
+                    background-color: #e04b17;
+                    color: white;
+                    border: none;
+                    font-weight: 600;
+                    padding: 10px 30px;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+                }
+                .add-product-button:hover {
+                    background-color: #ec9880;
+                    color: black;
+                    transform: scale(1.05);
+                }
+                .panel-logo{
+                    border:1px solid #d9d9d9;
+                    background-image: linear-gradient(to right, #f2f2f2, #ffebe6);
+                    width:max-content;
+                    border-radius: 4rem;
+                    padding:.5rem 1rem;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+                }
+                .active>.page-link, .page-link.active {
+                    z-index: 3;
+                    color: #404040;
+                    background-color: #ffe6e6;
+                    border-color: #a6a6a6;
+                }
+                .page-link {
+                    color: #ff4d4d;
+                }
             `}</style>
-        </>
+        </div>
 
     );
 }

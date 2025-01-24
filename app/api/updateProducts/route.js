@@ -36,19 +36,20 @@ export async function PUT(req) {
 
         let updateFields = { title, location, price, duration, description, detailedDescription };
 
-        // Handle file upload if an image is provided
         if (imageFile && typeof imageFile === "object") {
             const bytes = await imageFile.arrayBuffer();
             const buffer = Buffer.from(bytes);
 
-            // Define the file path and save the image to the public directory
             const fileName = `${Date.now()}_${imageFile.name}`;
             const filePath = path.join(process.cwd(), "public/images", fileName);
 
             fs.writeFileSync(filePath, buffer);
 
             updateFields.image = `/images/${fileName}`;
+        } else {
+            updateFields.image = formData.get("existingImage");
         }
+
 
         // Update the product in MongoDB
         const result = await db.collection("products").updateOne(
