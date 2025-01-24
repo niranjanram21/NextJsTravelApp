@@ -157,9 +157,49 @@ export default function Dashboard() {
     };
 
 
-    const handleAddSubmit = () => {
+    const handleAddSubmit = async (e) => {
+        e.preventDefault();
 
-    }
+        const formData = new FormData();
+        formData.append("title", addProduct.title);
+        formData.append("location", addProduct.location);
+        formData.append("price", addProduct.price);
+        formData.append("duration", addProduct.duration);
+        formData.append("description", addProduct.description);
+        formData.append("detailedDescription", addProduct.detailedDescription);
+
+        if (addProduct.image instanceof File) {
+            formData.append("image", addProduct.image);
+        }
+
+        try {
+            const response = await fetch("/api/addProducts", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to add product");
+            }
+
+            const data = await response.json();
+            alert("Product added successfully!");
+
+            setAddProduct({
+                title: "",
+                image: null,
+                location: "",
+                price: "",
+                duration: "",
+                description: "",
+                detailedDescription: ""
+            });
+
+        } catch (error) {
+            console.error("Error adding product:", error);
+        }
+    };
+
 
     useEffect(() => {
         const token = localStorage.getItem("token");
