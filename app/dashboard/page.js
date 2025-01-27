@@ -182,9 +182,18 @@ export default function Dashboard() {
                 throw new Error("Failed to add product");
             }
 
-            const data = await response.json();
+            const data = await response.json();  // Ensure backend returns full product
+
             alert("Product added successfully!");
 
+            // Ensure all required fields are present before updating state
+            if (data && data._id && data.title && data.image) {
+                setProducts((prevProducts) => [data, ...prevProducts]);
+            } else {
+                console.error("Received incomplete product data:", data);
+            }
+
+            // Reset form
             setAddProduct({
                 title: "",
                 image: null,
@@ -195,10 +204,46 @@ export default function Dashboard() {
                 detailedDescription: ""
             });
 
+            setShowAddPackageModal(false);
+
         } catch (error) {
             console.error("Error adding product:", error);
         }
     };
+
+
+
+    const handleDeleteProduct = async (productId) => {
+        if (!productId) {
+            alert("Invalid product ID");
+            return;
+        }
+        const confirmDelete = window.confirm("Are you sure you want to delete this package?");
+        if (!confirmDelete) return;
+
+        try {
+            const response = await fetch(`/api/deleteProduct?id=${productId}`, {
+                method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to delete product");
+            }
+
+            alert("Product deleted successfully");
+
+            // Update the state to remove the deleted product instantly
+            setProducts((prevProducts) =>
+                prevProducts.filter((product) => product._id !== productId)
+            );
+
+            setShowViewModal(false);
+        } catch (error) {
+            console.error("Error deleting product:", error);
+            alert("Error deleting product. Please try again.");
+        }
+    };
+
 
 
     useEffect(() => {
@@ -223,8 +268,7 @@ export default function Dashboard() {
                 <button className="add-product-button py-2" onClick={handleAddPackageShow}>Add New Package</button>
             </div>
             {/* Add new package modal */}
-            <Modal show={showAddPackageModal} onHide={setShowAddPackageModal} size="lg"
-                // backdrop="static"
+            <Modal show={showAddPackageModal} onHide={setShowAddPackageModal} size="lg" backdrop="static"
                 aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Add New Package
@@ -259,7 +303,7 @@ export default function Dashboard() {
                         <div className="mb-3">
                             <label htmlFor="duration" className="form-label">Duration</label>
                             <input type="text" id="duration" className="form-control"
-                                onChange={(e) => setAddProduct({ ...addProduct, duraion: e.target.value })} />
+                                onChange={(e) => setAddProduct({ ...addProduct, duration: e.target.value })} />
                         </div>
 
                         <div className="mb-3">
@@ -273,12 +317,12 @@ export default function Dashboard() {
                             <textarea className="form-control" id="detailedDescription" rows="3"
                                 onChange={(e) => setAddProduct({ ...addProduct, detailedDescription: e.target.value })} ></textarea>
                         </div>
-                        <button type="submit" className="update-button py-2 px-3" onClick={handleAddSubmit}>Add Package</button>
+                        <button type="submit" className="update-button py-2 px-4" onClick={handleAddSubmit}>Add Package</button>
                     </form>
 
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="view-button w-20 px-3 py-1" onClick={handleAddPackageClose}>
+                    <button className="view-button px-4 py-2" onClick={handleAddPackageClose}>
                         Close
                     </button>
                 </Modal.Footer>
@@ -297,7 +341,7 @@ export default function Dashboard() {
                         </div>
                         <div style={{ margin: '2rem', borderBottom: '1px dashed #bfbfbf' }}></div>
                         {productsToDisplay.map((product, index) => (
-                            <div key={product.id} className="row product-entry mt-3">
+                            <div key={product._id} className="row product-entry mt-3">
                                 <div className="col-md-1">{(currentPage - 1) * itemsPerPage + index + 1}</div>
                                 <div className="col-md-3">
                                     <Image
@@ -313,7 +357,7 @@ export default function Dashboard() {
                                 <div className="col-md-1">{product.price}</div>
                                 <div className="col-md-1">{product.duration}</div>
                                 <div className="col-md-2">
-                                    <button className="view-button w-50 py-2" onClick={() => handleViewShow(product.id)}>
+                                    <button className="view-button py-2 px-4" onClick={() => handleViewShow(product.id)}>
                                         View
                                     </button>
                                 </div>
@@ -358,10 +402,10 @@ export default function Dashboard() {
                                         <div className=" fw-light"><span className="fw-semibold">Detailed Description: </span>{selectedProduct.detailedDescription}</div>
 
                                         <div className="d-flex gap-4 mt-5">
-                                            <button className="update-button w-25 px-3 py-1" onClick={() => handleUpdateModalShow(selectedProduct.id)}>
+                                            <button className="update-button px-4 py-2" onClick={() => handleUpdateModalShow(selectedProduct.id)}>
                                                 Update
                                             </button>
-                                            <button className="delete-button w-25 px-3 py-1">
+                                            <button className="delete-button px-4 py-2" onClick={() => handleDeleteProduct(selectedProduct._id)}>
                                                 Delete
                                             </button>
                                         </div>
@@ -373,7 +417,7 @@ export default function Dashboard() {
 
                         </Modal.Body>
                         <Modal.Footer>
-                            <button className="view-button w-20 px-3 py-1" onClick={handleViewClose}>
+                            <button className="view-button w-20 px-4 py-2" onClick={handleViewClose}>
                                 Close
                             </button>
                         </Modal.Footer>
@@ -436,13 +480,13 @@ export default function Dashboard() {
                                             value={updatedProduct.detailedDescription || ""}
                                             onChange={(e) => setUpdatedProduct({ ...updatedProduct, detailedDescription: e.target.value })}></textarea>
                                     </div>
-                                    <button type="submit" className="update-button py-2 px-3" onClick={handleUpdateSubmit}>Update Package</button>
+                                    <button type="submit" className="update-button py-2 px-4" onClick={handleUpdateSubmit}>Update Package</button>
                                 </form>
 
                             )}
                         </Modal.Body>
                         <Modal.Footer>
-                            <button className="view-button w-20 px-3 py-1" onClick={handleUpdateModalClose}>
+                            <button className="view-button px-4 py-2" onClick={handleUpdateModalClose}>
                                 Close
                             </button>
                         </Modal.Footer>

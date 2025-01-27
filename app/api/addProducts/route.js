@@ -32,7 +32,10 @@ export async function POST(req) {
         }
 
         const result = await db.collection("products").insertOne(newProduct);
-        return NextResponse.json({ message: "Product added successfully!", productId: result.insertedId })
+        const addedProduct = await db.collection("products").findOne({ _id: result.insertedId });
+
+        return NextResponse.json(addedProduct, { status: 201 });
+
     } catch (error) {
         console.error("Error adding product");
         NextResponse.json(

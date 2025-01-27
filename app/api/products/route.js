@@ -6,7 +6,8 @@ export async function GET(req) {
         const client = await clientPromise;
         const db = client.db("travel_app_db");
 
-        const products = await db.collection("products").find({}).toArray();
+        const products = await db.collection("products").find({}).sort({ _id: -1 }).toArray();
+
         return NextResponse.json(products);
     } catch (error) {
         console.error("Error fetching products:", error);
