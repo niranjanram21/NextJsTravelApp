@@ -12,8 +12,34 @@ const DatePicker = dynamic(() => import('react-datepicker').then((mod) => mod.de
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default function Hero() {
+    const [destination, setDestination] = useState("");
+    const [passengers, setPassengers] = useState(1);
     const [checkInDate, setCheckInDate] = useState(null);
     const [checkOutDate, setCheckOutDate] = useState(null);
+
+    const handleSubmitInquiry = async (e) => {
+        e.preventDefault();
+
+        const query = {
+            destination,
+            passengers,
+            checkInDate: checkInDate?.toISOString().split('T')[0],
+        };
+        try {
+            const response = await fetch('/api/searchFlights', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(query),
+            })
+
+            const data = await response.json();
+            console.log("Flight results: ", data)
+        } catch (error) {
+            console.error("Error fetching data", error);
+        }
+    }
 
     return (
         <div className="poppins-medium">
@@ -78,55 +104,59 @@ export default function Hero() {
             <div className="p-3 card-inquiry-container">
                 <Row className="justify-content-center">
                     <Col sm={12} md={10}>
-                        <Card className="mb-3 shadow">
-                            <Card.Body className="py-4">
-                                <Row className="g-3 align-items-center">
-                                    <Col xs={12} sm={6} md={6} lg={3}>
-                                        <label className="mb-1 d-md-block d-sm-none">Search Destination*</label>
-                                        <FloatingLabel controlId="floatingDestination" label="Enter a Destination" >
-                                            <Form.Control type="text" placeholder="Destination" />
-                                        </FloatingLabel>
-                                    </Col>
+                        <form onSubmit={handleSubmitInquiry}>
+                            <Card className="mb-3 shadow">
+                                <Card.Body className="py-4">
+                                    <Row className="g-3 align-items-center">
+                                        <Col xs={12} sm={6} md={6} lg={3}>
+                                            <label className="mb-1 d-md-block d-sm-none">Search Destination*</label>
+                                            <FloatingLabel controlId="floatingDestination" label="Enter a Destination" >
+                                                <Form.Control type="text" placeholder="Destination"
+                                                    onChange={(e) => setDestination(e.target.value)} />
+                                            </FloatingLabel>
+                                        </Col>
 
-                                    <Col xs={12} sm={6} md={6} lg={3}>
-                                        <label className="mb-1 d-md-block d-sm-none">No. of Passengers*</label>
-                                        <FloatingLabel controlId="floatingPax" label="Enter No. of Pax">
-                                            <Form.Control type="number" placeholder="Number of Pax" />
-                                        </FloatingLabel>
-                                    </Col>
+                                        <Col xs={12} sm={6} md={6} lg={3}>
+                                            <label className="mb-1 d-md-block d-sm-none">No. of Passengers*</label>
+                                            <FloatingLabel controlId="floatingPax" label="Enter No. of Pax">
+                                                <Form.Control type="number" placeholder="Number of Pax"
+                                                    onChange={(e) => setPassengers(e.target.value)} />
+                                            </FloatingLabel>
+                                        </Col>
 
-                                    <Col xs={12} sm={6} md={4} lg={2}>
-                                        <label className="mb-1 d-md-block d-sm-none">Check-in Date*</label>
-                                        <DatePicker
-                                            selected={checkInDate}
-                                            onChange={(date) => setCheckInDate(date)}
-                                            placeholderText="Select Check-in Date"
-                                            dateFormat="dd/MM/yyyy"
-                                            className="form-control datepicker-input py-3"
-                                            calendarClassName="custom-datepicker-calendar"
-                                            minDate={new Date()}
-                                        />
-                                    </Col>
+                                        <Col xs={12} sm={6} md={4} lg={2}>
+                                            <label className="mb-1 d-md-block d-sm-none">Check-in Date*</label>
+                                            <DatePicker
+                                                selected={checkInDate}
+                                                onChange={(date) => setCheckInDate(date)}
+                                                placeholderText="Select Check-in Date"
+                                                dateFormat="dd/MM/yyyy"
+                                                className="form-control datepicker-input py-3"
+                                                calendarClassName="custom-datepicker-calendar"
+                                                minDate={new Date()}
+                                            />
+                                        </Col>
 
-                                    <Col xs={12} sm={6} md={4} lg={2}>
-                                        <label className="mb-1 d-md-block d-sm-none">Check-out Date</label>
-                                        <DatePicker
-                                            selected={checkOutDate}
-                                            onChange={(date) => setCheckOutDate(date)}
-                                            placeholderText="Select Check-out Date"
-                                            dateFormat="dd/MM/yyyy"
-                                            className="form-control datepicker-input py-3"
-                                            minDate={checkInDate || new Date()}
-                                            calendarClassName="custom-datepicker-calendar"
-                                        />
-                                    </Col>
+                                        <Col xs={12} sm={6} md={4} lg={2}>
+                                            <label className="mb-1 d-md-block d-sm-none">Check-out Date</label>
+                                            <DatePicker
+                                                selected={checkOutDate}
+                                                onChange={(date) => setCheckOutDate(date)}
+                                                placeholderText="Select Check-out Date"
+                                                dateFormat="dd/MM/yyyy"
+                                                className="form-control datepicker-input py-3"
+                                                minDate={checkInDate || new Date()}
+                                                calendarClassName="custom-datepicker-calendar"
+                                            />
+                                        </Col>
 
-                                    <Col xs={12} sm={6} md={4} lg={2} className="text-center">
-                                        <button className="inquire-button w-100 px-2 py-3 mt-4">Inquire</button>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
+                                        <Col xs={12} sm={6} md={4} lg={2} className="text-center">
+                                            <button type='submit' className="inquire-button w-100 px-2 py-3 mt-4">Inquire</button>
+                                        </Col>
+                                    </Row>
+                                </Card.Body>
+                            </Card>
+                        </form>
                     </Col>
                 </Row>
             </div>

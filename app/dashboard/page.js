@@ -155,8 +155,7 @@ export default function Dashboard() {
             console.error("Error updating product:", error);
         }
     };
-
-
+    // Add Product
     const handleAddSubmit = async (e) => {
         e.preventDefault();
 
@@ -210,9 +209,7 @@ export default function Dashboard() {
             console.error("Error adding product:", error);
         }
     };
-
-
-
+    // Delete Product
     const handleDeleteProduct = async (productId) => {
         if (!productId) {
             alert("Invalid product ID");
@@ -243,8 +240,6 @@ export default function Dashboard() {
             alert("Error deleting product. Please try again.");
         }
     };
-
-
 
     useEffect(() => {
         const token = localStorage.getItem("token");
