@@ -3,13 +3,17 @@ import amadeus from "@/lib/amadeus";
 
 export async function POST(req) {
     try {
-        const { destination, passengers, checkInDate } = await req.json();
+        const { location, destination, adultCount, childCount, infantCount, travelClass, checkInDate, checkOutDate } = await req.json();
 
         const response = await amadeus.shopping.flightOffersSearch.get({
-            originLocationCode: "LAX",
+            originLocationCode: location,
             destinationLocationCode: destination,
             departureDate: checkInDate,
-            adults: passengers,
+            returnDate: checkOutDate,
+            adults: adultCount,
+            children: childCount,
+            infants: infantCount,
+            travelClass: travelClass,
         });
 
         return NextResponse.json(response.data);

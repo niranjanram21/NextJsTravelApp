@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
 import Image from 'next/image';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,34 +12,57 @@ const DatePicker = dynamic(() => import('react-datepicker').then((mod) => mod.de
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default function Hero() {
+    const [location, setLocation] = useState("");
     const [destination, setDestination] = useState("");
-    const [passengers, setPassengers] = useState(1);
+    const [adultCount, setAdultCount] = useState(1);
+    const [childCount, setChildCount] = useState(1);
+    const [infantCount, setInfantCount] = useState(1);
+    const [travelClass, setTravelClass] = useState('ECONOMY');
     const [checkInDate, setCheckInDate] = useState(null);
     const [checkOutDate, setCheckOutDate] = useState(null);
+    const [flightData, setFlightData] = useState([]);
 
     const handleSubmitInquiry = async (e) => {
         e.preventDefault();
 
         const query = {
+            location,
             destination,
-            passengers,
-            checkInDate: checkInDate?.toISOString().split('T')[0],
+            adultCount,
+            childCount,
+            infantCount,
+            travelClass,
+            checkInDate: checkInDate ? checkInDate.toISOString().split('T')[0] : null,
+            checkOutDate: checkOutDate ? checkOutDate.toISOString().split('T')[0] : null,
         };
+
         try {
             const response = await fetch('/api/searchFlights', {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(query),
-            })
+            });
+
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
 
             const data = await response.json();
-            console.log("Flight results: ", data)
+
+            setFlightData(data || []);
+
+            console.log("Flight data fetched from API: ", data);
+
         } catch (error) {
-            console.error("Error fetching data", error);
+            console.error("Error fetching data:", error);
         }
-    }
+    };
+
+    useEffect(() => {
+        console.log("Updated flightData:", flightData);
+    }, [flightData]);
+
+
 
     return (
         <div className="poppins-medium">
@@ -108,24 +131,24 @@ export default function Hero() {
                             <Card className="mb-3 shadow">
                                 <Card.Body className="py-4">
                                     <Row className="g-3 align-items-center">
-                                        <Col xs={12} sm={6} md={6} lg={3}>
-                                            <label className="mb-1 d-md-block d-sm-none">Search Destination*</label>
-                                            <FloatingLabel controlId="floatingDestination" label="Enter a Destination" >
-                                                <Form.Control type="text" placeholder="Destination"
+                                        <Col xs={12} sm={6} md={6} lg={4}>
+                                            <label className="label-text mb-1 d-md-block d-sm-none">Enter current location*</label>
+                                            <FloatingLabel controlId="floatingDestination" label="From" >
+                                                <Form.Control type="text" placeholder="Enter a city"
+                                                    onChange={(e) => setLocation(e.target.value)} />
+                                            </FloatingLabel>
+                                        </Col>
+
+                                        <Col xs={12} sm={6} md={6} lg={4}>
+                                            <label className="label-text mb-1 d-md-block d-sm-none">Enter Destination*</label>
+                                            <FloatingLabel controlId="floatingDestination" label="To" >
+                                                <Form.Control type="text" placeholder="Enter a city"
                                                     onChange={(e) => setDestination(e.target.value)} />
                                             </FloatingLabel>
                                         </Col>
 
-                                        <Col xs={12} sm={6} md={6} lg={3}>
-                                            <label className="mb-1 d-md-block d-sm-none">No. of Passengers*</label>
-                                            <FloatingLabel controlId="floatingPax" label="Enter No. of Pax">
-                                                <Form.Control type="number" placeholder="Number of Pax"
-                                                    onChange={(e) => setPassengers(e.target.value)} />
-                                            </FloatingLabel>
-                                        </Col>
-
-                                        <Col xs={12} sm={6} md={4} lg={2}>
-                                            <label className="mb-1 d-md-block d-sm-none">Check-in Date*</label>
+                                        <Col xs={12} sm={6} md={6} lg={2}>
+                                            <label className="label-text mb-1 d-md-block d-sm-none">Check-in Date*</label>
                                             <DatePicker
                                                 selected={checkInDate}
                                                 onChange={(date) => setCheckInDate(date)}
@@ -137,8 +160,8 @@ export default function Hero() {
                                             />
                                         </Col>
 
-                                        <Col xs={12} sm={6} md={4} lg={2}>
-                                            <label className="mb-1 d-md-block d-sm-none">Check-out Date</label>
+                                        <Col xs={12} sm={6} md={6} lg={2}>
+                                            <label className="label-text mb-1 d-md-block d-sm-none">Check-out Date*</label>
                                             <DatePicker
                                                 selected={checkOutDate}
                                                 onChange={(date) => setCheckOutDate(date)}
@@ -150,7 +173,68 @@ export default function Hero() {
                                             />
                                         </Col>
 
-                                        <Col xs={12} sm={6} md={4} lg={2} className="text-center">
+                                        <Col md={6} lg={2}>
+                                            <label className="label-text mb-1 d-md-block d-sm-none">No. of Adults*</label>
+                                            <FloatingLabel controlId="floatingSelect" label="select adult count">
+                                                <Form.Select aria-label="Floating label select example"
+                                                    onChange={(e) => setAdultCount(Number(e.target.value))} >
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </Form.Select>
+                                            </FloatingLabel>
+                                        </Col>
+                                        <Col md={6} lg={2}>
+                                            <label className="label-text mb-1 d-md-block d-sm-none">No. of Children*</label>
+                                            <FloatingLabel controlId="floatingSelect" label="select child count">
+                                                <Form.Select aria-label="Floating label select example"
+                                                    onChange={(e) => setChildCount(Number(e.target.value))} >
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </Form.Select>
+                                            </FloatingLabel>
+                                        </Col>
+                                        <Col md={6} lg={2}>
+                                            <label className="label-text mb-1 d-md-block d-sm-none">No. of Infants*</label>
+                                            <FloatingLabel controlId="floatingSelect" label="select child count">
+                                                <Form.Select aria-label="Floating label select example"
+                                                    onChange={(e) => setInfantCount(Number(e.target.value))} >
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </Form.Select>
+                                            </FloatingLabel>
+                                        </Col>
+                                        <Col md={6} lg={3}>
+                                            <label className="label-text mb-1 d-md-block d-sm-none">Cabin Class*</label>
+                                            <FloatingLabel controlId="floatingSelect" label="select cabin class">
+                                                <Form.Select aria-label="Floating label select example"
+                                                    onChange={(e) => setTravelClass(e.target.value)} >
+                                                    <option value="ECONOMY">Economy</option>
+                                                    <option value="PREMIUM_ECONOMY">Premium Economy</option>
+                                                    <option value="BUSINESS">Business</option>
+                                                    <option value="FIRST">First</option>
+                                                </Form.Select>
+                                            </FloatingLabel>
+                                        </Col>
+
+                                        <Col xs={12} sm={6} md={4} lg={3} className="text-center">
                                             <button type='submit' className="inquire-button w-100 px-2 py-3 mt-4">Inquire</button>
                                         </Col>
                                     </Row>
@@ -161,7 +245,61 @@ export default function Hero() {
                 </Row>
             </div>
 
-            <style jsx>{`
+            {flightData.map((flight, index) => (
+                <div key={index} className='flight-search-card d-flex flex-row justify-content-between'>
+                    <div className='fs-5 fw-bold'>{flight.itineraries[0].segments[0].carrierCode}{flight.itineraries[0].segments[0].number}</div>
+                    <div>
+                        <div className='fs-4 fw-bold primary-text-color '>{flight.itineraries[0].segments[0].departure.iataCode}</div>
+                        <div>{flight.itineraries[0].segments[0].departure.at}</div>
+                    </div>
+                    <div className='text-center'>
+                        <div><span className='primary-text-color '>No of stops: </span>{flight.itineraries[0].segments.length - 1}</div>
+                        <div>{flight.itineraries[0].duration}</div>
+                    </div>
+                    <div>
+                        <div className='fs-4 fw-bold primary-text-color '>{flight.itineraries[0].segments.at(-1).arrival.iataCode}</div>
+                        <div>{flight.itineraries[0].segments.at(-1).arrival.at}</div>
+                    </div>
+                    <div>
+                        <div className='fs-4 fw-bold'>{flight.price.grandTotal} {flight.price.currency}</div>
+                        <div>
+                            <button className="search-button w-100 px-4 py-2 mt-2" onClick={() => handleTabClick('')}>Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            ))
+            }
+            {/* {flightData.map((flight, index) => (
+                <div key={index} className='border border-black p-4 m-2 rounded-lg shadow-md'>
+                    <h3 className="font-bold text-lg">Flight {index + 1}</h3>
+
+                    <p><strong>From:</strong> {flight.itineraries[0].segments[0].departure.iataCode} ({flight.itineraries[0].segments[0].departure.at})</p>
+                    <p><strong>To:</strong> {flight.itineraries[0].segments.at(-1).arrival.iataCode} ({flight.itineraries[0].segments.at(-1).arrival.at})</p>
+
+                    <p><strong>Airline:</strong> {flight.itineraries[0].segments[0].carrierCode}</p>
+                    <p><strong>Flight Number:</strong> {flight.itineraries[0].segments[0].number}</p>
+
+                    <p><strong>Duration:</strong> {flight.itineraries[0].duration}</p>
+                    <p><strong>Number of Stops:</strong> {flight.itineraries[0].segments.length - 1}</p>
+
+                    <h4 className="font-semibold mt-2">Pricing</h4>
+                    <p><strong>Total Price:</strong> {flight.price.grandTotal} {flight.price.currency}</p>
+
+                    <h4 className="font-semibold mt-2">Traveler Breakdown</h4>
+                    {flight.travelerPricings.map((traveler, i) => (
+                        <div key={i} className="ml-4">
+                            <p><strong>Type:</strong> {traveler.travelerType}</p>
+                            <p><strong>Price:</strong> {traveler.price.total} {traveler.price.currency}</p>
+                            <p><strong>Fare Option:</strong> {traveler.fareOption}</p>
+                            {traveler.fareDetailsBySegment.map((fare, j) => (
+                                <p key={j}><strong>Cabin:</strong> {fare.cabin} | <strong>Class:</strong> {fare.class}</p>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            ))} */}
+
+            < style jsx > {`
                 .hero-container {
                     position: relative;
                 }
@@ -202,15 +340,20 @@ export default function Hero() {
                     bottom: 2rem;
                     left: 50%;
                     transform: translateX(-50%);
-                    width: 90%;
+                    width: 80%;
                     border-radius: 50px;
                     opacity: 0.9;
+                }
+
+                .label-text{
+                    color:rgb(102, 44, 25);
+                    font-weight: 500;
                 }
 
                 .inquire-button {
                     background-color: #e04b17;
                     color: white;
-                    border-radius: 50px;
+                    border-radius: 5px;
                     border: none;
                     font-weight: bold;
                 }
@@ -218,7 +361,17 @@ export default function Hero() {
                 .inquire-button:hover {
                     background-color: #f28465;
                 }
+
+                .flight-search-card{
+                    background-color:rgb(253, 243, 239);
+                    width:60%;
+                    margin:1rem auto;
+                    padding: 3rem 2rem;
+                    border: 1px solid #ffc2b3;
+                    border-radius: 1rem;
+                    box-shadow: 0 4px 10px 2px rgba(0, 0, 0, 0.4);
+                }
             `}</style>
-        </div>
+        </div >
     );
 }
