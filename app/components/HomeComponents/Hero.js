@@ -5,6 +5,7 @@ import { Carousel } from 'react-bootstrap';
 import Image from 'next/image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Row, Col } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import dynamic from 'next/dynamic';
@@ -62,7 +63,21 @@ export default function Hero() {
         console.log("Updated flightData:", flightData);
     }, [flightData]);
 
+    const [numberOfFlights, setNumberOfFlights] = useState(10);
+    const flightDataToDisplay = flightData.slice(0, numberOfFlights);
 
+    const handleLoadMore = () => {
+        setNumberOfFlights((prev) => prev + 10);
+    }
+
+    const [show, setShow] = useState(false);
+    const [selectedFlight, setSelectedFlight] = useState(null);
+
+    const handleClose = () => setShow(false);
+    const handleShow = (flight) => {
+        setSelectedFlight(flight);
+        setShow(true);
+    };
 
     return (
         <div className="poppins-medium">
@@ -147,7 +162,7 @@ export default function Hero() {
                                             </FloatingLabel>
                                         </Col>
 
-                                        <Col xs={12} sm={6} md={6} lg={2}>
+                                        <Col xs={6} md={6} lg={2}>
                                             <label className="label-text mb-1 d-md-block d-sm-none">Check-in Date*</label>
                                             <DatePicker
                                                 selected={checkInDate}
@@ -160,7 +175,7 @@ export default function Hero() {
                                             />
                                         </Col>
 
-                                        <Col xs={12} sm={6} md={6} lg={2}>
+                                        <Col xs={6} md={6} lg={2}>
                                             <label className="label-text mb-1 d-md-block d-sm-none">Check-out Date*</label>
                                             <DatePicker
                                                 selected={checkOutDate}
@@ -173,7 +188,7 @@ export default function Hero() {
                                             />
                                         </Col>
 
-                                        <Col md={6} lg={2}>
+                                        <Col xs={6} md={6} lg={2}>
                                             <label className="label-text mb-1 d-md-block d-sm-none">No. of Adults*</label>
                                             <FloatingLabel controlId="floatingSelect" label="select adult count">
                                                 <Form.Select aria-label="Floating label select example"
@@ -191,7 +206,7 @@ export default function Hero() {
                                                 </Form.Select>
                                             </FloatingLabel>
                                         </Col>
-                                        <Col md={6} lg={2}>
+                                        <Col xs={6} md={6} lg={2}>
                                             <label className="label-text mb-1 d-md-block d-sm-none">No. of Children*</label>
                                             <FloatingLabel controlId="floatingSelect" label="select child count">
                                                 <Form.Select aria-label="Floating label select example"
@@ -209,7 +224,7 @@ export default function Hero() {
                                                 </Form.Select>
                                             </FloatingLabel>
                                         </Col>
-                                        <Col md={6} lg={2}>
+                                        <Col xs={6} md={6} lg={2}>
                                             <label className="label-text mb-1 d-md-block d-sm-none">No. of Infants*</label>
                                             <FloatingLabel controlId="floatingSelect" label="select child count">
                                                 <Form.Select aria-label="Floating label select example"
@@ -221,7 +236,7 @@ export default function Hero() {
                                                 </Form.Select>
                                             </FloatingLabel>
                                         </Col>
-                                        <Col md={6} lg={3}>
+                                        <Col xs={6} md={6} lg={3}>
                                             <label className="label-text mb-1 d-md-block d-sm-none">Cabin Class*</label>
                                             <FloatingLabel controlId="floatingSelect" label="select cabin class">
                                                 <Form.Select aria-label="Floating label select example"
@@ -245,59 +260,97 @@ export default function Hero() {
                 </Row>
             </div>
 
-            {flightData.map((flight, index) => (
-                <div key={index} className='flight-search-card d-flex flex-row justify-content-between'>
-                    <div className='fs-5 fw-bold'>{flight.itineraries[0].segments[0].carrierCode}{flight.itineraries[0].segments[0].number}</div>
-                    <div>
-                        <div className='fs-4 fw-bold primary-text-color '>{flight.itineraries[0].segments[0].departure.iataCode}</div>
-                        <div>{flight.itineraries[0].segments[0].departure.at}</div>
+            {flightDataToDisplay.map((flight, index) => (
+                <div key={index} className="flight-search-card d-flex flex-column flex-md-row justify-content-between">
+                    <div className="fs-5 fw-bold text-center">
+                        {flight.itineraries[0].segments[0].carrierCode} {flight.itineraries[0].segments[0].number}
                     </div>
-                    <div className='text-center'>
-                        <div><span className='primary-text-color '>No of stops: </span>{flight.itineraries[0].segments.length - 1}</div>
+                    <div className="text-center d-md-none">
+                        <div>
+                            <span className="primary-text-color">No of stops: </span>{flight.itineraries[0].segments.length - 1}
+                        </div>
                         <div>{flight.itineraries[0].duration}</div>
                     </div>
                     <div>
-                        <div className='fs-4 fw-bold primary-text-color '>{flight.itineraries[0].segments.at(-1).arrival.iataCode}</div>
+                        <div className="fs-4 fw-bold primary-text-color">{flight.itineraries[0].segments[0].departure.iataCode}</div>
+                        <div>{flight.itineraries[0].segments[0].departure.at}</div>
+                    </div>
+                    <div className="text-center d-none d-md-block">
+                        <div>
+                            <span className="primary-text-color">No of stops: </span>{flight.itineraries[0].segments.length - 1}
+                        </div>
+                        <hr />
+                        <div>{flight.itineraries[0].duration}</div>
+                    </div>
+                    <div className="mb-4">
+                        <div className="fs-4 fw-bold primary-text-color">{flight.itineraries[0].segments.at(-1).arrival.iataCode}</div>
                         <div>{flight.itineraries[0].segments.at(-1).arrival.at}</div>
                     </div>
-                    <div>
-                        <div className='fs-4 fw-bold'>{flight.price.grandTotal} {flight.price.currency}</div>
-                        <div>
-                            <button className="search-button w-100 px-4 py-2 mt-2" onClick={() => handleTabClick('')}>Book Now</button>
-                        </div>
+                    <div className="text-center">
+                        <div className="fs-4 fw-bold">{flight.price.grandTotal} {flight.price.currency}</div>
+                        <button className="book-now-button px-4 py-2 my-2">Book Now</button>
+                        <p style={{ fontSize: "small", cursor: "pointer" }} onClick={() => handleShow(flight)}>View Flight Details</p>
                     </div>
                 </div>
-            ))
-            }
-            {/* {flightData.map((flight, index) => (
-                <div key={index} className='border border-black p-4 m-2 rounded-lg shadow-md'>
-                    <h3 className="font-bold text-lg">Flight {index + 1}</h3>
+            ))}
 
-                    <p><strong>From:</strong> {flight.itineraries[0].segments[0].departure.iataCode} ({flight.itineraries[0].segments[0].departure.at})</p>
-                    <p><strong>To:</strong> {flight.itineraries[0].segments.at(-1).arrival.iataCode} ({flight.itineraries[0].segments.at(-1).arrival.at})</p>
-
-                    <p><strong>Airline:</strong> {flight.itineraries[0].segments[0].carrierCode}</p>
-                    <p><strong>Flight Number:</strong> {flight.itineraries[0].segments[0].number}</p>
-
-                    <p><strong>Duration:</strong> {flight.itineraries[0].duration}</p>
-                    <p><strong>Number of Stops:</strong> {flight.itineraries[0].segments.length - 1}</p>
-
-                    <h4 className="font-semibold mt-2">Pricing</h4>
-                    <p><strong>Total Price:</strong> {flight.price.grandTotal} {flight.price.currency}</p>
-
-                    <h4 className="font-semibold mt-2">Traveler Breakdown</h4>
-                    {flight.travelerPricings.map((traveler, i) => (
-                        <div key={i} className="ml-4">
-                            <p><strong>Type:</strong> {traveler.travelerType}</p>
-                            <p><strong>Price:</strong> {traveler.price.total} {traveler.price.currency}</p>
-                            <p><strong>Fare Option:</strong> {traveler.fareOption}</p>
-                            {traveler.fareDetailsBySegment.map((fare, j) => (
-                                <p key={j}><strong>Cabin:</strong> {fare.cabin} | <strong>Class:</strong> {fare.class}</p>
-                            ))}
+            {selectedFlight && (
+                <Modal show={show} onHide={handleClose} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Flight Details</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="d-flex justify-content-between">
+                            <p><strong>From:</strong> {selectedFlight.itineraries[0].segments[0].departure.iataCode} ({selectedFlight.itineraries[0].segments[0].departure.at})</p>
+                            <p><strong>To:</strong> {selectedFlight.itineraries[0].segments.at(-1).arrival.iataCode} ({selectedFlight.itineraries[0].segments.at(-1).arrival.at})</p>
                         </div>
-                    ))}
-                </div>
-            ))} */}
+
+                        <div className="d-flex justify-content-between">
+                            <p><strong>Airline:</strong> {selectedFlight.itineraries[0].segments[0].carrierCode}</p>
+                            <p><strong>Flight No:</strong> {selectedFlight.itineraries[0].segments[0].number}</p>
+                            <p><strong>Stops:</strong> {selectedFlight.itineraries[0].segments.length - 1}</p>
+                            <p><strong>Duration:</strong> {selectedFlight.itineraries[0].duration}</p>
+                        </div>
+                        <hr />
+                        <h5 className="mt-2">Pricing</h5>
+                        <p><strong>Total:</strong> {selectedFlight.price.grandTotal} {selectedFlight.price.currency}</p>
+                        <hr />
+                        <h5 className="mt-2">Traveler Breakdown</h5>
+                        {selectedFlight.travelerPricings?.map((traveler, i) => (
+                            <div key={i}>
+                                <div><strong>{traveler.travelerType}:</strong> {traveler.price.total} {traveler.price.currency}</div>
+                                <div><strong>Fare:</strong> {traveler.fareOption}</div>
+
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Cabin</th>
+                                            <th scope="col">Class</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {traveler.fareDetailsBySegment?.map((fare, j) => (
+                                            <tr key={j}>
+                                                <td>{fare.cabin}</td>
+                                                <td>{fare.class}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                <br />
+                            </div>
+
+                        ))}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button className="close-button px-4 py-2 my-2" onClick={handleClose}>Close</button>
+                    </Modal.Footer>
+                </Modal>
+            )}
+
+            {flightData.length > 0 && (<div className='text-center' onClick={handleLoadMore}>
+                <button className="load-more-button px-4 py-2 my-2">Load More</button>
+            </div>)}
 
             < style jsx > {`
                 .hero-container {
@@ -306,7 +359,7 @@ export default function Hero() {
 
                 .carousel-item-container {
                     position: relative;
-                    height: 110vh;
+                    height: 80vh;
                     width: 100%;
                 }
 
@@ -337,7 +390,7 @@ export default function Hero() {
                 .card-inquiry-container {
                     position: absolute;
                     z-index: 2;
-                    bottom: 2rem;
+                    bottom: 13rem;
                     left: 50%;
                     transform: translateX(-50%);
                     width: 80%;
@@ -353,7 +406,7 @@ export default function Hero() {
                 .inquire-button {
                     background-color: #e04b17;
                     color: white;
-                    border-radius: 5px;
+                    border-radius: 50px;
                     border: none;
                     font-weight: bold;
                 }
@@ -366,12 +419,80 @@ export default function Hero() {
                     background-color:rgb(253, 243, 239);
                     width:60%;
                     margin:1rem auto;
-                    padding: 3rem 2rem;
+                    padding: 2rem 2rem;
                     border: 1px solid #ffc2b3;
                     border-radius: 1rem;
                     box-shadow: 0 4px 10px 2px rgba(0, 0, 0, 0.4);
                 }
-            `}</style>
+
+                .book-now-button {
+                    background-color: #e04b17;
+                    color: white;
+                    border: none;
+                    font-weight: 600;
+                    padding: 10px 20px;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+                }
+
+                .book-now-button:hover {
+                    background-color: #ec9880;
+                    color: black;
+                    transform: scale(1.05);
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+                }
+                
+                .load-more-button {
+                    background-color: transparent;
+                    color: black;
+                    border: none;
+                    font-weight: 600;
+                    padding: 10px 20px;
+                    border: 1px solid #e04b17;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+                    }
+                    
+                    .load-more-button:hover {
+                    background-color: #e04b17;
+                    color: white;
+                    transform: scale(1.05);
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+                    }
+                    
+                    .close-button {
+                    background-color: transparent;
+                    color:  #666666;
+                    border: 1px solid  #666666;
+                    font-weight: 600;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+                    }
+                    
+                    .close-button:hover {
+                    background-color: #666666;
+                    color: white;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+                    }
+                    
+                    @media (max-width:450px){
+                        .flight-search-card{
+                            width:80%;
+                            margin:0.5rem auto;
+                            padding: 2rem 1rem;
+                        }
+                        .carousel-item-container{
+                            height:100vh;
+                        }
+                        .card-inquiry-container{
+                            width: 90%;
+                            bottom:4rem;
+                        }
+                    }
+                    `}</style>
         </div >
     );
 }

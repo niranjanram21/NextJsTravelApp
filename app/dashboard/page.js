@@ -314,7 +314,6 @@ export default function Dashboard() {
                         </div>
                         <button type="submit" className="update-button py-2 px-4" onClick={handleAddSubmit}>Add Package</button>
                     </form>
-
                 </Modal.Body>
                 <Modal.Footer>
                     <button className="view-button px-4 py-2" onClick={handleAddPackageClose}>
