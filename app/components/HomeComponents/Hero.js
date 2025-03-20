@@ -5,7 +5,7 @@ import { Carousel } from 'react-bootstrap';
 import Image from 'next/image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Row, Col } from 'react-bootstrap';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import dynamic from 'next/dynamic';
@@ -13,72 +13,76 @@ const DatePicker = dynamic(() => import('react-datepicker').then((mod) => mod.de
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default function Hero() {
-    const [location, setLocation] = useState("");
-    const [destination, setDestination] = useState("");
-    const [adultCount, setAdultCount] = useState(1);
-    const [childCount, setChildCount] = useState(1);
-    const [infantCount, setInfantCount] = useState(1);
-    const [travelClass, setTravelClass] = useState('ECONOMY');
-    const [checkInDate, setCheckInDate] = useState(null);
-    const [checkOutDate, setCheckOutDate] = useState(null);
-    const [flightData, setFlightData] = useState([]);
 
+    const [state, setState] = useState({
+        location: "",
+        destination: "",
+        adultCount: 1,
+        childCount: 0,
+        infantCount: 0,
+        travelClass: 'ECONOMY',
+        checkInDate: null,
+        checkOutDate: null,
+        flightData: [],
+        numberOfFlights: 10,
+        show: false,
+        selectedFlight: null
+    });
+    
+    const handleChange = (key, value) => {
+        setState(prevState => ({ ...prevState, [key]: value }));
+    };
+    
     const handleSubmitInquiry = async (e) => {
         e.preventDefault();
-
-        const query = {
-            location,
-            destination,
-            adultCount,
-            childCount,
-            infantCount,
-            travelClass,
-            checkInDate: checkInDate ? checkInDate.toISOString().split('T')[0] : null,
-            checkOutDate: checkOutDate ? checkOutDate.toISOString().split('T')[0] : null,
-        };
-
+    
         try {
+            const query = {
+                location: state.location,
+                destination: state.destination,
+                adultCount: state.adultCount,
+                childCount: state.childCount,
+                infantCount: state.infantCount,
+                travelClass: state.travelClass,
+                checkInDate: state.checkInDate ? state.checkInDate.toISOString().split('T')[0] : null,
+                checkOutDate: state.checkOutDate ? state.checkOutDate.toISOString().split('T')[0] : null,
+            };
+    
             const response = await fetch('/api/searchFlights', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(query),
             });
-
+    
             if (!response.ok) {
                 throw new Error(`API error: ${response.status}`);
             }
-
+    
             const data = await response.json();
-
-            setFlightData(data || []);
-
+            handleChange("flightData", data || []);
             console.log("Flight data fetched from API: ", data);
-
+    
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-
+    
     useEffect(() => {
-        console.log("Updated flightData:", flightData);
-    }, [flightData]);
-
-    const [numberOfFlights, setNumberOfFlights] = useState(10);
-    const flightDataToDisplay = flightData.slice(0, numberOfFlights);
-
+        console.log("Updated flightData:", state.flightData);
+    }, [state.flightData]);
+    
+    const flightDataToDisplay = state.flightData.slice(0, state.numberOfFlights);
+    
     const handleLoadMore = () => {
-        setNumberOfFlights((prev) => prev + 10);
-    }
-
-    const [show, setShow] = useState(false);
-    const [selectedFlight, setSelectedFlight] = useState(null);
-
-    const handleClose = () => setShow(false);
-    const handleShow = (flight) => {
-        setSelectedFlight(flight);
-        setShow(true);
+        handleChange("numberOfFlights", state.numberOfFlights + 10);
     };
-
+    
+    const handleClose = () => handleChange("show", false);
+    const handleShow = (flight) => {
+        handleChange("selectedFlight", flight);
+        handleChange("show", true);
+    };
+    
     return (
         <div className="poppins-medium">
             <div className="hero-container position-relative d-flex align-items-center justify-content-center">
@@ -150,7 +154,7 @@ export default function Hero() {
                                             <label className="label-text mb-1 d-md-block d-sm-none">Enter current location*</label>
                                             <FloatingLabel controlId="floatingDestination" label="From" >
                                                 <Form.Control type="text" placeholder="Enter a city"
-                                                    onChange={(e) => setLocation(e.target.value)} />
+                                                    onChange={(e) => handleChange("location", e.target.value)} />
                                             </FloatingLabel>
                                         </Col>
 
@@ -158,15 +162,15 @@ export default function Hero() {
                                             <label className="label-text mb-1 d-md-block d-sm-none">Enter Destination*</label>
                                             <FloatingLabel controlId="floatingDestination" label="To" >
                                                 <Form.Control type="text" placeholder="Enter a city"
-                                                    onChange={(e) => setDestination(e.target.value)} />
+                                                    onChange={(e) => handleChange("destination", e.target.value)} />
                                             </FloatingLabel>
                                         </Col>
 
                                         <Col xs={6} md={6} lg={2}>
                                             <label className="label-text mb-1 d-md-block d-sm-none">Check-in Date*</label>
                                             <DatePicker
-                                                selected={checkInDate}
-                                                onChange={(date) => setCheckInDate(date)}
+                                                selected={state.checkInDate}
+                                                onChange={(date) => handleChange("checkInDate",date)}
                                                 placeholderText="Select Check-in Date"
                                                 dateFormat="dd/MM/yyyy"
                                                 className="form-control datepicker-input py-3"
@@ -178,12 +182,12 @@ export default function Hero() {
                                         <Col xs={6} md={6} lg={2}>
                                             <label className="label-text mb-1 d-md-block d-sm-none">Check-out Date*</label>
                                             <DatePicker
-                                                selected={checkOutDate}
-                                                onChange={(date) => setCheckOutDate(date)}
+                                                selected={state.checkOutDate}
+                                                onChange={(date) => handleChange("checkOutDate",date)}
                                                 placeholderText="Select Check-out Date"
                                                 dateFormat="dd/MM/yyyy"
                                                 className="form-control datepicker-input py-3"
-                                                minDate={checkInDate || new Date()}
+                                                minDate={state.checkInDate || new Date()}
                                                 calendarClassName="custom-datepicker-calendar"
                                             />
                                         </Col>
@@ -192,7 +196,7 @@ export default function Hero() {
                                             <label className="label-text mb-1 d-md-block d-sm-none">No. of Adults*</label>
                                             <FloatingLabel controlId="floatingSelect" label="select adult count">
                                                 <Form.Select aria-label="Floating label select example"
-                                                    onChange={(e) => setAdultCount(Number(e.target.value))} >
+                                                    onChange={(e) => handleChange("adultcount",Number(e.target.value))} >
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -210,7 +214,8 @@ export default function Hero() {
                                             <label className="label-text mb-1 d-md-block d-sm-none">No. of Children*</label>
                                             <FloatingLabel controlId="floatingSelect" label="select child count">
                                                 <Form.Select aria-label="Floating label select example"
-                                                    onChange={(e) => setChildCount(Number(e.target.value))} >
+                                                    onChange={(e) => handleChange("childCount",Number(e.target.value))} >
+                                                    <option value="0">0</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -228,7 +233,8 @@ export default function Hero() {
                                             <label className="label-text mb-1 d-md-block d-sm-none">No. of Infants*</label>
                                             <FloatingLabel controlId="floatingSelect" label="select child count">
                                                 <Form.Select aria-label="Floating label select example"
-                                                    onChange={(e) => setInfantCount(Number(e.target.value))} >
+                                                    onChange={(e) => handleChange("infantCount",Number(e.target.value))} >
+                                                    <option value="0">0</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -240,7 +246,7 @@ export default function Hero() {
                                             <label className="label-text mb-1 d-md-block d-sm-none">Cabin Class*</label>
                                             <FloatingLabel controlId="floatingSelect" label="select cabin class">
                                                 <Form.Select aria-label="Floating label select example"
-                                                    onChange={(e) => setTravelClass(e.target.value)} >
+                                                    onChange={(e) => handleChange("travelClass",e.target.value)} >
                                                     <option value="ECONOMY">Economy</option>
                                                     <option value="PREMIUM_ECONOMY">Premium Economy</option>
                                                     <option value="BUSINESS">Business</option>
@@ -294,7 +300,7 @@ export default function Hero() {
                 </div>
             ))}
 
-            {selectedFlight && (
+            {state.selectedFlight && (
                 <Modal show={show} onHide={handleClose} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Flight Details</Modal.Title>
@@ -348,7 +354,7 @@ export default function Hero() {
                 </Modal>
             )}
 
-            {flightData.length > 0 && (<div className='text-center' onClick={handleLoadMore}>
+            {state.flightData.length > 0 && (<div className='text-center' onClick={handleLoadMore}>
                 <button className="load-more-button px-4 py-2 my-2">Load More</button>
             </div>)}
 
@@ -492,7 +498,7 @@ export default function Hero() {
                             bottom:4rem;
                         }
                     }
-                    `}</style>
+                `}</style>
         </div >
     );
 }
