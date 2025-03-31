@@ -301,32 +301,31 @@ export default function Hero() {
             ))}
 
             {state.selectedFlight && (
-                <Modal show={show} onHide={handleClose} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal show={state.show} onHide={handleClose} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Flight Details</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div className="d-flex justify-content-between">
-                            <p><strong>From:</strong> {selectedFlight.itineraries[0].segments[0].departure.iataCode} ({selectedFlight.itineraries[0].segments[0].departure.at})</p>
-                            <p><strong>To:</strong> {selectedFlight.itineraries[0].segments.at(-1).arrival.iataCode} ({selectedFlight.itineraries[0].segments.at(-1).arrival.at})</p>
+                            <p><strong>From:</strong> {state.selectedFlight.itineraries[0].segments[0].departure.iataCode} ({state.selectedFlight.itineraries[0].segments[0].departure.at})</p>
+                            <p><strong>To:</strong> {state.selectedFlight.itineraries[0].segments.at(-1).arrival.iataCode} ({state.selectedFlight.itineraries[0].segments.at(-1).arrival.at})</p>
                         </div>
 
                         <div className="d-flex justify-content-between">
-                            <p><strong>Airline:</strong> {selectedFlight.itineraries[0].segments[0].carrierCode}</p>
-                            <p><strong>Flight No:</strong> {selectedFlight.itineraries[0].segments[0].number}</p>
-                            <p><strong>Stops:</strong> {selectedFlight.itineraries[0].segments.length - 1}</p>
-                            <p><strong>Duration:</strong> {selectedFlight.itineraries[0].duration}</p>
+                            <p><strong>Airline:</strong> {state.selectedFlight.itineraries[0].segments[0].carrierCode}</p>
+                            <p><strong>Flight No:</strong> {state.selectedFlight.itineraries[0].segments[0].number}</p>
+                            <p><strong>Stops:</strong> {state.selectedFlight.itineraries[0].segments.length - 1}</p>
+                            <p><strong>Duration:</strong> {state.selectedFlight.itineraries[0].duration}</p>
                         </div>
                         <hr />
                         <h5 className="mt-2">Pricing</h5>
-                        <p><strong>Total:</strong> {selectedFlight.price.grandTotal} {selectedFlight.price.currency}</p>
+                        <p><strong>Total:</strong> {state.selectedFlight.price.grandTotal} {state.selectedFlight.price.currency}</p>
                         <hr />
                         <h5 className="mt-2">Traveler Breakdown</h5>
-                        {selectedFlight.travelerPricings?.map((traveler, i) => (
+                        {state.selectedFlight.travelerPricings?.map((traveler, i) => (
                             <div key={i}>
                                 <div><strong>{traveler.travelerType}:</strong> {traveler.price.total} {traveler.price.currency}</div>
                                 <div><strong>Fare:</strong> {traveler.fareOption}</div>
-
                                 <table className="table">
                                     <thead>
                                         <tr>
