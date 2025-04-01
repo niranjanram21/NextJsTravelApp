@@ -34,7 +34,9 @@ export async function DELETE(req) {
         return NextResponse.json({ message: "Product deleted successfully" }, { status: 200 });
     } catch (error) {
         console.error("Error deleting product:", error);
-        return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+        return NextResponse.json(
+            { message: "Internal Server Error" }, 
+            { status: 500 });
     }
 }
 
