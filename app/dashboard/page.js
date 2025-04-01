@@ -125,6 +125,9 @@ export default function Dashboard() {
             const response = await fetch("/api/updateProducts", {
                 method: "PUT",
                 body: formData,
+                headers: {
+                    "Accept": "application/json",
+                },
             });
 
             if (!response.ok) {
