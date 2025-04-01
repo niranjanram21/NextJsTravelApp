@@ -1,7 +1,7 @@
 import clientPromise from "@/lib/mongodb";
 import { NextResponse } from "next/server";
-import fs from 'fs';
-import path from 'path';
+import fs from "fs/promises"; // Use fs.promises for async operations
+import path from "path";
 
 export async function POST(req) {
     try {
@@ -17,7 +17,7 @@ export async function POST(req) {
         const detailedDescription = formData.get("detailedDescription");
         const imageFile = formData.get("image");
 
-        let newProduct = { title, location, price, duration, description, detailedDescription, imageFile };
+        let newProduct = { title, location, price, duration, description, detailedDescription };
 
         if (imageFile && typeof imageFile === "object") {
             const bytes = await imageFile.arrayBuffer();
@@ -26,7 +26,9 @@ export async function POST(req) {
             const fileName = `${Date.now()}_${imageFile.name}`;
             const filePath = path.join(process.cwd(), "public/images", fileName);
 
-            fs.writeFileSync(filePath, buffer);
+            await fs.mkdir(path.dirname(filePath), { recursive: true });
+
+            await fs.writeFile(filePath, buffer);
 
             newProduct.image = `/images/${fileName}`;
         }
@@ -37,9 +39,10 @@ export async function POST(req) {
         return NextResponse.json(addedProduct, { status: 201 });
 
     } catch (error) {
-        console.error("Error adding product");
-        NextResponse.json(
-            { message: "Internal server error" },
+        console.error("Error adding product:", error);
+
+        return NextResponse.json(
+            { message: "Internal server error", error: error.message },
             { status: 500 }
         );
     }
