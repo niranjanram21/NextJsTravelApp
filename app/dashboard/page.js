@@ -248,7 +248,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("token");
 
         if (!token) {
-            router.push("/adminLogin");
+            router.push("/adminLoginSignup");
         }
     }, [router]);
 
