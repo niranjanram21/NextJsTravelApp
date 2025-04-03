@@ -99,12 +99,12 @@ export default function Dashboard() {
     // Update Product
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
-
+    
         if (!updatedProduct || !updatedProduct._id) {
             console.error("Error: updatedProduct or its _id is missing.");
             return;
         }
-
+    
         const formData = new FormData();
         formData.append("_id", updatedProduct._id);
         formData.append("title", updatedProduct.title);
@@ -113,14 +113,13 @@ export default function Dashboard() {
         formData.append("duration", updatedProduct.duration);
         formData.append("description", updatedProduct.description);
         formData.append("detailedDescription", updatedProduct.detailedDescription);
-
-        // Check if a new image has been provided
+    
         if (updatedProduct.image instanceof File) {
             formData.append("image", updatedProduct.image);
         } else {
             formData.append("existingImage", updatedProduct.image);
         }
-
+    
         try {
             const response = await fetch("/api/updateProducts", {
                 method: "PUT",
@@ -129,35 +128,26 @@ export default function Dashboard() {
                     "Accept": "application/json",
                 },
             });
-
+    
             if (!response.ok) {
                 throw new Error("Failed to update product");
             }
-
-            const data = await response.json();
+    
             alert("Product updated successfully");
-
-            // Update the product list with the updated data
-            setProducts((prevProducts) =>
-                prevProducts.map((product) =>
-                    product._id === updatedProduct._id
-                        ? {
-                            ...product,
-                            ...updatedProduct,
-                            image: updatedProduct.image instanceof File
-                                ? `/images/${updatedProduct.image.name}`
-                                : updatedProduct.image // Keep existing image if no new one is provided
-                        }
-                        : product
-                )
-            );
-
+    
+            // 🛠️ **Solution: Refetch the updated list from DB**
+            const updatedResponse = await fetch("/api/products"); // Adjust API route as needed
+            const updatedProducts = await updatedResponse.json();
+    
+            setProducts(updatedProducts); // Update UI with fresh data
+    
             setShowUpdateModal(false);
-
+    
         } catch (error) {
             console.error("Error updating product:", error);
         }
     };
+    
     // Add Product
     const handleAddSubmit = async (e) => {
         e.preventDefault();
