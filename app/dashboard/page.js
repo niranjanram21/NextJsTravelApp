@@ -184,18 +184,16 @@ export default function Dashboard() {
                 throw new Error("Failed to add product");
             }
 
-            const data = await response.json();  // Ensure backend returns full product
+            const data = await response.json();
 
             alert("Product added successfully!");
 
-            // Ensure all required fields are present before updating state
             if (data && data._id && data.title && data.image) {
                 setProducts((prevProducts) => [data, ...prevProducts]);
             } else {
                 console.error("Received incomplete product data:", data);
             }
 
-            // Reset form
             setAddProduct({
                 title: "",
                 image: null,

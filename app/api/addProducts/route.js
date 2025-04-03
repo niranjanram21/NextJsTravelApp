@@ -1,14 +1,7 @@
-import cloudinary from "cloudinary";
 import clientPromise from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import fs from "fs/promises"; // Use fs.promises for async operations
 import path from "path";
-
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 export async function POST(req) {
     try {

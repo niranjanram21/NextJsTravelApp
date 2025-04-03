@@ -9,10 +9,8 @@ export async function PUT(req) {
         const client = await clientPromise;
         const db = client.db("travel_app_db");
 
-        // Parse formData from the request
         const formData = await req.formData();
 
-        // Extract fields from the form data
         const _id = formData.get("_id");
         const title = formData.get("title");
         const location = formData.get("location");
@@ -22,11 +20,9 @@ export async function PUT(req) {
         const detailedDescription = formData.get("detailedDescription");
         const imageFile = formData.get("image");
 
-        // Debug logs
         console.log("Received _id:", _id);
         console.log("Received Image:", imageFile);
 
-        // Validate ObjectId
         if (!ObjectId.isValid(_id)) {
             return NextResponse.json(
                 { message: "Invalid ObjectId provided." },
@@ -34,9 +30,13 @@ export async function PUT(req) {
             );
         }
 
+        // 🔍 Fetch existing product to get the current image
+        const existingProduct = await db.collection("products").findOne({ _id: new ObjectId(_id) });
+
         let updateFields = { title, location, price, duration, description, detailedDescription };
 
         if (imageFile && typeof imageFile === "object") {
+            // If a new image is provided, store it
             const bytes = await imageFile.arrayBuffer();
             const buffer = Buffer.from(bytes);
 
@@ -47,11 +47,10 @@ export async function PUT(req) {
 
             updateFields.image = `/images/${fileName}`;
         } else {
-            updateFields.image = formData.get("existingImage");
+            // If no new image, retain the existing one
+            updateFields.image = existingProduct?.image || "";
         }
 
-
-        // Update the product in MongoDB
         const result = await db.collection("products").updateOne(
             { _id: new ObjectId(_id) },
             { $set: updateFields }
