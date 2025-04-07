@@ -58,7 +58,7 @@ export default function Packages() {
           {productsToDisplay.map((product) => (
             <Col key={product.id}>
               <Card
-                className="product-card position-relative z-1"
+                className="product-card position-relative z-1 d-none d-md-block"
                 style={{ height: "22rem", backgroundColor: "#121212" }}
               >
                 <div className="d-flex" style={{ height: "100%" }}>
@@ -105,21 +105,21 @@ export default function Packages() {
                 </div>
               </Card>
               <Card
-                className="product-card position-relative z-1 d-md-block"
+                className="product-card position-relative z-1 d-md-none mt-5"
                 style={{ height: "20rem", backgroundColor: "#121212" }}
               >
                 <Card.Img
                   variant="top"
                   src={product.image}
                   alt={product.name || "Trip Image"}
-                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                  style={{ objectFit: "cover", width: "100%", height: "70%" }}
                 />
 
-                <span className="price-tag position-absolute z-2 mt-4 px-4 py-2 fs-5 text-white">
+                <span className="price-tag position-absolute z-2 mt-4 px-4 py-1 fs-5 text-white">
                   ${product.price} <span className="fw-light fs-6">/person</span>
                 </span>
 
-                <div className="trip-details-min d-flex flex-row justify-content-evenly overflow-auto position-absolute z-2 bottom-0 start-0 px-4 py-2 text-white w-100">
+                <div className="trip-details-min d-flex flex-row justify-content-evenly overflow-auto position-absolute z-2 bottom-0 start-0 px-2 py-2 text-white w-100">
                   <span>
                     <IoMdTime className="mb-1" /> {product.duration}
                   </span>
@@ -129,10 +129,10 @@ export default function Packages() {
                   </span>
                 </div>
 
-                <div className="d-flex gap-4 mt-2 px-3 py-2">
-                  <button className="wishlist-button w-100 px-3 py-2">Wishlist</button>
+                <div className="d-flex gap-4 mt-2 px-3 py-1">
+                  <button className="wishlist-button w-100 px-3 py-1">Wishlist</button>
                   <button
-                    className="book-button w-100 px-3 py-2"
+                    className="book-button w-100 px-3 py-1"
                     key={product.id}
                     onClick={() => handleBookNow(product.id)}
                   >
@@ -174,7 +174,7 @@ export default function Packages() {
                     position: relative;
                     z-index: 1;
                     padding: 8rem 8rem;
-                    max-width: 90%;
+                    max-width: 100%;
                     margin: auto;
                     border-radius: 10px;
                 }
