@@ -47,11 +47,11 @@ export default function PackageDetail({ params }) {
                             <div className="my-3">{selectedProduct.description}</div>
                             <div className="my-3">{selectedProduct.detailedDescription}</div>
                             <div className="d-flex gap-4 mt-auto">
-                                <button className="wishlist-button w-100 px-3 py-2 rounded">
+                                <button className="wishlist-button w-100 px-3 py-2 rounded"> 
                                     Wishlist
                                 </button>
                                 <button className="book-button w-100 px-3 py-2 rounded">
-                                    Book Now
+                                    Submit Inquiry
                                 </button>
                             </div>
                         </Card.Body>

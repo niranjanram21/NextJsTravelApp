@@ -18,8 +18,7 @@ export default function PopularDestinations() {
                             alt="Cultural Journey"
                             fill
                             className="image"
-                            priority
-                            loading="eager"
+                            loading="lazy"
                         />
                     </div>
                     <div className="text-container">
@@ -35,8 +34,7 @@ export default function PopularDestinations() {
                             alt="Great Barrier Reef"
                             fill
                             className="image"
-                            priority
-                            loading="eager"
+                            loading="lazy"
                         />
                     </div>
                     <div className="text-container">
@@ -52,8 +50,7 @@ export default function PopularDestinations() {
                             alt="Exotic Beachfront"
                             fill
                             className="image"
-                            priority
-                            loading="eager"
+                            loading="lazy"
                         />
                     </div>
                     <div className="text-container">

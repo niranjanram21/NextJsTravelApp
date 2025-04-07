@@ -13,7 +13,6 @@ import { FaMapLocationDot } from "react-icons/fa6";
 export default function About() {
     return (
         <>
-
             <div className="position-relative d-lg-none" style={{ 'margin': '2rem 1rem', 'padding': '0 2rem', 'height': '300px' }}>
                 <span className="top-left-sm josefin-sans-unique text-container-sm d-flex flex-column align-items-start justify-content-center px-2 py-3">
                     <span className="text-start">
@@ -31,8 +30,7 @@ export default function About() {
                         height={150}
                         width={200}
                         className="object-fit-cover"
-                        priority
-                        loading="eager"
+                        loading="lazy"
                     />
                 </span>
                 <span className="bottom-left-sm">
@@ -42,8 +40,7 @@ export default function About() {
                         height={180}
                         width={250}
                         className="object-fit-cover"
-                        priority
-                        loading="eager"
+                        loading="lazy"
                     />
                 </span>
                 <span className="bottom-right-sm position-absolute bottom-0 end-0 border-white-sm">
@@ -53,8 +50,7 @@ export default function About() {
                         height={150}
                         width={200}
                         className="object-fit-cover"
-                        priority
-                        loading="eager"
+                        loading="lazy"
                     />
                 </span>
             </div>
@@ -78,8 +74,7 @@ export default function About() {
                             height={280}
                             width={400}
                             className="object-fit-cover"
-                            priority
-                            loading="eager"
+                            loading="lazy"
                         />
                     </span>
                     <span className="bottom-left">
@@ -89,8 +84,7 @@ export default function About() {
                             height={400}
                             width={550}
                             className="object-fit-cover"
-                            priority
-                            loading="eager"
+                            loading="lazy"
                         />
                     </span>
                     <span className="bottom-right position-absolute bottom-0 end-0 border-white">
@@ -100,8 +94,7 @@ export default function About() {
                             height={300}
                             width={400}
                             className="object-fit-cover"
-                            priority
-                            loading="eager"
+                            loading="lazy"
                         />
                     </span>
                 </div>

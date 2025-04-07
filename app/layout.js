@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import { Montserrat } from "next/font/google";
 import { Josefin_Sans } from "next/font/google";
 import { Poppins } from 'next/font/google';
-import { Hind_Madurai } from "next/font/google";
+// import { Hind_Madurai } from "next/font/google";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LayoutManager from "./components/LayoutManager";
@@ -24,11 +24,11 @@ const poppins = Poppins({
   variable: '--font-poppins',
 });
 
-const hind = Hind_Madurai({
-  weight: ['500'],
-  subsets: ['latin'],
-  variable: '--font-hind',
-});
+// const hind = Hind_Madurai({
+//   weight: ['500'],
+//   subsets: ['latin'],
+//   variable: '--font-hind',
+// });
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

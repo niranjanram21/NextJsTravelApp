@@ -112,7 +112,6 @@ export default function Hero() {
                                 alt="Slide 2"
                                 fill
                                 className="object-fit-cover"
-                                priority
                                 loading="eager"
                             />
                             <div className="overlay"></div>
@@ -130,7 +129,6 @@ export default function Hero() {
                                 alt="Slide 3"
                                 fill
                                 className="object-fit-cover"
-                                priority
                                 loading="eager"
                             />
                             <div className="overlay"></div>
@@ -152,7 +150,7 @@ export default function Hero() {
                                     <Row className="g-3 align-items-center">
                                         <Col xs={12} sm={6} md={6} lg={4}>
                                             <label className="label-text mb-1 d-md-block d-sm-none">Enter current location*</label>
-                                            <FloatingLabel controlId="floatingDestination" label="From" >
+                                            <FloatingLabel controlId="floatingDestination" label="Eg. DXB" >
                                                 <Form.Control type="text" placeholder="Enter a city"
                                                     onChange={(e) => handleChange("location", e.target.value)} />
                                             </FloatingLabel>
@@ -160,7 +158,7 @@ export default function Hero() {
 
                                         <Col xs={12} sm={6} md={6} lg={4}>
                                             <label className="label-text mb-1 d-md-block d-sm-none">Enter Destination*</label>
-                                            <FloatingLabel controlId="floatingDestination" label="To" >
+                                            <FloatingLabel controlId="floatingDestination" label="Eg. LHR" >
                                                 <Form.Control type="text" placeholder="Enter a city"
                                                     onChange={(e) => handleChange("destination", e.target.value)} />
                                             </FloatingLabel>
@@ -364,7 +362,7 @@ export default function Hero() {
 
                 .carousel-item-container {
                     position: relative;
-                    height: 80vh;
+                    height: 100vh;
                     width: 100%;
                 }
 
@@ -395,7 +393,7 @@ export default function Hero() {
                 .card-inquiry-container {
                     position: absolute;
                     z-index: 2;
-                    bottom: 13rem;
+                    bottom: 8rem;
                     left: 50%;
                     transform: translateX(-50%);
                     width: 80%;
@@ -494,7 +492,14 @@ export default function Hero() {
                         }
                         .card-inquiry-container{
                             width: 90%;
-                            bottom:4rem;
+                            top:1rem;
+                        }
+                    }
+
+                    @media (max-width:990px){
+                         .card-inquiry-container{
+                            width: 90%;
+                            top:6rem;
                         }
                     }
                 `}</style>

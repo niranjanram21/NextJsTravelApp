@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import About from './components/HomeComponents/About';
+import dynamic from 'next/dynamic';
 import Hero from './components/HomeComponents/Hero';
-import PopularDestinations from './components/HomeComponents/PopularDestinations';
+const About = dynamic(()=> import('./components/HomeComponents/About'));
+const PopularDestinations = dynamic(()=>import('./components/HomeComponents/PopularDestinations'));
 
 export default function Home() {
   const [isReady, setIsReady] = useState(false);
