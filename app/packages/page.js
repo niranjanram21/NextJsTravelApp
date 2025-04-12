@@ -106,7 +106,7 @@ export default function Packages() {
               </Card>
               <Card
                 className="product-card position-relative z-1 d-md-none mt-5"
-                style={{ height: "20rem", backgroundColor: "#121212" }}
+                style={{ height: "28rem", backgroundColor: "#121212" }}
               >
                 <Card.Img
                   variant="top"
@@ -128,7 +128,9 @@ export default function Packages() {
                     <MdLocationOn className="mb-1" /> {product.location}
                   </span>
                 </div>
-
+                <div className="text-white text-center mt-2">
+                  <MdLocationOn /> {product.title}
+                </div>
                 <div className="d-flex gap-4 mt-2 px-3 py-1">
                   <button className="wishlist-button w-100 px-3 py-1">Wishlist</button>
                   <button
