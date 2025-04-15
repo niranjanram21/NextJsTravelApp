@@ -69,7 +69,7 @@ export default function PackageDetail({ params }) {
                 <button className="wishlist-button w-100 px-3 py-2 rounded">Wishlist</button>
                 <button
                   className="book-button w-100 px-3 py-2 rounded"
-                  onClick={handleSubmitInquiry(selectedProduct.id)}
+                  onClick={() => handleSubmitInquiry(selectedProduct.id)}
                 >
                   Submit Inquiry
                 </button>

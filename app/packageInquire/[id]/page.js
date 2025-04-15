@@ -4,6 +4,11 @@ import { useProducts } from "@/app/context/FetchProductProvider";
 import Image from "next/image";
 import { IoMdTime } from "react-icons/io";
 import { MdLocationOn } from "react-icons/md";
+import dynamic from "next/dynamic";
+const DatePicker = dynamic(() => import("react-datepicker").then((mod) => mod.default), {
+  ssr: false,
+});
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function PackageInquiry({ params }) {
   const { id } = params;
@@ -36,8 +41,8 @@ export default function PackageInquiry({ params }) {
                 priority
                 style={{ width: "100%", height: "400px" }}
               />
-              <div className="text-white">
-                <div>{selectedProduct.title}</div>
+              <div className="text-white text-start">
+                <div className="my-2 fs-5 fw-bold">{selectedProduct.title}</div>
                 <div>
                   <MdLocationOn className="mb-1" /> {selectedProduct.location}
                 </div>
@@ -54,36 +59,51 @@ export default function PackageInquiry({ params }) {
                 className="d-flex flex-column gap-4 align-items-center"
                 style={{ width: "100%", maxWidth: "400px" }}
               >
-                <div className="text-center head-line fs-2 fw-bold">Admin Login</div>
-
-                <div className="input-group mb-3 bg-transparent">
-                  <span className="input-group-text text-white px-3 py-3"></span>
-                  <input type="text" className="form-control px-3 py-3" placeholder="Username" />
-                </div>
+                {/* <div className="text-center head-line fs-2 fw-bold"></div> */}
 
                 <div className="input-group mb-3 rounded-full">
                   <span className="input-group-text text-white px-3 py-3"></span>
-                  <input type="email" className="form-control px-3 py-3" placeholder="Email" />
+                  <input
+                    type="email"
+                    className="form-control px-3 py-3"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div className="input-group mb-3 bg-transparent">
+                  <span className="input-group-text text-white px-3 py-3"></span>
+                  <input
+                    type="text"
+                    className="form-control px-3 py-3"
+                    placeholder="Where do you want to go?"
+                  />
                 </div>
                 <div className="input-group mb-3 rounded-full">
                   <span className="input-group-text text-white px-3 py-3"></span>
                   <input
-                    type="password"
+                    type="number"
                     className="form-control px-3 py-3"
-                    placeholder="Password"
+                    placeholder="Number of passengers expected"
                   />
                 </div>
-                <div className="w-100 search-button px-3 py-3"></div>
-                <div className="text-white">
-                  <span>
-                    Already have an account, <span className="login-tab fw-semibold">Login</span>
-                  </span>
-
-                  <span>
-                    Don&apos;t have an account,{" "}
-                    <span className="login-tab fw-semibold">Register</span>
-                  </span>
+                <div className="d-flex gap-2">
+                  <DatePicker
+                    // selected={state.checkOutDate}
+                    placeholderText="Select Check-out Date"
+                    dateFormat="dd/MM/yyyy"
+                    className="input-group-text form-control datepicker-input py-3"
+                    minDate={new Date()}
+                    calendarClassName="custom-datepicker-calendar"
+                  />
+                  <DatePicker
+                    // selected={state.checkOutDate}
+                    placeholderText="Select Check-out Date"
+                    dateFormat="dd/MM/yyyy"
+                    className="input-group-text form-control datepicker-input py-3"
+                    minDate={new Date()}
+                    calendarClassName="custom-datepicker-calendar"
+                  />
                 </div>
+                <div className="w-100 search-button px-3 py-3">Submit</div>
               </div>
             </div>
           </div>
@@ -147,6 +167,18 @@ export default function PackageInquiry({ params }) {
         }
         .blurred-image {
           filter: blur(10px);
+        }
+        @media (max-width: 768px) {
+          .login-container {
+            left: 5%;
+            top: 5%;
+            width: 90%;
+          }
+
+          .blurred-image {
+            object-position: center top;
+            filter: blur(6px);
+          }
         }
       `}</style>
     </>
