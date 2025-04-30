@@ -98,7 +98,7 @@ export default function Packages() {
                         key={product.id}
                         onClick={() => handleBookNow(product.id)}
                       >
-                        Book Now
+                        Inquire
                       </button>
                     </div>
                   </Card.Body>
@@ -138,7 +138,7 @@ export default function Packages() {
                     key={product.id}
                     onClick={() => handleBookNow(product.id)}
                   >
-                    Book Now
+                    Inquire
                   </button>
                 </div>
               </Card>
