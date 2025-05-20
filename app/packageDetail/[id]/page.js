@@ -30,11 +30,8 @@ export default function PackageDetail({ params }) {
       </div>
 
       <div className="product-container">
-        <Card
-          className="product-card position-relative z-1"
-          style={{ height: "30rem", backgroundColor: "#121212" }}
-        >
-          <div className="d-flex" style={{ height: "100%" }}>
+        <Card className="product-card position-relative z-1" style={{ backgroundColor: "#121212" }}>
+          <div className="product-inner-container" style={{ height: "100%" }}>
             <Card.Img
               variant="top"
               src={selectedProduct.image}
@@ -108,11 +105,17 @@ export default function PackageDetail({ params }) {
             margin: auto;
             border-radius: 10px;
             }
+            .product-inner-container{
+              display:flex;
+
+            }
             .product-card {
             box-shadow: 5px 10px 18px red;   !important;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            height: 30rem;
+            
             }
             .product-image {
             height: 12rem !important;
@@ -182,8 +185,21 @@ export default function PackageDetail({ params }) {
             box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
             }
             @media (max-width: 768px) {
-                .product - container {
+                .product-container {
                 padding: 4rem 2rem;
+                font-size: 0.8rem;
+                }
+            }
+            @media (max-width: 450px) {
+                .product-container{
+                   padding: 12rem 0 4rem 0;
+                }
+                .product-inner-container {
+                display: flex;
+                flex-direction: column;
+                }
+                .product-card{
+                  height: 40rem;
                 }
             }
             `}</style>

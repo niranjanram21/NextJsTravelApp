@@ -166,7 +166,7 @@ export default function Footer() {
           background-color: #e04b17;
         }
 
-        @media (max-width: 390px) {
+        @media (max-width: 450px) {
           .footer-img-container {
             height: 40vh;
           }
