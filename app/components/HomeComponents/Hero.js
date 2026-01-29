@@ -277,7 +277,7 @@ export default function Hero() {
 
                     <Col xs={12} sm={6} md={4} lg={3} className="text-center">
                       <button type="submit" className="inquire-button w-100 px-2 py-3 mt-4">
-                        Inquire
+                        Search
                       </button>
                     </Col>
                   </Row>
@@ -509,7 +509,10 @@ export default function Hero() {
             padding: 10px 20px;
             border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+            transition:
+              background-color 0.4s ease,
+              border 0.4s ease,
+              transform 0.3s ease;
           }
 
           .book-now-button:hover {
@@ -528,7 +531,10 @@ export default function Hero() {
             border: 1px solid #e04b17;
             border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+            transition:
+              background-color 0.4s ease,
+              border 0.4s ease,
+              transform 0.3s ease;
           }
 
           .load-more-button:hover {
@@ -545,7 +551,10 @@ export default function Hero() {
             font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+            transition:
+              background-color 0.4s ease,
+              border 0.4s ease,
+              transform 0.3s ease;
           }
 
           .close-button:hover {

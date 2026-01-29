@@ -9,12 +9,40 @@ const DatePicker = dynamic(() => import("react-datepicker").then((mod) => mod.de
   ssr: false,
 });
 import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
 export default function PackageInquiry({ params }) {
   const { id } = params;
   const { products } = useProducts();
 
   const selectedProduct = products.find((product) => product.id === parseInt(id));
+
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [result, setResult] = useState("");
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target);
+
+    formData.append("access_key", "a9bfbfdd-cc47-4e7f-86c7-d340354ac062");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setResult("Form Submitted Successfully");
+      event.target.reset();
+    } else {
+      console.log("Error", data);
+      setResult(data.message);
+    }
+  };
 
   return (
     <>
@@ -54,58 +82,74 @@ export default function PackageInquiry({ params }) {
                 </div>
               </div>
             </div>
-            <div className="col-md-6 login-form d-flex justify-content-center align-items-center position-relative">
+            <form
+              onSubmit={handleFormSubmit}
+              className="col-md-6 login-form d-flex justify-content-center align-items-center position-relative"
+            >
               <div
                 className="d-flex flex-column gap-4 align-items-center"
                 style={{ width: "100%", maxWidth: "400px" }}
               >
                 {/* <div className="text-center head-line fs-2 fw-bold"></div> */}
 
-                <div className="input-group mb-3 rounded-full">
-                  <span className="input-group-text text-white px-3 py-3"></span>
+                <div className="input-group mb-2 rounded-full">
+                  <span className="input-group-text text-white px-3 py-2"></span>
                   <input
                     type="email"
-                    className="form-control px-3 py-3"
+                    name="email"
+                    className="form-control px-3 py-2"
                     placeholder="Enter your email"
                   />
                 </div>
-                <div className="input-group mb-3 bg-transparent">
-                  <span className="input-group-text text-white px-3 py-3"></span>
+                <div className="input-group mb-2 bg-transparent">
+                  <span className="input-group-text text-white px-3 py-2"></span>
                   <input
                     type="text"
-                    className="form-control px-3 py-3"
+                    name="destination"
+                    className="form-control px-3 py-2"
                     placeholder="Where do you want to go?"
                   />
                 </div>
-                <div className="input-group mb-3 rounded-full">
-                  <span className="input-group-text text-white px-3 py-3"></span>
+                <div className="input-group mb-2 rounded-full">
+                  <span className="input-group-text text-white px-3 py-2"></span>
                   <input
                     type="number"
-                    className="form-control px-3 py-3"
+                    name="passenger"
+                    min="1"
+                    defaultValue="1"
+                    className="form-control px-3 py-2"
                     placeholder="Number of passengers expected"
                   />
                 </div>
                 <div className="d-flex gap-2">
-                  <DatePicker
-                    // selected={state.checkOutDate}
-                    placeholderText="Select Check-out Date"
-                    dateFormat="dd/MM/yyyy"
-                    className="input-group-text form-control datepicker-input py-3"
-                    minDate={new Date()}
-                    calendarClassName="custom-datepicker-calendar"
-                  />
-                  <DatePicker
-                    // selected={state.checkOutDate}
-                    placeholderText="Select Check-out Date"
-                    dateFormat="dd/MM/yyyy"
-                    className="input-group-text form-control datepicker-input py-3"
-                    minDate={new Date()}
-                    calendarClassName="custom-datepicker-calendar"
-                  />
+                  <>
+                    <DatePicker
+                      selected={checkInDate}
+                      onChange={(date) => setCheckInDate(date)}
+                      placeholderText="Select Check-in Date"
+                      dateFormat="dd/MM/yyyy"
+                      className="input-group-text form-control datepicker-input py-2"
+                      minDate={new Date()}
+                      calendarClassName="custom-datepicker-calendar"
+                    />
+                  </>
+                  <>
+                    <DatePicker
+                      selected={checkOutDate}
+                      onChange={(date) => setCheckOutDate(date)}
+                      placeholderText="Select Check-out Date"
+                      dateFormat="dd/MM/yyyy"
+                      className="input-group-text form-control datepicker-input py-2"
+                      minDate={checkInDate || new Date()}
+                      calendarClassName="custom-datepicker-calendar"
+                    />
+                  </>
                 </div>
-                <div className="w-100 search-button px-3 py-3">Submit</div>
+
+                <button className="w-100 search-button px-3 py-3">Submit</button>
               </div>
-            </div>
+            </form>
+            {result && <p className="text-white">{result}</p>}
           </div>
         </div>
       )}
@@ -178,6 +222,16 @@ export default function PackageInquiry({ params }) {
           .blurred-image {
             object-position: center top;
             filter: blur(6px);
+          }
+        }
+
+        @media (max-width: 450px) {
+          .login-container {
+            left: 5%;
+            top: 5%;
+            margin: 0 0 16rem 0;
+            width: 90%;
+            font-size: 0.8rem;
           }
         }
       `}</style>
