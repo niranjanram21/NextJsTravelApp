@@ -34,7 +34,7 @@ export default function Hero() {
     setState((prevState) => ({ ...prevState, [key]: value }));
   };
 
-  const handleSubmitInquiry = async (e) => {
+  const handleFlightSearch = async (e) => {
     e.preventDefault();
 
     try {
@@ -144,7 +144,7 @@ export default function Hero() {
       <div className="p-3 card-inquiry-container">
         <Row className="justify-content-center">
           <Col sm={12} md={10}>
-            <form onSubmit={handleSubmitInquiry}>
+            <form onSubmit={handleFlightSearch}>
               <Card className="mb-3 shadow">
                 <Card.Body className="py-4">
                   <Row className="g-3 align-items-center">
@@ -276,7 +276,7 @@ export default function Hero() {
                     </Col>
 
                     <Col xs={12} sm={6} md={4} lg={3} className="text-center">
-                      <button type="submit" className="inquire-button w-100 px-2 py-3 mt-4">
+                      <button type="submit" className="searchflight-button w-100 px-2 py-3 mt-4">
                         Search
                       </button>
                     </Col>
@@ -287,132 +287,124 @@ export default function Hero() {
           </Col>
         </Row>
       </div>
-
       {flightDataToDisplay.map((flight, index) => (
         <div
           key={index}
           className="flight-search-card d-flex flex-column flex-md-row justify-content-between"
         >
-          <div className="fs-5 fw-bold text-center">
-            {flight.itineraries[0].segments[0].carrierCode}{" "}
-            {flight.itineraries[0].segments[0].number}
-          </div>
+          <div className="fs-5 fw-bold text-center">{flight.airline}</div>
+
           <div className="text-center d-md-none">
             <div>
               <span className="primary-text-color">No of stops: </span>
-              {flight.itineraries[0].segments.length - 1}
+              {flight.stops}
             </div>
-            <div>{flight.itineraries[0].duration}</div>
+            <div>{flight.duration}</div>
           </div>
+
           <div>
-            <div className="fs-4 fw-bold primary-text-color">
-              {flight.itineraries[0].segments[0].departure.iataCode}
-            </div>
-            <div>{flight.itineraries[0].segments[0].departure.at}</div>
+            <div className="fs-4 fw-bold primary-text-color">{flight.origin}</div>
+            <div>{flight.departure}</div>
           </div>
+
           <div className="text-center d-none d-md-block">
             <div>
               <span className="primary-text-color">No of stops: </span>
-              {flight.itineraries[0].segments.length - 1}
+              {flight.stops}
             </div>
             <hr />
-            <div>{flight.itineraries[0].duration}</div>
+            <div>{flight.duration}</div>
           </div>
+
           <div className="mb-4">
-            <div className="fs-4 fw-bold primary-text-color">
-              {flight.itineraries[0].segments.at(-1).arrival.iataCode}
-            </div>
-            <div>{flight.itineraries[0].segments.at(-1).arrival.at}</div>
+            <div className="fs-4 fw-bold primary-text-color">{flight.destination}</div>
+            <div>{flight.arrival}</div>
           </div>
+
           <div className="text-center">
             <div className="fs-4 fw-bold">
-              {flight.price.grandTotal} {flight.price.currency}
+              {flight.price} {flight.currency}
             </div>
-            <button className="book-now-button px-4 py-2 my-2">Book Now</button>
-            <p style={{ fontSize: "small", cursor: "pointer" }} onClick={() => handleShow(flight)}>
+
+            <a
+              className="book-now-button px-4 py-2 my-2"
+              href={flight.raw.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Book Now
+            </a>
+
+            <p
+              className="my-2"
+              style={{ fontSize: "small", cursor: "pointer" }}
+              onClick={() => handleShow(flight)}
+            >
               View Flight Details
             </p>
+
+            <small>{flight.provider}</small>
           </div>
         </div>
       ))}
 
       {state.selectedFlight && (
-        <Modal
-          show={state.show}
-          onHide={handleClose}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
+        <Modal show={state.show} onHide={handleClose} size="lg" centered>
           <Modal.Header closeButton>
             <Modal.Title>Flight Details</Modal.Title>
           </Modal.Header>
+
           <Modal.Body>
             <div className="d-flex justify-content-between">
               <p>
-                <strong>From:</strong>{" "}
-                {state.selectedFlight.itineraries[0].segments[0].departure.iataCode} (
-                {state.selectedFlight.itineraries[0].segments[0].departure.at})
+                <strong>From:</strong> {state.selectedFlight.origin}
               </p>
+
               <p>
-                <strong>To:</strong>{" "}
-                {state.selectedFlight.itineraries[0].segments.at(-1).arrival.iataCode} (
-                {state.selectedFlight.itineraries[0].segments.at(-1).arrival.at})
+                <strong>To:</strong> {state.selectedFlight.destination}
               </p>
             </div>
 
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between flex-wrap">
               <p>
-                <strong>Airline:</strong>{" "}
-                {state.selectedFlight.itineraries[0].segments[0].carrierCode}
+                <strong>Airline:</strong> {state.selectedFlight.airline}
               </p>
+
               <p>
-                <strong>Flight No:</strong> {state.selectedFlight.itineraries[0].segments[0].number}
+                <strong>Stops:</strong> {state.selectedFlight.stops}
               </p>
+
               <p>
-                <strong>Stops:</strong> {state.selectedFlight.itineraries[0].segments.length - 1}
+                <strong>Duration:</strong> {state.selectedFlight.duration}
               </p>
+
               <p>
-                <strong>Duration:</strong> {state.selectedFlight.itineraries[0].duration}
+                <strong>Provider:</strong> {state.selectedFlight.provider}
               </p>
             </div>
+
             <hr />
-            <h5 className="mt-2">Pricing</h5>
+
+            <div className="d-flex justify-content-between">
+              <p>
+                <strong>Departure:</strong>{" "}
+                {new Date(state.selectedFlight.departure).toLocaleString()}
+              </p>
+
+              <p>
+                <strong>Arrival:</strong> {new Date(state.selectedFlight.arrival).toLocaleString()}
+              </p>
+            </div>
+
+            <hr />
+
+            <h5>Pricing</h5>
+
             <p>
-              <strong>Total:</strong> {state.selectedFlight.price.grandTotal}{" "}
-              {state.selectedFlight.price.currency}
+              <strong>Total:</strong> {state.selectedFlight.price} {state.selectedFlight.currency}
             </p>
-            <hr />
-            <h5 className="mt-2">Traveler Breakdown</h5>
-            {state.selectedFlight.travelerPricings?.map((traveler, i) => (
-              <div key={i}>
-                <div>
-                  <strong>{traveler.travelerType}:</strong> {traveler.price.total}{" "}
-                  {traveler.price.currency}
-                </div>
-                <div>
-                  <strong>Fare:</strong> {traveler.fareOption}
-                </div>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Cabin</th>
-                      <th scope="col">Class</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {traveler.fareDetailsBySegment?.map((fare, j) => (
-                      <tr key={j}>
-                        <td>{fare.cabin}</td>
-                        <td>{fare.class}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <br />
-              </div>
-            ))}
           </Modal.Body>
+
           <Modal.Footer>
             <button className="close-button px-4 py-2 my-2" onClick={handleClose}>
               Close
@@ -429,30 +421,6 @@ export default function Hero() {
 
       <style jsx>
         {`
-          .hero-container {
-            position: relative;
-          }
-
-          .carousel-item-container {
-            position: relative;
-            height: 90vh;
-            width: 100%;
-          }
-
-          .object-fit-cover {
-            object-fit: cover;
-          }
-
-          .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-          }
-
           .carousel-caption {
             z-index: 1;
             position: absolute;
@@ -462,24 +430,7 @@ export default function Hero() {
             text-align: center;
             color: white;
           }
-
-          .card-inquiry-container {
-            position: absolute;
-            z-index: 2;
-            bottom: 8rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            border-radius: 50px;
-            opacity: 0.9;
-          }
-
-          .label-text {
-            color: rgb(102, 44, 25);
-            font-weight: 500;
-          }
-
-          .inquire-button {
+          .searchflight-button {
             background-color: #e04b17;
             color: white;
             border-radius: 50px;
@@ -487,7 +438,7 @@ export default function Hero() {
             font-weight: bold;
           }
 
-          .inquire-button:hover {
+          .searchflight-button:hover {
             background-color: #f28465;
           }
 
@@ -502,6 +453,7 @@ export default function Hero() {
           }
 
           .book-now-button {
+            text-decoration: none;
             background-color: #e04b17;
             color: white;
             border: none;
